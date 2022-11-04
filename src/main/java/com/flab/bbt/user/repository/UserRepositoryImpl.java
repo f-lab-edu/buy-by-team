@@ -1,4 +1,4 @@
-package com.flab.bbt.user;
+package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
 

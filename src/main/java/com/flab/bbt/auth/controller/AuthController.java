@@ -1,6 +1,7 @@
 package com.flab.bbt.auth.controller;
 
 import com.flab.bbt.auth.request.SignUpRequest;
+import com.flab.bbt.auth.response.SignInResponse;
 import com.flab.bbt.auth.response.SignUpResponse;
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.exception.ErrorCode;
@@ -21,13 +22,14 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public void signIn(){
-
+    public CommonResponse<SignInResponse> signIn(){
+        // authService.signIn(request.email, request.password)
+        return CommonResponse.success(new SignInResponse());
     }
 
-    @PostMapping("signout")
+    @PostMapping("/signout")
     public void signOut(){
-
+// remove cookie
     }
 
 }
