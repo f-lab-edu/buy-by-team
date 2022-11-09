@@ -2,11 +2,11 @@ package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository {
-
-    public User findById(Long id);
-
-    public User save(User user);
+    User save(User user);
+    Optional<User> findById(Long id);
+    Optional<User> findByEmail(String email);
 }
