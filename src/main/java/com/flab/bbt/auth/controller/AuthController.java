@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -31,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public CommonResponse<SignInResponse> signIn(@RequestBody SignInRequest request){
+    public CommonResponse<SignInResponse> signIn(@Valid @RequestBody SignInRequest request){
         // authenticate - username, password
          User user = authService.authenticate(request.getEmail(), request.getPassword()).get();
         // authorize - generate jwt etc.
