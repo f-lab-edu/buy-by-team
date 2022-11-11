@@ -1,12 +1,13 @@
 package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+@Repository
 public class UserRepositoryImpl implements UserRepository{
 
     private static Map<Long, User> userDb = new HashMap<>();

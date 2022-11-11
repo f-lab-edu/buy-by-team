@@ -15,6 +15,26 @@ public class CommonResponse<T> {
         this.message = message;
     }
 
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public Long getErrorCode() {
+        return errorCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public static <T> CommonResponse success(){
+        return new CommonResponse(true, null, null, null);
+    }
+
     public static <T> CommonResponse success(T o){
         return new CommonResponse(true, o, null, null);
     }
