@@ -35,8 +35,8 @@ public class CommonResponse<T> {
         return new CommonResponse(true, null, null, null);
     }
 
-    public static <T> CommonResponse success(T o){
-        return new CommonResponse(true, o, null, null);
+    public static <T> CommonResponse success(T data){
+        return new CommonResponse(true, data, null, null);
     }
 
     public static CommonResponse fail(ErrorCode errorCode){

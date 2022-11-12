@@ -4,6 +4,7 @@ import com.flab.bbt.auth.request.SignUpRequest;
 import com.flab.bbt.auth.response.SignInResponse;
 import com.flab.bbt.auth.service.AuthService;
 import com.flab.bbt.common.CommonResponse;
+import com.flab.bbt.user.domain.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,8 @@ public class AuthController {
         // [Todo] null 유효성검증
 
         // 회원가입 진행
-        authService.signUp(request);
+        User user = request.convertToEntity(request);
+        authService.signUp(user);
 
         return CommonResponse.success();
     }

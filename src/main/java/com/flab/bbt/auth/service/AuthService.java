@@ -16,12 +16,11 @@ public class AuthService {
         this.passwordEncrypter = passwordEncrypter;
     }
 
-    public void signUp(SignUpRequest request) {
+    public void signUp(User user) {
         // [ToDo]이메일 중복체크
 
         // password 암호화
-        User user = userBuild(request);
-        user.setPassword(passwordEncrypter.encrypt(request.getPassword()));
+        user.setPassword(passwordEncrypter.encrypt(user.getPassword()));
         userRepository.save(user);
     }
 

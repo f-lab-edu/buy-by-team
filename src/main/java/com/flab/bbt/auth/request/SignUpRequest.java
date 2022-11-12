@@ -8,6 +8,15 @@ public class SignUpRequest {
     private String name;
     private String phoneNo;
 
+    public User convertToEntity(SignUpRequest request) {
+        return User.builder()
+                   .email(request.getEmail())
+                   .password(request.getPassword())
+                   .name(request.getName())
+                   .phoneNo(request.getPhoneNo())
+                   .build();
+    }
+
     public String getEmail() {
         return email;
     }
