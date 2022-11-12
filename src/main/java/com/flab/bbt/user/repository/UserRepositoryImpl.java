@@ -10,12 +10,16 @@ import java.util.Optional;
 public class UserRepositoryImpl implements UserRepository{
 
     private static Map<Long, User> userDb = new HashMap<>();
+
+    // 이메일조회 성능을 위한 인덱스 대용 해시맵
+    private static Map<String, Long> userEmailIndex = new HashMap<>();
     private static long sequence = 0L;
 
     @Override
     public User save(User user) {
         user.setId(++sequence);
         userDb.put(user.getId(), user);
+        userEmailIndex.put(user.getEmail(), user.getId());
 
         return user;
     }
@@ -27,8 +31,8 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return userDb.values().stream()
-                .filter(user -> user.getEmail().equals(email))
-                .findFirst();
+        Long id = userEmailIndex.get(email);
+
+        return Optional.ofNullable(userDb.get(id));
     }
 }

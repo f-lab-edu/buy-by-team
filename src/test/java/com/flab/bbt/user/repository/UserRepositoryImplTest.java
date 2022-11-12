@@ -22,7 +22,7 @@ class UserRepositoryImplTest {
                         .phoneNo("01012341234")
                         .build();
 
-        repo.save((user1));
+        repo.save(user1);
         Optional<User> result = repo.findById(user1.getId());
 
         assertThat(result.get()).isEqualTo(user1);
@@ -37,10 +37,7 @@ class UserRepositoryImplTest {
                         .phoneNo("01012341234")
                         .build();
 
-        user1.setEmail("test@test.com");
-
-        repo.save((user1));
-
+        repo.save(user1);
         Optional<User> result = repo.findByEmail("test@test.com");
 
         assertThat(result.get()).isEqualTo(user1);
