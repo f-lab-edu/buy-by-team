@@ -35,9 +35,16 @@ public class AuthController {
     public CommonResponse<SignInResponse> signIn(@Valid @RequestBody SignInRequest request){
         // authenticate - username, password
          User user = authService.authenticate(request.getEmail(), request.getPassword()).get();
-        // authorize - generate jwt etc.
-        // parse response - user detail, jwt
-        return CommonResponse.success(new SignInResponse(user.getId(), user.getEmail(), user.getPassword(), user.getName(), user.getPhoneNo()));
+        // authorize - session
+
+        return CommonResponse.success(
+            SignInResponse.builder()
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .name(user.getName())
+                .phoneNo(user.getPhoneNo())
+                .build()
+        );
     }
 
     @PostMapping("/signout")
