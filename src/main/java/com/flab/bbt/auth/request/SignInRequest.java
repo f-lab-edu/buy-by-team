@@ -1,5 +1,7 @@
 package com.flab.bbt.auth.request;
 
+import com.flab.bbt.user.domain.User;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +14,12 @@ public class SignInRequest {
     @NotEmpty
     private String password;
 
+    public User convertToEntity(SignInRequest request) {
+        return User.builder()
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .build();
+    }
     public String getEmail(){
         return email;
     }
