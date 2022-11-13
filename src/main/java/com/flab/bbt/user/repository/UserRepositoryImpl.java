@@ -36,4 +36,15 @@ public class UserRepositoryImpl implements UserRepository{
 
         return Optional.ofNullable(userDb.get(id));
     }
+
+    @Override
+    public Optional<User> findByEmailAndPassword(String email, String password) {
+        Long id = userEmailIndex.get(email);
+
+        if(userDb.get(id).matchPassword(password)){
+            return Optional.of(userDb.get(id));
+        }else{
+            return Optional.empty();
+        }
+    }
 }
