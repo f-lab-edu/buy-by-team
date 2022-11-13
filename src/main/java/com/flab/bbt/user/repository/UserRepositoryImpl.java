@@ -1,6 +1,7 @@
 package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,5 +35,16 @@ public class UserRepositoryImpl implements UserRepository{
         Long id = userEmailIndex.get(email);
 
         return Optional.ofNullable(userDb.get(id));
+    }
+
+    @Override
+    public Optional<User> findByEmailAndPassword(String email, String password) {
+        Long id = userEmailIndex.get(email);
+
+        if(userDb.get(id).matchPassword(password)){
+            return Optional.of(userDb.get(id));
+        }else{
+            return Optional.empty();
+        }
     }
 }

@@ -54,6 +54,10 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
+    public boolean matchPassword(String inputPassword){
+        return getPassword().equals(inputPassword);
+    }
+
     @Override
     public String toString() {
         return "User{" +
