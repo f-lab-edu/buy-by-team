@@ -37,4 +37,6 @@ out/
 .vscode/
 
 ### DS Store ###
+.DS_Store
 /bbt/.DS_Store
+/src/.DS_Store
