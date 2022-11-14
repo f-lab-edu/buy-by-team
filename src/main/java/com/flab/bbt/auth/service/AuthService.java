@@ -26,13 +26,9 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public Optional<User> authenticate(String email, String password){
-        Optional<User> user = userRepository.findByEmailAndPassword(email, password);
-
-        if(user.isEmpty()){
-            throw new UserNotFoundException();
-        }
-
-        return user;
+    public User authenticate(User user){
+        String encryptedPwd = passwordEncrypter.encrypt(user.getPassword());
+        return userRepository.findByEmailAndPassword(user.getEmail(), encryptedPwd)
+                .orElseThrow(UserNotFoundException::new);
     }
 }

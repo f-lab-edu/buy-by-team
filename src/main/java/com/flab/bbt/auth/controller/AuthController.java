@@ -31,19 +31,14 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public CommonResponse<SignInResponse> signIn(@Valid @RequestBody SignInRequest request){
-        // authenticate - username, password
-         User user = authService.authenticate(request.getEmail(), request.getPassword()).get();
+    @ResponseStatus(HttpStatus.OK)
+    public CommonResponse signIn(@Valid @RequestBody SignInRequest request){
+        User user = request.convertToEntity(request);
+        authService.authenticate(user);
+
         // authorize - session
 
-        return CommonResponse.success(
-            SignInResponse.builder()
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .name(user.getName())
-                .phoneNo(user.getPhoneNo())
-                .build()
-        );
+        return CommonResponse.success();
     }
 
     @PostMapping("/signout")
