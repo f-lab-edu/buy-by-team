@@ -5,13 +5,15 @@ import com.flab.bbt.user.domain.User;
 public class Product {
     private long id;
     private String name;
+    private String serialNum;
     private String imgUrl;
     private int priceSale;
     private int priceDiscount;
     private int discountRate;
 
-    public Product(String name, String imgUrl, int priceSale, int priceDiscount, int discountRate) {
+    public Product(String name, String serialNum, String imgUrl, int priceSale, int priceDiscount, int discountRate) {
         this.name = name;
+        this.serialNum = serialNum;
         this.imgUrl = imgUrl;
         this.priceSale = priceSale;
         this.priceDiscount = priceDiscount;
@@ -70,8 +72,17 @@ public class Product {
         return new Product.ProductBuilder();
     }
 
+    public String getSerialNum() {
+        return serialNum;
+    }
+
+    public void setSerialNum(String serialNum) {
+        this.serialNum = serialNum;
+    }
+
     public static class ProductBuilder {
         private String name;
+        private String serialNum;
         private String imgUrl;
         private int priceSale;
         private int priceDiscount;
@@ -81,6 +92,12 @@ public class Product {
 
         public Product.ProductBuilder name(String name) {
             this.name = name;
+
+            return this;
+        }
+
+        public Product.ProductBuilder serialNum(String serialNum) {
+            this.serialNum = serialNum;
 
             return this;
         }
@@ -108,7 +125,7 @@ public class Product {
         }
 
         public Product build() {
-            return new Product(this.name,this.imgUrl,this.priceSale,this.priceDiscount, this.discountRate);
+            return new Product(this.name, this.serialNum, this.imgUrl,this.priceSale,this.priceDiscount, this.discountRate);
         }
 
     }
