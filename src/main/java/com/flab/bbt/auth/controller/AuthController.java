@@ -22,9 +22,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public CommonResponse signUp(@RequestBody SignUpRequest request){
-        // [Todo] null 유효성검증
-
+    public CommonResponse signUp(@Valid @RequestBody SignUpRequest request){
         // 회원가입 진행
         User user = request.convertToEntity(request);
         authService.signUp(user);
