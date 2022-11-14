@@ -1,7 +1,8 @@
 package com.flab.bbt.exception;
 
 public enum ErrorCode {
-    UserNotFound(3000, "abc");
+    UserNotFound(3000, "abc"),
+    INVALID_INPUT(4000, "abc");
 
     long code;
     String message;
@@ -14,7 +15,8 @@ public enum ErrorCode {
         return message;
     }
 
-    ErrorCode(long code, String msg){
-
+    ErrorCode(long code, String message){
+        this.code = code;
+        this.message = message;
     }
 }
