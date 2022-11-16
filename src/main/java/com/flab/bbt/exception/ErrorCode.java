@@ -1,8 +1,8 @@
 package com.flab.bbt.exception;
 
 public enum ErrorCode {
-    UserNotFound(3000, "abc"),
-    INVALID_INPUT(4000, "abc");
+    USER_NOT_FOUND(3000, "유저를 찾지 못했습니다."),
+    INVALID_INPUT(4000, "필수 입력값이 누락되었습니다.");
 
     long code;
     String message;

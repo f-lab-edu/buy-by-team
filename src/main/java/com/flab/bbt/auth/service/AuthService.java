@@ -1,11 +1,10 @@
 package com.flab.bbt.auth.service;
 
-import com.flab.bbt.exception.UserNotFoundException;
+import com.flab.bbt.exception.CustomException;
+import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -29,6 +28,6 @@ public class AuthService {
     public User authenticate(User user){
         String encryptedPwd = passwordEncrypter.encrypt(user.getPassword());
         return userRepository.findByEmailAndPassword(user.getEmail(), encryptedPwd)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(()-> {return new CustomException(ErrorCode.USER_NOT_FOUND);} );
     }
 }
