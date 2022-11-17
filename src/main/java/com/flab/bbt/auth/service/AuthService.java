@@ -1,5 +1,7 @@
 package com.flab.bbt.auth.service;
 
+import com.flab.bbt.auth.request.SignInRequest;
+import com.flab.bbt.auth.request.SignUpRequest;
 import com.flab.bbt.exception.UserNotFoundException;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.repository.UserRepository;
@@ -18,7 +20,9 @@ public class AuthService {
         this.passwordEncrypter = passwordEncrypter;
     }
 
-    public void signUp(User user) {
+    public void signUp(SignUpRequest request) {
+        User user = request.convertToEntity(request);
+
         // [ToDo]이메일 중복체크
 
         // password 암호화
@@ -26,7 +30,9 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public User authenticate(User user){
+    public User authenticate(SignInRequest request){
+        User user = request.convertToEntity(request);
+
         String encryptedPwd = passwordEncrypter.encrypt(user.getPassword());
         return userRepository.findByEmailAndPassword(user.getEmail(), encryptedPwd)
                 .orElseThrow(UserNotFoundException::new);

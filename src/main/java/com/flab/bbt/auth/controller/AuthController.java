@@ -24,8 +24,7 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public CommonResponse signUp(@Valid @RequestBody SignUpRequest request){
         // 회원가입 진행
-        User user = request.convertToEntity(request);
-        authService.signUp(user);
+        authService.signUp(request);
 
         return CommonResponse.success();
     }
@@ -33,8 +32,7 @@ public class AuthController {
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.OK)
     public CommonResponse signIn(@Valid @RequestBody SignInRequest request){
-        User user = request.convertToEntity(request);
-        authService.authenticate(user);
+        authService.authenticate(request);
 
         // authorize - session
 
