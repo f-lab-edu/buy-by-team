@@ -18,11 +18,16 @@ public class AuthService {
     }
 
     public void signUp(User user) {
-        // [ToDo]이메일 중복체크
-
+        if(isEmailExist(user.getEmail())){
+            throw new CustomException(ErrorCode.EMAIL_DUPLICATED);
+        }
         // password 암호화
         user.setPassword(passwordEncrypter.encrypt(user.getPassword()));
         userRepository.save(user);
+    }
+
+    private boolean isEmailExist(String email) {
+        return userRepository.findByEmail(email).isPresent();
     }
 
     public User authenticate(User user){
