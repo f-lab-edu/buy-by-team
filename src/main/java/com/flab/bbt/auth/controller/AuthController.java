@@ -12,6 +12,7 @@ import com.flab.bbt.user.domain.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -49,8 +50,9 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
-    public void signOut(){
-// remove cookie
+    public void signOut(HttpServletRequest request){
+        // remove cookie
+        sessionManager.expire(request);
     }
 
 }
