@@ -28,6 +28,6 @@ public class AuthService {
     public User authenticate(User user){
         String encryptedPwd = passwordEncrypter.encrypt(user.getPassword());
         return userRepository.findByEmailAndPassword(user.getEmail(), encryptedPwd)
-                .orElseThrow(()-> {return new CustomException(ErrorCode.USER_NOT_FOUND);} );
+                .orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
     }
 }

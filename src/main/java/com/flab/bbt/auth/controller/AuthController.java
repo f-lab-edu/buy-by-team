@@ -2,13 +2,17 @@ package com.flab.bbt.auth.controller;
 
 import com.flab.bbt.auth.request.SignInRequest;
 import com.flab.bbt.auth.request.SignUpRequest;
-import com.flab.bbt.auth.response.SignInResponse;
+import com.flab.bbt.common.SessionManager;
+import org.slf4j.Logger;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import com.flab.bbt.auth.service.AuthService;
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.user.domain.User;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
@@ -16,8 +20,11 @@ import javax.validation.Valid;
 public class AuthController {
     private final AuthService authService;
 
-    public AuthController(AuthService authService) {
+    private final SessionManager sessionManager;
+
+    public AuthController(AuthService authService, SessionManager sessionManager) {
         this.authService = authService;
+        this.sessionManager = sessionManager;
     }
 
     @PostMapping("/signup")
@@ -32,12 +39,12 @@ public class AuthController {
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponse signIn(@Valid @RequestBody SignInRequest request){
+    public CommonResponse signIn(@Valid @RequestBody SignInRequest request, HttpServletResponse response){
         User user = request.convertToEntity(request);
-        authService.authenticate(user);
+        User authenticatedUser = authService.authenticate(user);
 
         // authorize - session
-
+        sessionManager.createSession(authenticatedUser, response);
         return CommonResponse.success();
     }
 
