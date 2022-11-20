@@ -19,7 +19,7 @@ public class AuthService {
 
     public void signUp(User user) {
         if(isDuplicatedEmail(user.getEmail())){
-            throw new CustomException(ErrorCode.EMAIL_DUPLICATED);
+            throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
         // password 암호화
         user.setPassword(passwordEncrypter.encrypt(user.getPassword()));
