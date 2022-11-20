@@ -21,8 +21,7 @@ public class AuthService {
         if(isDuplicatedEmail(user.getEmail())){
             throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
-        // password 암호화
-        user.setPassword(passwordEncrypter.encrypt(user.getPassword()));
+
         userRepository.save(user);
     }
 
@@ -31,8 +30,7 @@ public class AuthService {
     }
 
     public User authenticate(User user){
-        String encryptedPwd = passwordEncrypter.encrypt(user.getPassword());
-        return userRepository.findByEmailAndPassword(user.getEmail(), encryptedPwd)
+        return userRepository.findByEmailAndPassword(user.getEmail(), user.getEncryptedPassword())
                 .orElseThrow(()-> {return new CustomException(ErrorCode.USER_NOT_FOUND);} );
     }
 }
