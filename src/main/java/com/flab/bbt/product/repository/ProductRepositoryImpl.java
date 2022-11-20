@@ -33,6 +33,10 @@ public class ProductRepositoryImpl implements ProductRepository{
     @Override
     public Optional<Product> findBySerialNum(String serialNum) {
         Long id = serialNoIndex.get(serialNum);
-        return Optional.ofNullable(productDb.get(id));
+        if (id != null){
+            return Optional.of(productDb.get(id));
+        }else{
+            return Optional.empty();
+        }
     }
 }
