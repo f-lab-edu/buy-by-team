@@ -2,14 +2,12 @@ package com.flab.bbt.auth.controller;
 
 import com.flab.bbt.auth.request.SignInRequest;
 import com.flab.bbt.auth.request.SignUpRequest;
-import com.flab.bbt.common.SessionManager;
-import org.slf4j.Logger;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import com.flab.bbt.auth.service.AuthService;
+import com.flab.bbt.auth.service.PasswordEncrypter;
 import com.flab.bbt.common.CommonResponse;
+import com.flab.bbt.common.SessionManager;
 import com.flab.bbt.user.domain.User;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +18,13 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
+    private final PasswordEncrypter passwordEncrypter;
 
     private final SessionManager sessionManager;
 
-    public AuthController(AuthService authService, SessionManager sessionManager) {
+    public AuthController(AuthService authService, PasswordEncrypter passwordEncrypter, SessionManager sessionManager) {
         this.authService = authService;
+        this.passwordEncrypter = passwordEncrypter;
         this.sessionManager = sessionManager;
     }
 
@@ -33,6 +33,8 @@ public class AuthController {
     public CommonResponse signUp(@Valid @RequestBody SignUpRequest request){
         // 회원가입 진행
         User user = request.convertToEntity(request);
+        user.setEncryptedPassword(passwordEncrypter.encrypt(request.getPassword()));
+
         authService.signUp(user);
 
         return CommonResponse.success();
@@ -42,6 +44,7 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     public CommonResponse signIn(@Valid @RequestBody SignInRequest request, HttpServletResponse response){
         User user = request.convertToEntity(request);
+        user.setEncryptedPassword(passwordEncrypter.encrypt(request.getPassword()));
         User authenticatedUser = authService.authenticate(user);
 
         // authorize - session

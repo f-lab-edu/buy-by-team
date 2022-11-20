@@ -7,19 +7,21 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository{
-    private static Map<Long, Product> productDb = new HashMap<>();
+    private static Map<Long, Product> productDb = new ConcurrentHashMap<>();
     private static Map<String, Long> serialNoIndex = new HashMap<>();
-    private static long sequence = 0L;
+    private static AtomicLong sequence = new AtomicLong(0);
 
     @Override
     public Product save(Product product) {
-        product.setId(++sequence);
-        productDb.put(product.getId(), product);
-        serialNoIndex.put(product.getSerialNum(), product.getId());
-
+        product.setId(sequence.incrementAndGet());
+        if(productDb.putIfAbsent(product.getId(), product)==null){
+            serialNoIndex.put(product.getSerialNum(), product.getId());
+        }
         return product;
     }
 

@@ -19,15 +19,11 @@ public class AuthService {
 
     public void signUp(User user) {
         // [ToDo]이메일 중복체크
-
-        // password 암호화
-        user.setPassword(passwordEncrypter.encrypt(user.getPassword()));
         userRepository.save(user);
     }
 
     public User authenticate(User user){
-        String encryptedPwd = passwordEncrypter.encrypt(user.getPassword());
-        return userRepository.findByEmailAndPassword(user.getEmail(), encryptedPwd)
-                .orElseThrow(()-> new CustomException(ErrorCode.USER_NOT_FOUND));
+        return userRepository.findByEmailAndPassword(user.getEmail(), user.getEncryptedPassword())
+                .orElseThrow(()-> {return new CustomException(ErrorCode.USER_NOT_FOUND);} );
     }
 }
