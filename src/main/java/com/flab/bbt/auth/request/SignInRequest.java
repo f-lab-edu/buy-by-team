@@ -14,10 +14,10 @@ public class SignInRequest {
     @NotBlank(message = "패스워드는 필수 입력 값입니다.")
     private String password;
 
-    public User convertToEntity(SignInRequest request) {
+    public User convertToEntity() {
         return User.builder()
-                .email(request.getEmail())
-                .password(request.getPassword())
+                .email(this.getEmail())
+                .password(this.getPassword())
                 .build();
     }
     public String getEmail(){
