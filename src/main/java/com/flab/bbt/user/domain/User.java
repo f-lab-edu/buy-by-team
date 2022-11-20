@@ -30,11 +30,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
+    public String getEncryptedPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setEncryptedPassword(String password) {
         this.password = password;
     }
 
@@ -55,7 +55,7 @@ public class User {
     }
 
     public boolean matchPassword(String inputPassword){
-        return getPassword().equals(inputPassword);
+        return getEncryptedPassword().equals(inputPassword);
     }
 
     @Override

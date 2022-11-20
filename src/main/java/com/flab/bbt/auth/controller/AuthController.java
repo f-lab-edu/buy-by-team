@@ -2,7 +2,7 @@ package com.flab.bbt.auth.controller;
 
 import com.flab.bbt.auth.request.SignInRequest;
 import com.flab.bbt.auth.request.SignUpRequest;
-import com.flab.bbt.auth.response.SignInResponse;
+import com.flab.bbt.auth.service.PasswordEncrypter;
 import org.springframework.http.HttpStatus;
 import com.flab.bbt.auth.service.AuthService;
 import com.flab.bbt.common.CommonResponse;
@@ -15,9 +15,11 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
+    private final PasswordEncrypter passwordEncrypter;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, PasswordEncrypter passwordEncrypter) {
         this.authService = authService;
+        this.passwordEncrypter = passwordEncrypter;
     }
 
     @PostMapping("/signup")
@@ -25,6 +27,8 @@ public class AuthController {
     public CommonResponse signUp(@Valid @RequestBody SignUpRequest request){
         // 회원가입 진행
         User user = request.convertToEntity(request);
+        user.setEncryptedPassword(passwordEncrypter.encrypt(request.getPassword()));
+
         authService.signUp(user);
 
         return CommonResponse.success();
@@ -34,6 +38,8 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     public CommonResponse signIn(@Valid @RequestBody SignInRequest request){
         User user = request.convertToEntity(request);
+        user.setEncryptedPassword(passwordEncrypter.encrypt(request.getPassword()));
+
         authService.authenticate(user);
 
         // authorize - session
