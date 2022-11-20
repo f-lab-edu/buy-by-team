@@ -18,7 +18,7 @@ public class AuthService {
     }
 
     public void signUp(User user) {
-        if(isEmailExist(user.getEmail())){
+        if(isDuplicatedEmail(user.getEmail())){
             throw new CustomException(ErrorCode.EMAIL_DUPLICATED);
         }
         // password 암호화
@@ -26,7 +26,7 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    private boolean isEmailExist(String email) {
+    private boolean isDuplicatedEmail(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
 
