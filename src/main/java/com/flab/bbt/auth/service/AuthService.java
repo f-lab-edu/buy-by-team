@@ -1,13 +1,10 @@
 package com.flab.bbt.auth.service;
 
-import com.flab.bbt.auth.request.SignInRequest;
-import com.flab.bbt.auth.request.SignUpRequest;
-import com.flab.bbt.exception.UserNotFoundException;
+import com.flab.bbt.exception.CustomException;
+import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -20,21 +17,13 @@ public class AuthService {
         this.passwordEncrypter = passwordEncrypter;
     }
 
-    public void signUp(SignUpRequest request) {
-        User user = request.convertToEntity(request);
-
+    public void signUp(User user) {
         // [ToDo]이메일 중복체크
-
-        // password 암호화
-        user.setPassword(passwordEncrypter.encrypt(user.getPassword()));
         userRepository.save(user);
     }
 
-    public User authenticate(SignInRequest request){
-        User user = request.convertToEntity(request);
-
-        String encryptedPwd = passwordEncrypter.encrypt(user.getPassword());
-        return userRepository.findByEmailAndPassword(user.getEmail(), encryptedPwd)
-                .orElseThrow(UserNotFoundException::new);
+    public User authenticate(User user){
+        return userRepository.findByEmailAndPassword(user.getEmail(), user.getEncryptedPassword())
+                .orElseThrow(()-> {return new CustomException(ErrorCode.USER_NOT_FOUND);} );
     }
 }
