@@ -3,8 +3,9 @@ package com.flab.bbt.exception;
 public enum ErrorCode {
     USER_NOT_FOUND(3000, "유저를 찾지 못했습니다."),
     INVALID_INPUT(4000, "입력값이 올바르지 않습니다."),
-    DUPLICATE_EMAIL(5000, "이메일이 중복되었습니다.");
-
+    DUPLICATE_EMAIL(5000, "이메일이 중복되었습니다."),
+    PRODUCT_NOT_FOUND(5000, "상품을 찾지 못했습니다."),
+    PRODUCT_ALREADY_EXISTS(5001, "이미 존재하는 상품입니다.");
     long code;
     String message;
 
