@@ -5,13 +5,12 @@ import com.flab.bbt.auth.request.SignUpRequest;
 import com.flab.bbt.auth.service.AuthService;
 import com.flab.bbt.auth.service.PasswordEncrypter;
 import com.flab.bbt.common.CommonResponse;
-import com.flab.bbt.common.SessionManager;
+import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.user.domain.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -40,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponse signIn(@Valid @RequestBody SignInRequest signInRequest, HttpServletRequest request, HttpServletResponse response){
+    public CommonResponse signIn(@Valid @RequestBody SignInRequest signInRequest, HttpServletRequest request){
         // authenticate user
         User user = signInRequest.convertToEntity();
         user.setEncryptedPassword(passwordEncrypter.encrypt(signInRequest.getPassword()));
@@ -48,7 +47,7 @@ public class AuthController {
 
         // authorize user via session
         HttpSession session = request.getSession();
-        session.setAttribute(SessionManager.COOKIE_SESSION_ID, authenticatedUser);
+        session.setAttribute(SessionConst.COOKIE_SESSION_ID, authenticatedUser);
         return CommonResponse.success();
     }
 
