@@ -16,12 +16,12 @@ public class SignUpRequest {
     @NotBlank(message = "핸드폰 번호는 필수 입력 값입니다.")
     private String phoneNo;
 
-    public User convertToEntity(SignUpRequest request) {
+    public User convertToEntity() {
         return User.builder()
-                   .email(request.getEmail())
-                   .password(request.getPassword())
-                   .name(request.getName())
-                   .phoneNo(request.getPhoneNo())
+                   .email(this.getEmail())
+                   .password(this.getPassword())
+                   .name(this.getName())
+                   .phoneNo(this.getPhoneNo())
                    .build();
     }
 
