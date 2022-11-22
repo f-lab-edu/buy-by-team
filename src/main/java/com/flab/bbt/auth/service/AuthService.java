@@ -18,8 +18,15 @@ public class AuthService {
     }
 
     public void signUp(User user) {
-        // [ToDo]이메일 중복체크
+        if(isDuplicatedEmail(user.getEmail())){
+            throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
+        }
+
         userRepository.save(user);
+    }
+
+    private boolean isDuplicatedEmail(String email) {
+        return userRepository.findByEmail(email).isPresent();
     }
 
     public User authenticate(User user){
