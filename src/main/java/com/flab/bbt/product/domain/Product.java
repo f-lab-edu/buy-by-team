@@ -1,6 +1,6 @@
 package com.flab.bbt.product.domain;
 
-import com.flab.bbt.user.domain.User;
+import lombok.Builder;
 
 public class Product {
     private long id;
@@ -11,6 +11,7 @@ public class Product {
     private int priceDiscount;
     private int discountRate;
 
+    @Builder
     public Product(String name, String serialNum, String imgUrl, int priceSale, int priceDiscount, int discountRate) {
         this.name = name;
         this.serialNum = serialNum;
@@ -68,65 +69,11 @@ public class Product {
         this.discountRate = discountRate;
     }
 
-    public static Product.ProductBuilder builder() {
-        return new Product.ProductBuilder();
-    }
-
     public String getSerialNum() {
         return serialNum;
     }
 
     public void setSerialNum(String serialNum) {
         this.serialNum = serialNum;
-    }
-
-    public static class ProductBuilder {
-        private String name;
-        private String serialNum;
-        private String imgUrl;
-        private int priceSale;
-        private int priceDiscount;
-        private int discountRate;
-
-        ProductBuilder(){}
-
-        public Product.ProductBuilder name(String name) {
-            this.name = name;
-
-            return this;
-        }
-
-        public Product.ProductBuilder serialNum(String serialNum) {
-            this.serialNum = serialNum;
-
-            return this;
-        }
-
-        public Product.ProductBuilder imgUrl(String imgUrl) {
-            this.imgUrl = imgUrl;
-
-            return this;
-        }
-
-        public Product.ProductBuilder priceSale(int priceSale) {
-            this.priceSale = priceSale;
-
-            return this;
-        }
-
-        public Product.ProductBuilder priceDiscount(int priceDiscount) {
-            this.priceDiscount = priceDiscount;
-            return this;
-        }
-
-        public Product.ProductBuilder discountRate(int discountRate) {
-            this.discountRate = discountRate;
-            return this;
-        }
-
-        public Product build() {
-            return new Product(this.name, this.serialNum, this.imgUrl,this.priceSale,this.priceDiscount, this.discountRate);
-        }
-
     }
 }
