@@ -2,6 +2,7 @@ package com.flab.bbt.common;
 
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
+import lombok.Builder;
 
 import java.util.Collections;
 import java.util.List;
@@ -71,6 +72,7 @@ public class CommonResponse<T> {
             return message;
         }
 
+        @Builder
         public FieldError(String field, String message) {
             this.field = field;
             this.message = message;
@@ -82,29 +84,6 @@ public class CommonResponse<T> {
                     "field='" + field + '\'' +
                     ", message='" + message + '\'' +
                     '}';
-        }
-
-        public static FieldError.FieldErrorBuilder builder() {
-            return new FieldError.FieldErrorBuilder();
-        }
-
-        public static class FieldErrorBuilder {
-            private String field;
-            private String message;
-            FieldErrorBuilder(){}
-
-            public FieldError.FieldErrorBuilder field(String field) {
-                this.field = field;
-                return this;
-            }
-
-            public FieldError.FieldErrorBuilder message(String message) {
-                this.message = message;
-                return this;
-            }
-            public FieldError build() {
-                return new FieldError(this.field,this.message);
-            }
         }
 
     }

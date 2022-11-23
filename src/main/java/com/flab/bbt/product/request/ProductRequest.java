@@ -3,11 +3,14 @@ package com.flab.bbt.product.request;
 import com.flab.bbt.auth.request.SignInRequest;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.user.domain.User;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@NoArgsConstructor
 public class ProductRequest {
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String name;
@@ -21,6 +24,16 @@ public class ProductRequest {
     private int priceDiscount;
     @NotNull(message = "할인율은 필수 입력 값입니다.")
     private int discountRate;
+
+    @Builder
+    public ProductRequest(String name, String serialNum, String imgUrl, int priceSale, int priceDiscount, int discountRate) {
+        this.name = name;
+        this.serialNum = serialNum;
+        this.imgUrl = imgUrl;
+        this.priceSale = priceSale;
+        this.priceDiscount = priceDiscount;
+        this.discountRate = discountRate;
+    }
 
     public Product convertToEntity(ProductRequest request) {
         return Product.builder()
