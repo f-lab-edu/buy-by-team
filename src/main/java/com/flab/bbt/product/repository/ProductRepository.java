@@ -6,7 +6,7 @@ import com.flab.bbt.user.domain.User;
 import java.util.Optional;
 
 public interface ProductRepository{
-    Product save(Product user);
+    Product save(Product product);
     Optional<Product> findById(Long id);
     Optional<Product> findBySerialNum(String serialNum);
 }
