@@ -4,9 +4,7 @@ import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.user.domain.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -38,5 +36,10 @@ public class ProductRepositoryImpl implements ProductRepository{
         }else{
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return new ArrayList<>(productDb.values());
     }
 }

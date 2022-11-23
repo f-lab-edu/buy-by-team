@@ -6,6 +6,8 @@ import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
@@ -24,5 +26,9 @@ public class ProductService {
     public Product findProductById(long id){
         return productRepository.findById(id)
                 .orElseThrow(()-> {return new CustomException(ErrorCode.PRODUCT_NOT_FOUND);});
+    }
+
+    public List<Product> findProducts() {
+        return productRepository.findAll();
     }
 }
