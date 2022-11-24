@@ -3,6 +3,7 @@ package com.flab.bbt.product.response;
 import lombok.Builder;
 
 public class ProductResponse {
+
     public long getId() {
         return id;
     }
@@ -66,8 +67,10 @@ public class ProductResponse {
     private int priceSale;
     private int priceDiscount;
     private int discountRate;
+
     @Builder
-    public ProductResponse(String name, String serialNum, String imgUrl, int priceSale, int priceDiscount, int discountRate) {
+    public ProductResponse(String name, String serialNum, String imgUrl, int priceSale,
+        int priceDiscount, int discountRate) {
         this.name = name;
         this.serialNum = serialNum;
         this.imgUrl = imgUrl;

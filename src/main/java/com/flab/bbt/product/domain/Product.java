@@ -3,6 +3,7 @@ package com.flab.bbt.product.domain;
 import lombok.Builder;
 
 public class Product {
+
     private long id;
     private String name;
     private String serialNum;
@@ -12,7 +13,8 @@ public class Product {
     private int discountRate;
 
     @Builder
-    public Product(String name, String serialNum, String imgUrl, int priceSale, int priceDiscount, int discountRate) {
+    public Product(String name, String serialNum, String imgUrl, int priceSale, int priceDiscount,
+        int discountRate) {
         this.name = name;
         this.serialNum = serialNum;
         this.imgUrl = imgUrl;
