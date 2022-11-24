@@ -16,11 +16,11 @@ class UserRepositoryImplTest {
     @Test
     void findById() {
         User user1 = User.builder()
-                        .email("test@test.com")
-                        .password("1234")
-                        .name("user1")
-                        .phoneNo("01012341234")
-                        .build();
+            .email("test@test.com")
+            .password("1234")
+            .name("user1")
+            .phoneNo("01012341234")
+            .build();
 
         repo.save(user1);
         Optional<User> result = repo.findById(user1.getId());
@@ -31,11 +31,11 @@ class UserRepositoryImplTest {
     @Test
     void findByEmail() {
         User user1 = User.builder()
-                        .email("test@test.com")
-                        .password("1234")
-                        .name("user1")
-                        .phoneNo("01012341234")
-                        .build();
+            .email("test@test.com")
+            .password("1234")
+            .name("user1")
+            .phoneNo("01012341234")
+            .build();
 
         repo.save(user1);
         Optional<User> result = repo.findByEmail("test@test.com");

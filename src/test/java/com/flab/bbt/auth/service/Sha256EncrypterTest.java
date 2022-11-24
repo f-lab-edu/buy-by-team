@@ -6,10 +6,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Sha256EncrypterTest {
+
     Sha256Encrypter encrypter = new Sha256Encrypter();
 
     @Test
-    void encrypt(){
+    void encrypt() {
         String password = "temporaryPassword";
 
         String encryptedPassword = encrypter.encrypt(password);

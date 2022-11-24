@@ -17,6 +17,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
     private final AuthService authService;
     private final PasswordEncrypter passwordEncrypter;
 
@@ -27,7 +28,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public CommonResponse signUp(@Valid @RequestBody SignUpRequest request){
+    public CommonResponse signUp(@Valid @RequestBody SignUpRequest request) {
         // 회원가입 진행
         User user = request.convertToEntity();
         user.setEncryptedPassword(passwordEncrypter.encrypt(request.getPassword()));
@@ -39,7 +40,8 @@ public class AuthController {
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.OK)
-    public CommonResponse signIn(@Valid @RequestBody SignInRequest signInRequest, HttpServletRequest request){
+    public CommonResponse signIn(@Valid @RequestBody SignInRequest signInRequest,
+        HttpServletRequest request) {
         // authenticate user
         User user = signInRequest.convertToEntity();
         user.setEncryptedPassword(passwordEncrypter.encrypt(signInRequest.getPassword()));
@@ -52,9 +54,9 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
-    public void signOut(HttpServletRequest request){
+    public void signOut(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session!=null){
+        if (session != null) {
             session.invalidate();
         }
     }

@@ -7,8 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
     private static Map<Long, User> userDb = new HashMap<>();
 
@@ -41,9 +42,9 @@ public class UserRepositoryImpl implements UserRepository{
     public Optional<User> findByEmailAndPassword(String email, String password) {
         Long id = userEmailIndex.get(email);
 
-        if(userDb.get(id).matchPassword(password)){
+        if (userDb.get(id).matchPassword(password)) {
             return Optional.of(userDb.get(id));
-        }else{
+        } else {
             return Optional.empty();
         }
     }

@@ -3,14 +3,17 @@ package com.flab.bbt.auth.response;
 import lombok.Builder;
 
 public class SignInResponse {
+
     private Long id;
 
     public Long getId() {
         return id;
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getPassword() {
         return password;
     }
@@ -18,6 +21,7 @@ public class SignInResponse {
     public String getName() {
         return name;
     }
+
     public String getPhoneNo() {
         return phoneNo;
     }

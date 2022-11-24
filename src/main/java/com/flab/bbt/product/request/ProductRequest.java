@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class ProductRequest {
+
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String name;
     @NotBlank(message = "시리얼 넘버는 필수 입력 값입니다.")
@@ -24,7 +25,8 @@ public class ProductRequest {
     private int discountRate;
 
     @Builder
-    public ProductRequest(String name, String serialNum, String imgUrl, int priceSale, int priceDiscount, int discountRate) {
+    public ProductRequest(String name, String serialNum, String imgUrl, int priceSale,
+        int priceDiscount, int discountRate) {
         this.name = name;
         this.serialNum = serialNum;
         this.imgUrl = imgUrl;
@@ -35,13 +37,13 @@ public class ProductRequest {
 
     public Product convertToEntity(ProductRequest request) {
         return Product.builder()
-                .name(request.getName())
-                .serialNum(request.getSerialNum())
-                .imgUrl(request.getImgUrl())
-                .priceSale(request.getPriceSale())
-                .priceDiscount(request.getPriceDiscount())
-                .discountRate(request.getDiscountRate())
-                .build();
+            .name(request.getName())
+            .serialNum(request.getSerialNum())
+            .imgUrl(request.getImgUrl())
+            .priceSale(request.getPriceSale())
+            .priceDiscount(request.getPriceDiscount())
+            .discountRate(request.getDiscountRate())
+            .build();
     }
 
     public String getName() {

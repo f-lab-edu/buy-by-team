@@ -5,8 +5,11 @@ import com.flab.bbt.user.domain.User;
 
 import java.util.Optional;
 
-public interface ProductRepository{
+public interface ProductRepository {
+
     Product save(Product user);
+
     Optional<Product> findById(Long id);
+
     Optional<Product> findBySerialNum(String serialNum);
 }

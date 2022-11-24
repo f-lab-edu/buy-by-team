@@ -3,11 +3,13 @@ package com.flab.bbt.user.domain;
 import lombok.Builder;
 
 public class User {
+
     private long id;
     private String email;
     private String password;
     private String name;
     private String phoneNo;
+
     @Builder
     public User(String email, String password, String name, String phoneNo) {
         this.email = email;
@@ -56,17 +58,17 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
-    public boolean matchPassword(String inputPassword){
+    public boolean matchPassword(String inputPassword) {
         return getEncryptedPassword().equals(inputPassword);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", phoneNo='" + phoneNo + '\'' +
-                '}';
+            "id=" + id +
+            ", email='" + email + '\'' +
+            ", name='" + name + '\'' +
+            ", phoneNo='" + phoneNo + '\'' +
+            '}';
     }
 }
