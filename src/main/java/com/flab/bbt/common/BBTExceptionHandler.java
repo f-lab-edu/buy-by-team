@@ -15,11 +15,13 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class BBTExceptionHandler {
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(CustomException.class)
-    public CommonResponse handleCustomException(CustomException e){
+    public CommonResponse handleCustomException(CustomException e) {
         return CommonResponse.fail(e.getErrorCode());
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public CommonResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -30,10 +32,10 @@ public class BBTExceptionHandler {
 
     private List<CommonResponse.FieldError> buildFieldError(BindingResult result) {
         return result.getFieldErrors().stream()
-                               .map(error -> CommonResponse.FieldError.builder()
-                                       .field(error.getField())
-                                       .message(error.getDefaultMessage())
-                                       .build())
-                               .collect(Collectors.toList());
+            .map(error -> CommonResponse.FieldError.builder()
+                .field(error.getField())
+                .message(error.getDefaultMessage())
+                .build())
+            .collect(Collectors.toList());
     }
 }

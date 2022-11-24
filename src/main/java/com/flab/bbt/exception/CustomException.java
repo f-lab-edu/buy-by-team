@@ -1,6 +1,7 @@
 package com.flab.bbt.exception;
 
-public class CustomException extends RuntimeException{
+public class CustomException extends RuntimeException {
+
     private final ErrorCode errorCode;
 
     public CustomException(ErrorCode errorCode) {

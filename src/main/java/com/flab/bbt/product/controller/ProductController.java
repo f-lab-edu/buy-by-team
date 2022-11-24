@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -38,7 +39,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public CommonResponse addProduct(@Valid @RequestBody ProductRequest request){
+    public CommonResponse addProduct(@Valid @RequestBody ProductRequest request) {
         Product product = request.convertToEntity(request);
         productService.register(product);
         return CommonResponse.success();

@@ -9,7 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class ProductRepositoryImpl implements ProductRepository{
+public class ProductRepositoryImpl implements ProductRepository {
+
     private static Map<Long, Product> productDb = new ConcurrentHashMap<>();
     private static Map<String, Long> serialNoIndex = new HashMap<>();
     private static AtomicLong sequence = new AtomicLong(0);
@@ -17,7 +18,7 @@ public class ProductRepositoryImpl implements ProductRepository{
     @Override
     public Product save(Product product) {
         product.setId(sequence.incrementAndGet());
-        if(productDb.putIfAbsent(product.getId(), product)==null){
+        if (productDb.putIfAbsent(product.getId(), product) == null) {
             serialNoIndex.put(product.getSerialNum(), product.getId());
         }
         return product;
@@ -31,9 +32,9 @@ public class ProductRepositoryImpl implements ProductRepository{
     @Override
     public Optional<Product> findBySerialNum(String serialNum) {
         Long id = serialNoIndex.get(serialNum);
-        if (id != null){
+        if (id != null) {
             return Optional.of(productDb.get(id));
-        }else{
+        } else {
             return Optional.empty();
         }
     }
