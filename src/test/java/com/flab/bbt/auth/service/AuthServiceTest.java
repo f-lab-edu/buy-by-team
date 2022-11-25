@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.flab.bbt.exception.CustomException;
+import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.repository.UserRepository;
 import java.util.Optional;
@@ -68,7 +69,7 @@ class AuthServiceTest {
             () -> authService.signUp(user));
 
         // then
-        assertThat(e.getErrorCode().getMessage()).isEqualTo("이메일이 중복되었습니다.");
+        assertThat(e.getErrorCode().getMessage()).isEqualTo(ErrorCode.DUPLICATE_EMAIL.getMessage());
     }
 
     @Test
@@ -95,6 +96,6 @@ class AuthServiceTest {
             () -> authService.authenticate(user));
 
         // then
-        assertThat(e.getErrorCode().getMessage()).isEqualTo("유저를 찾지 못했습니다.");
+        assertThat(e.getErrorCode().getMessage()).isEqualTo(ErrorCode.USER_NOT_FOUND.getMessage());
     }
 }
