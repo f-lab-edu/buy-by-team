@@ -9,9 +9,11 @@ import com.flab.bbt.user.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,6 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @PatchMapping("/user-profiles")
+    @ResponseStatus(HttpStatus.OK)
     public CommonResponse updateUserProfiile(@RequestBody UpdateUserRequest updateUserRequest,
         HttpServletRequest request) {
         HttpSession session = request.getSession(false);
