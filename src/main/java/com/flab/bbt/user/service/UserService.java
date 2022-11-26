@@ -23,5 +23,6 @@ public class UserService {
 
     public void update(User user, UserProfile userProfile) {
         user.update(userProfile);
+        userRepository.update(user);
     }
 }

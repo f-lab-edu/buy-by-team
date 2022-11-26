@@ -1,7 +1,9 @@
 package com.flab.bbt.user.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.flab.bbt.user.domain.User;
@@ -42,17 +44,15 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("유저인포 업데이트에 성공한다.")
+    @DisplayName("유저프로필 업데이트에 성공한다.")
     void updateSuccessTest() {
         // given
-        Long userId = 1L;
-        when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
-        User targetUser = userService.findUserById(userId);
+        when(userRepository.update(any(User.class))).thenReturn(user);
 
         // when
-        userService.update(targetUser, userProfile);
+        userService.update(user, userProfile);
 
         // then
-        assertThat(user.getUserProfile()).isEqualTo(userProfile);
+        verify(userRepository).update(user);
     }
 }

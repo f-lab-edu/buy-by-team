@@ -20,7 +20,9 @@ public class UserController {
     private final UserService userService;
 
     @PatchMapping("/{id}/user-profile")
-    public CommonResponse updateUserProfiile(@RequestBody UpdateUserRequest request, @PathVariable long id) {
+    public CommonResponse updateUserProfiile(@RequestBody UpdateUserRequest request,
+        @PathVariable long id
+        ) {
         User user = userService.findUserById(id);
         UserProfile userProfile = request.convertToUserProfile();
 

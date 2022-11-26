@@ -1,10 +1,12 @@
 package com.flab.bbt.user.repository;
 
+import com.flab.bbt.exception.CustomException;
+import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
+import com.flab.bbt.user.domain.UserProfile;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -47,5 +49,12 @@ public class UserRepositoryImpl implements UserRepository {
         } else {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public User update(User user) {
+        userDb.replace(user.getId(), user);
+
+        return user;
     }
 }
