@@ -2,9 +2,14 @@ package com.flab.bbt.auth.request;
 
 import com.flab.bbt.user.domain.User;
 
+import com.flab.bbt.user.domain.UserInfo;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class SignUpRequest {
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
@@ -12,58 +17,20 @@ public class SignUpRequest {
     private String email;
     @NotBlank(message = "패스워드는 필수 입력 값입니다.")
     private String password;
-    @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String name;
-    @NotBlank(message = "핸드폰 번호는 필수 입력 값입니다.")
-    private String phoneNo;
 
     public User convertToEntity() {
         return User.builder()
             .email(this.getEmail())
-            .password(this.getPassword())
-            .name(this.getName())
-            .phoneNo(this.getPhoneNo())
+            .encryptedPassword(this.getPassword())
+            .userInfo(getUserInfo())
             .build();
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    @Override
-    public String toString() {
-        return "SignUpRequest{" +
-            "email='" + email + '\'' +
-            ", name='" + name + '\'' +
-            ", phoneNo='" + phoneNo + '\'' +
-            '}';
+    private UserInfo getUserInfo() {
+        return new UserInfo(
+            (this.getName() == "" || this.getName() == null) ? this.getEmail().split("@")[0]
+                : this.getName()
+        );
     }
 }

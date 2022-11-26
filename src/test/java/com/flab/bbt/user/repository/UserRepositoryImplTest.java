@@ -17,9 +17,7 @@ class UserRepositoryImplTest {
     void findById() {
         User user1 = User.builder()
             .email("test@test.com")
-            .password("1234")
-            .name("user1")
-            .phoneNo("01012341234")
+            .encryptedPassword("1234")
             .build();
 
         repo.save(user1);
@@ -32,9 +30,7 @@ class UserRepositoryImplTest {
     void findByEmail() {
         User user1 = User.builder()
             .email("test@test.com")
-            .password("1234")
-            .name("user1")
-            .phoneNo("01012341234")
+            .encryptedPassword("1234")
             .build();
 
         repo.save(user1);

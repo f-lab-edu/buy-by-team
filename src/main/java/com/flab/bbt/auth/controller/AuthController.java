@@ -32,7 +32,6 @@ public class AuthController {
         // 회원가입 진행
         User user = request.convertToEntity();
         user.setEncryptedPassword(passwordEncrypter.encrypt(request.getPassword()));
-
         authService.signUp(user);
 
         return CommonResponse.success();

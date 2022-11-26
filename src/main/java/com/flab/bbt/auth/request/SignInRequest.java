@@ -18,7 +18,7 @@ public class SignInRequest {
     public User convertToEntity() {
         return User.builder()
             .email(this.getEmail())
-            .password(this.getPassword())
+            .encryptedPassword(this.getPassword())
             .build();
     }
 
