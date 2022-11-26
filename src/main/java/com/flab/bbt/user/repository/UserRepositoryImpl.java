@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
     private static Map<Long, User> userDb = new ConcurrentHashMap<>();
 
@@ -44,9 +44,9 @@ public class UserRepositoryImpl implements UserRepository{
     public Optional<User> findByEmailAndPassword(String email, String password) {
         Long id = userEmailIndex.get(email);
 
-        if(userDb.get(id).matchPassword(password)){
+        if (userDb.get(id).matchPassword(password)) {
             return Optional.of(userDb.get(id));
-        }else{
+        } else {
             return Optional.empty();
         }
     }

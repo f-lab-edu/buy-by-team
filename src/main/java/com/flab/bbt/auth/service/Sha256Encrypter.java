@@ -6,7 +6,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Service
-public class Sha256Encrypter implements PasswordEncrypter{
+public class Sha256Encrypter implements PasswordEncrypter {
+
     public static final String ENCRYPTION_ALGORITHM = "SHA-256";
 
     @Override
