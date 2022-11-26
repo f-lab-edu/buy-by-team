@@ -18,7 +18,7 @@ public class AuthService {
     }
 
     public void signUp(User user) {
-        if(isDuplicatedEmail(user.getEmail())){
+        if (isDuplicatedEmail(user.getEmail())) {
             throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
 
@@ -29,8 +29,10 @@ public class AuthService {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    public User authenticate(User user){
+    public User authenticate(User user) {
         return userRepository.findByEmailAndPassword(user.getEmail(), user.getEncryptedPassword())
-                .orElseThrow(()-> {return new CustomException(ErrorCode.USER_NOT_FOUND);} );
+            .orElseThrow(() -> {
+                return new CustomException(ErrorCode.USER_NOT_FOUND);
+            });
     }
 }

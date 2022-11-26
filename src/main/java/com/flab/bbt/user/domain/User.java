@@ -1,12 +1,16 @@
 package com.flab.bbt.user.domain;
 
+import lombok.Builder;
+
 public class User {
+
     private long id;
     private String email;
     private String password;
     private String name;
     private String phoneNo;
 
+    @Builder
     public User(String email, String password, String name, String phoneNo) {
         this.email = email;
         this.password = password;
@@ -54,60 +58,17 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
-    public boolean matchPassword(String inputPassword){
+    public boolean matchPassword(String inputPassword) {
         return getEncryptedPassword().equals(inputPassword);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", phoneNo='" + phoneNo + '\'' +
-                '}';
-    }
-
-    // builder 패턴 구현
-    public static User.UserBuilder builder() {
-        return new User.UserBuilder();
-    }
-
-    public static class UserBuilder {
-        private String email;
-        private String password;
-        private String name;
-        private String phoneNo;
-
-        UserBuilder(){}
-
-        public User.UserBuilder email(String email) {
-            this.email = email;
-
-            return this;
-        }
-
-        public User.UserBuilder password(String password) {
-            this.password = password;
-
-            return this;
-        }
-
-        public User.UserBuilder name(String name) {
-            this.name = name;
-
-            return this;
-        }
-
-        public User.UserBuilder phoneNo(String phoneNo) {
-            this.phoneNo = phoneNo;
-
-            return this;
-        }
-
-        public User build() {
-            return new User(this.email,this.password,this.name,this.phoneNo);
-        }
-
+            "id=" + id +
+            ", email='" + email + '\'' +
+            ", name='" + name + '\'' +
+            ", phoneNo='" + phoneNo + '\'' +
+            '}';
     }
 }

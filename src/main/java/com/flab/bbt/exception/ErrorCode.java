@@ -22,7 +22,7 @@ public enum ErrorCode {
         return message;
     }
 
-    ErrorCode(long code, String message){
+    ErrorCode(long code, String message) {
         this.code = code;
         this.message = message;
     }
