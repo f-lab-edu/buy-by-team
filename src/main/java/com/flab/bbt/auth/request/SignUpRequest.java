@@ -2,7 +2,7 @@ package com.flab.bbt.auth.request;
 
 import com.flab.bbt.user.domain.User;
 
-import com.flab.bbt.user.domain.UserInfo;
+import com.flab.bbt.user.domain.UserProfile;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -23,12 +23,12 @@ public class SignUpRequest {
         return User.builder()
             .email(this.getEmail())
             .encryptedPassword(this.getPassword())
-            .userInfo(getUserInfo())
+            .userProfile(getUserProfile())
             .build();
     }
 
-    private UserInfo getUserInfo() {
-        return new UserInfo(
+    private UserProfile getUserProfile() {
+        return new UserProfile(
             (this.getName() == "" || this.getName() == null) ? this.getEmail().split("@")[0]
                 : this.getName()
         );

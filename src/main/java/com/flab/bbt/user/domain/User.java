@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Builder
@@ -20,13 +19,13 @@ public class User {
 
     @Setter
     private String encryptedPassword;
-    private UserInfo userInfo;
+    private UserProfile userProfile;
 
     public boolean matchPassword(String inputPassword) {
         return getEncryptedPassword().equals(inputPassword);
     }
 
-    public void update(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void update(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 }

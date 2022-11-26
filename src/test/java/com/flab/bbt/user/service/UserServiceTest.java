@@ -1,12 +1,11 @@
 package com.flab.bbt.user.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import com.flab.bbt.user.domain.User;
-import com.flab.bbt.user.domain.UserInfo;
+import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.repository.UserRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +26,7 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     User user;
-    UserInfo userInfo;
+    UserProfile userProfile;
 
     @BeforeEach
     void setup() {
@@ -36,7 +35,7 @@ class UserServiceTest {
             .encryptedPassword("encryptedPassword")
             .build();
 
-        userInfo = UserInfo.builder()
+        userProfile = UserProfile.builder()
             .name("updatedName")
             .phoneNo("01012341234")
             .build();
@@ -51,9 +50,9 @@ class UserServiceTest {
         User targetUser = userService.findUserById(userId);
 
         // when
-        userService.update(targetUser, userInfo);
+        userService.update(targetUser, userProfile);
 
         // then
-        assertThat(user.getUserInfo()).isEqualTo(userInfo);
+        assertThat(user.getUserProfile()).isEqualTo(userProfile);
     }
 }

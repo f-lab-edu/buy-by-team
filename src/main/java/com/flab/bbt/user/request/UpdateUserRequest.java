@@ -1,6 +1,6 @@
 package com.flab.bbt.user.request;
 
-import com.flab.bbt.user.domain.UserInfo;
+import com.flab.bbt.user.domain.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +10,8 @@ public class UpdateUserRequest {
     private String name;
     private String phoneNo;
 
-    public UserInfo convertToUserInfo() {
-        return UserInfo.builder()
+    public UserProfile convertToUserProfile() {
+        return UserProfile.builder()
             .name(this.getName())
             .phoneNo(this.getPhoneNo())
             .build();

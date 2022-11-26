@@ -6,19 +6,18 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class UserInfo {
+public class UserProfile {
 
     private String name;
     private String phoneNo;
 
-    public UserInfo(String name) {
+    public UserProfile(String name) {
         this.name = name;
     }
 }

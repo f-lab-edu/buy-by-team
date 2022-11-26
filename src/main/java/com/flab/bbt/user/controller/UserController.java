@@ -2,11 +2,10 @@ package com.flab.bbt.user.controller;
 
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.user.domain.User;
-import com.flab.bbt.user.domain.UserInfo;
+import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.request.UpdateUserRequest;
 import com.flab.bbt.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,12 +19,12 @@ public class UserController {
 
     private final UserService userService;
 
-    @PatchMapping("/{id}/user-info")
-    public CommonResponse updateUserInfo(@RequestBody UpdateUserRequest request, @PathVariable long id) {
+    @PatchMapping("/{id}/user-profile")
+    public CommonResponse updateUserProfiile(@RequestBody UpdateUserRequest request, @PathVariable long id) {
         User user = userService.findUserById(id);
-        UserInfo userInfo = request.convertToUserInfo();
+        UserProfile userProfile = request.convertToUserProfile();
 
-        userService.update(user, userInfo);
+        userService.update(user, userProfile);
 
         return CommonResponse.success();
     }
