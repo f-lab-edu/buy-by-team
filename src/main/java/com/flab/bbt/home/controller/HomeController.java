@@ -1,7 +1,7 @@
 package com.flab.bbt.home.controller;
 
 import com.flab.bbt.common.CommonResponse;
-import com.flab.bbt.common.SessionManager;
+import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class HomeController {
     @GetMapping("/")
     public CommonResponse authorizeUserBySession(
-            @SessionAttribute(name= SessionManager.COOKIE_SESSION_ID, required = false) User user){
+            @SessionAttribute(name= SessionConst.COOKIE_SESSION_ID, required = false) User user){
         if(user==null){
             // authorized user does not exist! redirect to login view
             throw new CustomException(ErrorCode.USER_NOT_AUTHORIZED);

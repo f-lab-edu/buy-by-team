@@ -15,8 +15,9 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+
     public void register(Product product) {
-        productRepository.findBySerialNum(product.getSerialNum()).ifPresent(
+        productRepository.findBySkuCode(product.getSkuCode()).ifPresent(
             p -> {
                 throw new CustomException(ErrorCode.PRODUCT_ALREADY_EXISTS);
             }

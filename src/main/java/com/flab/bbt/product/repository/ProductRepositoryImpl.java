@@ -1,7 +1,6 @@
 package com.flab.bbt.product.repository;
 
 import com.flab.bbt.product.domain.Product;
-import com.flab.bbt.user.domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -14,14 +13,14 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ProductRepositoryImpl implements ProductRepository {
 
     private static Map<Long, Product> productDb = new ConcurrentHashMap<>();
-    private static Map<String, Long> serialNoIndex = new HashMap<>();
+    private static Map<String, Long> skuCodeIndex = new HashMap<>();
     private static AtomicLong sequence = new AtomicLong(0);
 
     @Override
     public Product save(Product product) {
         product.setId(sequence.incrementAndGet());
         if (productDb.putIfAbsent(product.getId(), product) == null) {
-            serialNoIndex.put(product.getSerialNum(), product.getId());
+            skuCodeIndex.put(product.getSkuCode(), product.getId());
         }
         return product;
     }
@@ -32,8 +31,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Optional<Product> findBySerialNum(String serialNum) {
-        Long id = serialNoIndex.get(serialNum);
+    public Optional<Product> findBySkuCode(String skuCode) {
+        Long id = skuCodeIndex.get(skuCode);
         if (id != null) {
             return Optional.of(productDb.get(id));
         } else {
