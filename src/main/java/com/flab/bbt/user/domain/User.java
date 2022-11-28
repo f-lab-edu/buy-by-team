@@ -16,8 +16,6 @@ public class User {
     @Setter
     private long id;
     private String email;
-
-    @Setter
     private String encryptedPassword;
     private UserProfile userProfile;
 
