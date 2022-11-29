@@ -1,9 +1,8 @@
 package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.flab.bbt.user.domain.UserProfile;
 import java.util.Optional;
 
 
@@ -16,4 +15,6 @@ public interface UserRepository {
     Optional<User> findByEmail(String email);
 
     Optional<User> findByEmailAndPassword(String email, String password);
+
+    User update(User user);
 }

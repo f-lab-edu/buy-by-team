@@ -6,7 +6,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class SignInRequest {
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
@@ -18,16 +22,7 @@ public class SignInRequest {
     public User convertToEntity() {
         return User.builder()
             .email(this.getEmail())
-            .password(this.getPassword())
+            .encryptedPassword(this.getPassword())
             .build();
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
 }
