@@ -4,10 +4,13 @@ import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.ProductRepository;
 import com.flab.bbt.product.request.ProductRequest;
+import com.flab.bbt.product.response.ProductResponse;
 import com.flab.bbt.product.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
@@ -21,8 +24,12 @@ public class ProductController {
 
     @GetMapping
     public CommonResponse getProductList() {
-        // get list of products
-        return CommonResponse.success();
+        List<Product> products = productService.findProducts();
+
+        return CommonResponse.success(products.stream()
+                .map(ProductResponse::convertToProductResponse)
+                .collect(Collectors.toList())
+        );
     }
 
     @GetMapping("/{id}")
