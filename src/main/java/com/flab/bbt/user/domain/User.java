@@ -1,5 +1,6 @@
 package com.flab.bbt.user.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,12 +20,10 @@ import lombok.ToString;
 
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @Builder
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -35,7 +35,7 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String encryptedPassword;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(optional = true, fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 

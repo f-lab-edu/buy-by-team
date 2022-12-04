@@ -17,7 +17,9 @@ public class SignUpRequest {
     private String email;
     @NotBlank(message = "패스워드는 필수 입력 값입니다.")
     private String password;
+
     private String name;
+    private String phoneNo;
 
     public User convertToEntity() {
         return User.builder()
@@ -28,7 +30,10 @@ public class SignUpRequest {
     }
 
     private UserProfile getUserProfile() {
-        String userName = (this.getName() == "" || this.getName() == null) ? this.getEmail().split("@")[0] : this.getName();
-        return UserProfile.builder().name(userName).build() ;
+        String userName = this.getName().isBlank() ? this.getEmail().split("@")[0] : this.getName();
+        String phoneNo =  this.getPhoneNo();
+        return UserProfile.builder()
+            .name(userName)
+            .phoneNo(phoneNo).build() ;
     }
 }

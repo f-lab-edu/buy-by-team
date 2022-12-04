@@ -4,6 +4,9 @@ import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -14,49 +17,37 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+    @PersistenceContext
+    private EntityManager em;
 
     private static Map<Long, User> userDb = new ConcurrentHashMap<>();
 
-    // 이메일조회 성능을 위한 인덱스 대용 해시맵
-    private static Map<String, Long> userEmailIndex = new HashMap<>();
-    private static AtomicLong sequence = new AtomicLong(0);
-
     @Override
     public User save(User user) {
-        user.setId(sequence.incrementAndGet());
-        userDb.put(user.getId(), user);
-        userEmailIndex.put(user.getEmail(), user.getId());
-
+        em.persist(user);
         return user;
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        return Optional.ofNullable(userDb.get(id));
+        return Optional.ofNullable(em.find(User.class, id));
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        System.out.println(email);
-        Long id = userEmailIndex.get(email);
-        if (id != null) {
-            return Optional.of(userDb.get(id));
-        } else {
-            return Optional.empty();
-        }
+        List<User> result = em.createQuery("select u from User u where u.email = :email", User.class)
+            .setParameter("email", email)
+            .getResultList();
+
+        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
 
     @Override
     public Optional<User> findByEmailAndPassword(String email, String password) {
-        Long id = userEmailIndex.get(email);
+        return findByEmail(email).filter(u ->
+            u.matchPassword(password)
+        );
 
-        if(id == null){
-            return Optional.empty();
-        } else if(userDb.get(id).matchPassword(password)) {
-            return Optional.of(userDb.get(id));
-        } else {
-            return Optional.empty();
-        }
     }
 
     @Override
