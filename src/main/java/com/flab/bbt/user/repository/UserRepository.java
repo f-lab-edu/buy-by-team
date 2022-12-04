@@ -4,9 +4,10 @@ import com.flab.bbt.user.domain.User;
 
 import com.flab.bbt.user.domain.UserProfile;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface UserRepository {
+public interface UserRepository{
 
     User save(User user);
 

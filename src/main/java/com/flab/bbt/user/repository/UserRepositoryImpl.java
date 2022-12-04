@@ -37,16 +37,22 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByEmail(String email) {
+        System.out.println(email);
         Long id = userEmailIndex.get(email);
-
-        return Optional.ofNullable(userDb.get(id));
+        if (id != null) {
+            return Optional.of(userDb.get(id));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
     public Optional<User> findByEmailAndPassword(String email, String password) {
         Long id = userEmailIndex.get(email);
 
-        if (userDb.get(id).matchPassword(password)) {
+        if(id == null){
+            return Optional.empty();
+        } else if(userDb.get(id).matchPassword(password)) {
             return Optional.of(userDb.get(id));
         } else {
             return Optional.empty();

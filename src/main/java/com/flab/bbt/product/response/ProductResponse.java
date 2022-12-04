@@ -4,6 +4,7 @@ import com.flab.bbt.product.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
 @Builder
@@ -28,5 +29,4 @@ public class ProductResponse {
             .discountRate(product.getDiscountRate())
             .build();
     }
-}
 }

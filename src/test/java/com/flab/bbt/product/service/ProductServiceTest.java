@@ -26,9 +26,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
-//    private ProductRepository productRepository = new ProductRepositoryImpl();
-//    private ProductService productService = new ProductService(productRepository);
-
     @InjectMocks
     private ProductService productService;
     @Mock
@@ -41,7 +38,7 @@ class ProductServiceTest {
     public void setUp() {
         product = Product.builder()
                          .name("test")
-                         .serialNum("SN00001")
+                         .skuCode("SN00001")
                          .imgUrl("url")
                          .priceSale(10000)
                          .priceDiscount(9000)
@@ -53,7 +50,7 @@ class ProductServiceTest {
     @DisplayName("제품 등록시 성공적으로 저장소에 저장된다.")
     void registerSuccessTest(){
         // given
-        when(productRepository.findBySerialNum(anyString())).thenReturn(Optional.empty());
+        when(productRepository.findBySkuCode(anyString())).thenReturn(Optional.empty());
         when(productRepository.save(any(Product.class))).thenReturn(product);
 
         // when
@@ -68,7 +65,7 @@ class ProductServiceTest {
     @DisplayName("같은 SerialNum의 제품이 등록될 경우 제품 등록에 실패한다.")
     void registerProductWithDplicatedSerialNumTest(){
         // given
-        when(productRepository.findBySerialNum(anyString())).thenReturn(Optional.ofNullable(product));
+        when(productRepository.findBySkuCode(anyString())).thenReturn(Optional.ofNullable(product));
 
         // when
         CustomException e = assertThrows(CustomException.class,
@@ -89,7 +86,7 @@ class ProductServiceTest {
         Product result = productService.findProductById(test_id);
 
         // then
-        assertThat(result.getSerialNum()).isEqualTo("SN00001");
+        assertThat(result.getSkuCode()).isEqualTo("SN00001");
         verify(productRepository).findById(test_id);
     }
 
@@ -124,7 +121,7 @@ class ProductServiceTest {
     private Product createAnotherProduct() {
         return Product.builder()
                 .name("test2")
-                .serialNum("SN00002")
+                .skuCode("SN00002")
                 .imgUrl("url")
                 .priceSale(20000)
                 .priceDiscount(18000)

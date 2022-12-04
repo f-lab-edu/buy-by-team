@@ -38,9 +38,7 @@ class AuthServiceTest {
     public void setUp() {
         user = User.builder()
             .email("test@test.com")
-            .password("encryptedPassword")
-            .name("test")
-            .phoneNo("01012341234")
+            .encryptedPassword("encryptedPassword")
             .build();
     }
 

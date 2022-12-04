@@ -28,9 +28,7 @@ public class SignUpRequest {
     }
 
     private UserProfile getUserProfile() {
-        return new UserProfile(
-            (this.getName() == "" || this.getName() == null) ? this.getEmail().split("@")[0]
-                : this.getName()
-        );
+        String userName = (this.getName() == "" || this.getName() == null) ? this.getEmail().split("@")[0] : this.getName();
+        return UserProfile.builder().name(userName).build() ;
     }
 }
