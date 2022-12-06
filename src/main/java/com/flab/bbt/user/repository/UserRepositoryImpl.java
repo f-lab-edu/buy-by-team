@@ -5,7 +5,9 @@ import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.repository.mybatis.UserMapper;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
@@ -48,7 +51,8 @@ public class UserRepositoryImpl implements UserRepository {
         } else {
             return Optional.empty();
         }
-//        return userMapper.findByEmail(email).isEmpty() ? Optional.empty() : Optional.of(userMapper.findByEmail(email).get(0));
+//        List<User> result = userMapper.findByEmail(email);
+//        return resultisEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
 
     @Override
@@ -60,6 +64,10 @@ public class UserRepositoryImpl implements UserRepository {
         } else {
             return Optional.empty();
         }
+
+//        List<User> result = userMapper.findByEmailAndPassword(email, password);
+//        log.info("result", result);
+//        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
 
     @Override

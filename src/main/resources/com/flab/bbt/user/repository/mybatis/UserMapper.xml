@@ -19,4 +19,10 @@
     from user
     where email = #{email}
   </select>
+
+  <select id="findByEmailAndPassword" resultType="com.flab.bbt.user.domain.User">
+    select *
+    from user
+    where email = #{email} and password = #{password}
+  </select>
 </mapper>
