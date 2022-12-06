@@ -27,16 +27,16 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void save(User user) {
-        userMapper.save(user);
-//        user.setId(sequence.incrementAndGet());
-//        userDb.put(user.getId(), user);
-//        userEmailIndex.put(user.getEmail(), user.getId());
+//        userMapper.save(user);
+        user.setId(sequence.incrementAndGet());
+        userDb.put(user.getId(), user);
+        userEmailIndex.put(user.getEmail(), user.getId());
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        return userMapper.findById(id);
-//        return Optional.ofNullable(userDb.get(id));
+//        return userMapper.findById(id);
+        return Optional.ofNullable(userDb.get(id));
     }
 
     @Override
@@ -48,6 +48,7 @@ public class UserRepositoryImpl implements UserRepository {
         } else {
             return Optional.empty();
         }
+//        return userMapper.findByEmail(email).isEmpty() ? Optional.empty() : Optional.of(userMapper.findByEmail(email).get(0));
     }
 
     @Override

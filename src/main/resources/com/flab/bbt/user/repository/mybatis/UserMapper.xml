@@ -9,8 +9,14 @@
   </insert>
 
   <select id="findById" resultType="com.flab.bbt.user.domain.User">
-    select id, email, password
+    select *
     from user
     where id = #{id}
+  </select>
+
+  <select id="findByEmail" resultType="com.flab.bbt.user.domain.User">
+    select *
+    from user
+    where email = #{email}
   </select>
 </mapper>
