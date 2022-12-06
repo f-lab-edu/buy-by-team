@@ -16,4 +16,6 @@ public interface UserMapper {
 
     List<User> findByEmailAndPassword(@Param("email") String email,@Param("password") String password);
 
+    void update(@Param("id") Long id, @Param("param")User user);
+
 }

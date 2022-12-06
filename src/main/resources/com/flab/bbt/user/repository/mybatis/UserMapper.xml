@@ -25,4 +25,11 @@
     from user
     where email = #{email} and password = #{password}
   </select>
+
+  <update id="update">
+  update user
+  set email=#{param.email},
+  password=#{param.password},
+  where id = #{id}
+  </update>
 </mapper>

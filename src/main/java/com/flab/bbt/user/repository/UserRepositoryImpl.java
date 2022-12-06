@@ -72,8 +72,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User update(User user) {
-        userDb.replace(user.getId(), user);
+//        userDb.replace(user.getId(), user);
 
+        userMapper.update(user.getId(), user);
         return user;
     }
 }
