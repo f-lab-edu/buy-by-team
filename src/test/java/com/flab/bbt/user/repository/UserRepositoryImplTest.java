@@ -1,13 +1,11 @@
 package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserRepositoryImplTest {
 
@@ -17,7 +15,7 @@ class UserRepositoryImplTest {
     void findById() {
         User user1 = User.builder()
             .email("test@test.com")
-            .encryptedPassword("1234")
+            .password("1234")
             .build();
 
         repo.save(user1);
@@ -30,7 +28,7 @@ class UserRepositoryImplTest {
     void findByEmail() {
         User user1 = User.builder()
             .email("test@test.com")
-            .encryptedPassword("1234")
+            .password("1234")
             .build();
 
         repo.save(user1);

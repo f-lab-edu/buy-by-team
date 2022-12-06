@@ -16,11 +16,11 @@ public class User {
     @Setter
     private long id;
     private String email;
-    private String encryptedPassword;
+    private String password;
     private UserProfile userProfile;
 
     public boolean matchPassword(String inputPassword) {
-        return getEncryptedPassword().equals(inputPassword);
+        return getPassword().equals(inputPassword);
     }
 
     public void update(UserProfile userProfile) {

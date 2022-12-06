@@ -4,8 +4,6 @@ import com.flab.bbt.user.domain.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +20,7 @@ public class SignInRequest {
     public User convertToEntity() {
         return User.builder()
             .email(this.getEmail())
-            .encryptedPassword(this.getPassword())
+            .password(this.getPassword())
             .build();
     }
 }

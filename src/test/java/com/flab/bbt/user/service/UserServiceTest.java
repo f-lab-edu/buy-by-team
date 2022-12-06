@@ -2,14 +2,12 @@ package com.flab.bbt.user.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.repository.UserRepository;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +32,7 @@ class UserServiceTest {
     void setup() {
         user = User.builder()
             .email("test@test.com")
-            .encryptedPassword("encryptedPassword")
+            .password("encryptedPassword")
             .build();
 
         userProfile = UserProfile.builder()

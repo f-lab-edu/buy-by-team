@@ -76,20 +76,20 @@ class AuthServiceTest {
     @DisplayName("로그인에 성공한다.")
     void authenticateSuccessTest() {
         // given
-        when(userRepository.findByEmailAndPassword(user.getEmail(), user.getEncryptedPassword())).thenReturn(Optional.ofNullable(user));
+        when(userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword())).thenReturn(Optional.ofNullable(user));
 
         // when
         authService.authenticate(user);
 
         // then
-        verify(userRepository).findByEmailAndPassword(user.getEmail(), user.getEncryptedPassword());
+        verify(userRepository).findByEmailAndPassword(user.getEmail(), user.getPassword());
     }
 
     @Test
     @DisplayName("로그인 실패시 예외가 발생한다.")
     void authenticateFailTest() {
         // given
-        when(userRepository.findByEmailAndPassword(user.getEmail(), user.getEncryptedPassword())).thenReturn(Optional.empty());
+        when(userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword())).thenReturn(Optional.empty());
 
         // when
         CustomException e = assertThrows(CustomException.class,
