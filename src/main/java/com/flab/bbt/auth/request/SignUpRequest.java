@@ -22,7 +22,7 @@ public class SignUpRequest {
     public User convertToEntity() {
         return User.builder()
             .email(this.getEmail())
-            .encryptedPassword(this.getPassword())
+            .password(this.getPassword())
             .userProfile(getUserProfile())
             .build();
     }

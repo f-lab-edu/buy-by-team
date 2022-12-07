@@ -1,18 +1,16 @@
 package com.flab.bbt.user.repository;
 
-import com.flab.bbt.exception.CustomException;
-import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
-import com.flab.bbt.user.domain.UserProfile;
-import org.springframework.stereotype.Repository;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@Repository
+@Slf4j
+@RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
     private static Map<Long, User> userDb = new ConcurrentHashMap<>();
@@ -22,12 +20,10 @@ public class UserRepositoryImpl implements UserRepository {
     private static AtomicLong sequence = new AtomicLong(0);
 
     @Override
-    public User save(User user) {
+    public void save(User user) {
         user.setId(sequence.incrementAndGet());
         userDb.put(user.getId(), user);
         userEmailIndex.put(user.getEmail(), user.getId());
-
-        return user;
     }
 
     @Override
@@ -39,7 +35,11 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<User> findByEmail(String email) {
         Long id = userEmailIndex.get(email);
 
-        return Optional.ofNullable(userDb.get(id));
+        if (id != null) {
+            return Optional.of(userDb.get(id));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -56,7 +56,6 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User update(User user) {
         userDb.replace(user.getId(), user);
-
         return user;
     }
 }

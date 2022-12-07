@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.bbt.user.repository.mybatis.UserMapper">
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="id">
+    insert into user (email, password)
+    values (#{email}, #{password})
+  </insert>
+
+  <select id="findById" resultType="com.flab.bbt.user.domain.User">
+    select *
+    from user
+    where id = #{id}
+  </select>
+
+  <select id="findByEmail" resultType="com.flab.bbt.user.domain.User">
+    select *
+    from user
+    where email = #{email}
+  </select>
+
+  <select id="findByEmailAndPassword" resultType="com.flab.bbt.user.domain.User">
+    select *
+    from user
+    where email = #{email} and password = #{password}
+  </select>
+
+  <update id="update">
+  update user
+  set email=#{param.email},
+  password=#{param.password},
+  where id = #{id}
+  </update>
+</mapper>
