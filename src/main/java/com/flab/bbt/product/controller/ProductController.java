@@ -6,6 +6,7 @@ import com.flab.bbt.product.repository.ProductRepository;
 import com.flab.bbt.product.request.ProductRequest;
 import com.flab.bbt.product.response.ProductResponse;
 import com.flab.bbt.product.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,14 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping
     public CommonResponse getProductList() {
