@@ -1,13 +1,14 @@
 package com.flab.bbt.user.service;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
-import com.flab.bbt.user.repository.UserRepository;
+import com.flab.bbt.user.repository.UserProfileRepository;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,27 +18,22 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserProfileServiceTest {
 
     @InjectMocks
-    private UserService userService;
+    private UserProfileService userProfileService;
 
     @Mock
-    private UserRepository userRepository;
+    private UserProfileRepository userProfileRepository;
 
-    User user;
     UserProfile userProfile;
+    UserProfile updatableUserProfile;
 
     @BeforeEach
     void setup() {
-        user = User.builder()
-            .email("test@test.com")
-            .password("encryptedPassword")
-            .build();
-
         userProfile = UserProfile.builder()
-            .name("updatedName")
-            .phoneNo("01012341234")
+            .name("name")
+            .phoneNo("01011111111")
             .build();
     }
 
@@ -45,12 +41,14 @@ class UserServiceTest {
     @DisplayName("유저프로필 업데이트에 성공한다.")
     void updateSuccessTest() {
         // given
-        when(userRepository.update(any(User.class))).thenReturn(user);
+        when(userProfileRepository.findByUserId(anyLong())).thenReturn(
+            Optional.ofNullable(userProfile));
 
         // when
-        userService.update(user, userProfile);
+        Long userId = 1L;
+        userProfileService.update(userId, userProfile);
 
         // then
-        verify(userRepository).update(user);
+        verify(userProfileRepository).update(userProfile);
     }
 }

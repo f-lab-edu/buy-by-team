@@ -5,6 +5,7 @@ import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.request.UpdateUserRequest;
+import com.flab.bbt.user.service.UserProfileService;
 import com.flab.bbt.user.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final UserProfileService userProfileService;
 
     @PatchMapping("/user-profiles")
     @ResponseStatus(HttpStatus.OK)
@@ -28,9 +30,8 @@ public class UserController {
         HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
-
         UserProfile userProfile = updateUserRequest.convertToUserProfile();
-        userService.update(user, userProfile);
+        userProfileService.update(user.getId(), userProfile);
 
         return CommonResponse.success();
     }

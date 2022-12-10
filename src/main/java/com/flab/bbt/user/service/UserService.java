@@ -20,9 +20,4 @@ public class UserService {
                 return new CustomException(ErrorCode.USER_NOT_FOUND);
             });
     }
-
-    public void update(User user, UserProfile userProfile) {
-        user.update(userProfile);
-        userRepository.update(user);
-    }
 }

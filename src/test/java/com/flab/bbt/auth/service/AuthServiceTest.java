@@ -10,6 +10,8 @@ import static org.mockito.Mockito.when;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
+import com.flab.bbt.user.domain.UserProfile;
+import com.flab.bbt.user.repository.UserProfileRepository;
 import com.flab.bbt.user.repository.UserRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,17 +32,22 @@ class AuthServiceTest {
     private UserRepository userRepository;
 
     @Mock
+    private UserProfileRepository userProfileRepository;
+
+    @Mock
     private PasswordEncrypter passwordEncrypter;
 
     User user;
+    UserProfile userProfile;
 
     @BeforeEach
     public void setUp() {
+        userProfile = UserProfile.builder().build();
+
         user = User.builder()
             .email("test@test.com")
             .password("encryptedPassword")
-            .name("test")
-            .phoneNo("01012341234")
+            .userProfile(userProfile)
             .build();
     }
 
@@ -49,7 +56,6 @@ class AuthServiceTest {
     void signUpTest() {
         // given
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
-        when(userRepository.save(any(User.class))).thenReturn(user);
 
         //when
         authService.signUp(user);
