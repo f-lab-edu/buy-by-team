@@ -17,13 +17,17 @@ public class MyBatisUserRepositoryImpl implements UserRepository {
     private final UserMapper userMapper;
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         userMapper.save(user);
+
+        return user;
     }
 
     @Override
-    public void saveUserProfile(UserProfile userProfile) {
+    public UserProfile saveUserProfile(UserProfile userProfile) {
         userMapper.saveUserProfile(userProfile);
+
+        return userProfile;
     }
 
     @Override
@@ -50,12 +54,16 @@ public class MyBatisUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public int update(User user) {
-        return userMapper.update(user.getId(), user);
+    public User update(User user) {
+        userMapper.update(user.getId(), user);
+
+        return user;
     }
 
     @Override
-    public int updateUserProfile(UserProfile userProfile) {
-        return userMapper.updateUserProfile(userProfile);
+    public UserProfile updateUserProfile(UserProfile userProfile) {
+        userMapper.updateUserProfile(userProfile);
+
+        return userProfile;
     }
 }

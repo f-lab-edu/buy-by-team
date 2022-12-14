@@ -21,15 +21,17 @@ public class UserRepositoryImpl implements UserRepository {
     private static AtomicLong sequence = new AtomicLong(0);
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         user.setId(sequence.incrementAndGet());
         userDb.put(user.getId(), user);
         userEmailIndex.put(user.getEmail(), user.getId());
+
+        return user;
     }
 
     @Override
-    public void saveUserProfile(UserProfile userProfile) {
-
+    public UserProfile saveUserProfile(UserProfile userProfile) {
+        return userProfile;
     }
 
     @Override
@@ -65,13 +67,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public int update(User user) {
+    public User update(User user) {
         userDb.replace(user.getId(), user);
-        return 1;
+        return user;
     }
 
     @Override
-    public int updateUserProfile(UserProfile userProfile) {
-        return 1;
+    public UserProfile updateUserProfile(UserProfile userProfile) {
+        return userProfile;
     }
 }

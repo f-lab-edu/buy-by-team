@@ -6,9 +6,9 @@ import java.util.Optional;
 
 public interface UserRepository {
 
-    void save(User user);
+    User save(User user);
 
-    void saveUserProfile(UserProfile userProfile);
+    UserProfile saveUserProfile(UserProfile userProfile);
 
     Optional<User> findById(Long id);
 
@@ -18,7 +18,7 @@ public interface UserRepository {
 
     Optional<UserProfile> findUserProfileByUserId(Long userId);
 
-    int update(User user);
+    User update(User user);
 
-    int updateUserProfile(UserProfile userProfile);
+    UserProfile updateUserProfile(UserProfile userProfile);
 }
