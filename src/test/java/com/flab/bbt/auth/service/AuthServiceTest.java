@@ -2,7 +2,6 @@ package com.flab.bbt.auth.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -11,7 +10,6 @@ import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
-import com.flab.bbt.user.repository.UserProfileRepository;
 import com.flab.bbt.user.repository.UserRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,9 +28,6 @@ class AuthServiceTest {
 
     @Mock
     private UserRepository userRepository;
-
-    @Mock
-    private UserProfileRepository userProfileRepository;
 
     @Mock
     private PasswordEncrypter passwordEncrypter;

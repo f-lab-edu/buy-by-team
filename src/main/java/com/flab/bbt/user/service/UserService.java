@@ -20,4 +20,18 @@ public class UserService {
                 return new CustomException(ErrorCode.USER_NOT_FOUND);
             });
     }
+
+    public UserProfile findUserProfileByUserId(Long userId) {
+        return userRepository.findUserProfileByUserId(userId)
+            .orElseThrow(() -> {
+                return new CustomException(ErrorCode.USE_RPROFILE_NOT_FOUNT);
+            });
+    }
+
+    public void updateUserProfile(Long userId, UserProfile updateUserProfile) {
+        UserProfile userProfile = findUserProfileByUserId(userId);
+        userProfile.update(updateUserProfile);
+
+        userRepository.updateUserProfile(userProfile);
+    }
 }

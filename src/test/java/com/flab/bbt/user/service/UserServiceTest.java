@@ -5,9 +5,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
-import com.flab.bbt.user.repository.UserProfileRepository;
+import com.flab.bbt.user.repository.UserRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,13 +17,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class UserProfileServiceTest {
+class UserServiceTest {
 
     @InjectMocks
-    private UserProfileService userProfileService;
+    private UserService userService;
 
     @Mock
-    private UserProfileRepository userProfileRepository;
+    private UserRepository userRepository;
 
     UserProfile userProfile;
     UserProfile updatableUserProfile;
@@ -41,14 +40,14 @@ class UserProfileServiceTest {
     @DisplayName("유저프로필 업데이트에 성공한다.")
     void updateSuccessTest() {
         // given
-        when(userProfileRepository.findByUserId(anyLong())).thenReturn(
+        when(userRepository.findUserProfileByUserId(anyLong())).thenReturn(
             Optional.ofNullable(userProfile));
 
         // when
         Long userId = 1L;
-        userProfileService.update(userId, userProfile);
+        userService.updateUserProfile(userId, userProfile);
 
         // then
-        verify(userProfileRepository).update(userProfile);
+        verify(userRepository).updateUserProfile(userProfile);
     }
 }

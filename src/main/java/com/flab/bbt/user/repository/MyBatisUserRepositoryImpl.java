@@ -1,6 +1,7 @@
 package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
+import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.repository.mybatis.UserMapper;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,11 @@ public class MyBatisUserRepositoryImpl implements UserRepository {
     @Override
     public void save(User user) {
         userMapper.save(user);
+    }
+
+    @Override
+    public void saveUserProfile(UserProfile userProfile) {
+        userMapper.saveUserProfile(userProfile);
     }
 
     @Override
@@ -39,8 +45,17 @@ public class MyBatisUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User update(User user) {
-        userMapper.update(user.getId(), user);
-        return user;
+    public Optional<UserProfile> findUserProfileByUserId(Long userId) {
+        return userMapper.findUserProfileByUserId(userId);
+    }
+
+    @Override
+    public int update(User user) {
+        return userMapper.update(user.getId(), user);
+    }
+
+    @Override
+    public int updateUserProfile(UserProfile userProfile) {
+        return userMapper.updateUserProfile(userProfile);
     }
 }

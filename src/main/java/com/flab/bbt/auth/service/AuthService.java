@@ -4,7 +4,6 @@ import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
-import com.flab.bbt.user.repository.UserProfileRepository;
 import com.flab.bbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final UserProfileRepository userProfileRepository;
-    private final PasswordEncrypter passwordEncrypter;
 
     @Transactional
     public void signUp(User user) {
@@ -28,7 +25,7 @@ public class AuthService {
 
         UserProfile userProfile = user.getUserProfile();
         userProfile.setUserId(user.getId());
-        userProfileRepository.save(userProfile);
+        userRepository.saveUserProfile(userProfile);
     }
 
     private boolean isDuplicatedEmail(String email) {
