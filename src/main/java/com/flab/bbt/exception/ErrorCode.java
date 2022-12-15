@@ -8,6 +8,7 @@ public enum ErrorCode {
     USER_NOT_AUTHORIZED(3003, "권한이 없는 유저입니다."),
 
     USE_RPROFILE_NOT_FOUNT(4000, "유저프로필을 찾지 못했습니다."),
+    USER_PROFILE_ALREADY_EXISTS(4001, "유저프로필이 이미 존재합니다."),
 
     // Product
     PRODUCT_NOT_FOUND(5000, "상품을 찾지 못했습니다."),

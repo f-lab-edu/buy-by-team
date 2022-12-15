@@ -14,6 +14,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public void createUserProfile(long userId, UserProfile userProfile) {
+        if (checkIfUserProfileExist(userId)) {
+            throw new CustomException(ErrorCode.USER_PROFILE_ALREADY_EXISTS);
+        }
+        userRepository.saveUserProfile(userProfile);
+    }
+
     public User findUserById(Long id) {
         return userRepository.findById(id)
             .orElseThrow(() -> {
@@ -33,5 +40,9 @@ public class UserService {
         userProfile.update(updateUserProfile);
 
         userRepository.updateUserProfile(userProfile);
+    }
+
+    private boolean checkIfUserProfileExist(Long userId) {
+        return userRepository.findUserProfileByUserId(userId).isPresent();
     }
 }

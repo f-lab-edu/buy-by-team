@@ -22,10 +22,6 @@ public class AuthService {
         }
 
         userRepository.save(user);
-
-        UserProfile userProfile = user.getUserProfile();
-        userProfile.setUserId(user.getId());
-        userRepository.saveUserProfile(userProfile);
     }
 
     private boolean isDuplicatedEmail(String email) {
