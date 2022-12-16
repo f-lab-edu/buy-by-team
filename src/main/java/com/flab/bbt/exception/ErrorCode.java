@@ -9,7 +9,10 @@ public enum ErrorCode {
 
     // Product
     PRODUCT_NOT_FOUND(5000, "상품을 찾지 못했습니다."),
-    PRODUCT_ALREADY_EXISTS(5001, "이미 존재하는 상품입니다.");
+    PRODUCT_ALREADY_EXISTS(5001, "이미 존재하는 상품입니다."),
+
+    // Payment
+    PAYMENT_NOT_FOUND(6000, "존재하지 않은 결제 정보입니다.");
 
     long code;
     String message;

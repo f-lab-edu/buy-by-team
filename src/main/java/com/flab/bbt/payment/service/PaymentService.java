@@ -1,5 +1,7 @@
 package com.flab.bbt.payment.service;
 
+import com.flab.bbt.exception.CustomException;
+import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.payment.domain.Payment;
 import com.flab.bbt.payment.domain.PaymentStatus;
 import com.flab.bbt.payment.repository.PaymentRepository;
@@ -15,11 +17,14 @@ public class PaymentService {
         // validation for payment
 
         // create payment
-
-        // handle failure --> 여기서 안 할수도
+        paymentRepository.save(payment);
     }
 
-    public void completePayment(Payment payment){
+    public void completePayment(Long paymentId){
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> {
+                return new CustomException(ErrorCode.PAYMENT_NOT_FOUND);
+        });
+
         // complete payment
         paymentRepository.update(PaymentStatus.SUCCESS, payment);
     }
