@@ -14,9 +14,9 @@
     where id = #{id}
   </select>
 
-  <select id="findAll" resultType="com.flab.bbt.product.domain.Product">
+  <select id="findListWithPagination" resultType="com.flab.bbt.product.domain.Product">
     select id, name, sku_code, img_url, price_sale, price_discount, discount_rate
-    from product
+    from product limit #{page}, #{size}
   </select>
 
   <select id="findBySkuCode" resultType="com.flab.bbt.product.domain.Product">

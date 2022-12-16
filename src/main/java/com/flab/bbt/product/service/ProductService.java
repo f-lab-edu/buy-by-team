@@ -1,5 +1,6 @@
 package com.flab.bbt.product.service;
 
+import com.flab.bbt.common.Pageable;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.product.domain.Product;
@@ -34,7 +35,7 @@ public class ProductService {
             });
     }
 
-    public List<Product> findProducts() {
-        return productRepository.findAll();
+    public List<Product> findProducts(Pageable pageable) {
+        return productRepository.findListWithPagination(pageable);
     }
 }

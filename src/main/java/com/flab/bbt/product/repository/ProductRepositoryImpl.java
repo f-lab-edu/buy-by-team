@@ -1,5 +1,6 @@
 package com.flab.bbt.product.repository;
 
+import com.flab.bbt.common.Pageable;
 import com.flab.bbt.product.domain.Product;
 import org.springframework.stereotype.Repository;
 
@@ -38,7 +39,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Product> findListWithPagination(Pageable pageable) {
         return new ArrayList<>(productDb.values());
     }
 }

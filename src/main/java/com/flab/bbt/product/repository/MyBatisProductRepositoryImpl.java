@@ -1,5 +1,6 @@
 package com.flab.bbt.product.repository;
 
+import com.flab.bbt.common.Pageable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.mybatis.ProductMapper;
 import java.util.List;
@@ -25,8 +26,8 @@ public class MyBatisProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> findAll() {
-        return productMapper.findAll();
+    public List<Product> findListWithPagination(Pageable pageable) {
+        return productMapper.findListWithPagination(pageable);
     }
 
     @Override
