@@ -1,6 +1,7 @@
 package com.flab.bbt.payment.repository;
 
 import com.flab.bbt.payment.domain.Payment;
+import com.flab.bbt.payment.domain.PaymentStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -22,5 +23,13 @@ public class PaymentRepositoryImpl implements PaymentRepository{
     @Override
     public Optional<Payment> findById(Long id) {
         return Optional.ofNullable(paymentDb.get(id));
+    }
+
+    @Override
+    public Payment update(PaymentStatus status, Payment payment) {
+
+        payment.updateStatus(status);
+        paymentDb.replace(payment.getId(), payment);
+        return payment;
     }
 }

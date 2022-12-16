@@ -1,6 +1,7 @@
 package com.flab.bbt.payment.repository.mybatis;
 
 import com.flab.bbt.payment.domain.Payment;
+import com.flab.bbt.payment.domain.PaymentStatus;
 import com.flab.bbt.payment.repository.PaymentMapper;
 import com.flab.bbt.payment.repository.PaymentRepository;
 import com.flab.bbt.product.repository.mybatis.ProductMapper;
@@ -24,5 +25,10 @@ public class MyBatisPaymentRepositoryImpl implements PaymentRepository {
     @Override
     public Optional<Payment> findById(Long id) {
         return paymentMapper.findById(id);
+    }
+
+    @Override
+    public Payment update(PaymentStatus status, Payment payment) {
+        return paymentMapper.update(status.getStatusCode(), payment);
     }
 }

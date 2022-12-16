@@ -1,5 +1,6 @@
 package com.flab.bbt.payment.domain;
 
+import com.flab.bbt.user.domain.UserProfile;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,4 +21,8 @@ public class Payment {
     private long order_id;
     private int method;
     private int status;
+
+    public void updateStatus(PaymentStatus status) {
+        this.status = status.statusCode;
+    }
 }

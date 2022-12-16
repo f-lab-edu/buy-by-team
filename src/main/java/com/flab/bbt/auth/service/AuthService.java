@@ -4,18 +4,15 @@ import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncrypter passwordEncrypter;
-
-    public AuthService(UserRepository userRepository, PasswordEncrypter passwordEncrypter) {
-        this.userRepository = userRepository;
-        this.passwordEncrypter = passwordEncrypter;
-    }
 
     public void signUp(User user) {
         if (isDuplicatedEmail(user.getEmail())) {
