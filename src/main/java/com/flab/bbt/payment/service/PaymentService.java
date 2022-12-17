@@ -14,7 +14,7 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
 
     public void createPayment(Payment payment){
-        // validation for payment
+        // validation for payment --> 로직 추가 예정?
 
         // create payment
         paymentRepository.save(payment);

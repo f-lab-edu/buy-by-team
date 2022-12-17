@@ -2,11 +2,14 @@ package com.flab.bbt.payment.controller;
 
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.payment.domain.Payment;
+import com.flab.bbt.payment.request.PaymentRequest;
 import com.flab.bbt.payment.service.PaymentService;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +26,12 @@ public class PaymentController {
         return CommonResponse.success();
     }
 
-//    @PostMapping("/{itemId}/edit")
-//    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
-//        itemRepository.update(itemId, item);
-//        return "redirect:/form/items/{itemId}";
-//    }
+    @PostMapping("create")
+    public CommonResponse createPayment(@Valid @RequestBody PaymentRequest paymentRequest){
+        Payment payment = paymentRequest.convertToEntity();
+        paymentService.createPayment(payment);
+        return CommonResponse.success();
+    }
+
 
 }
