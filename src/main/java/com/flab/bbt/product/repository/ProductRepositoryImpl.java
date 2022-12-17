@@ -1,12 +1,11 @@
 package com.flab.bbt.product.repository;
 
-import com.flab.bbt.common.Pageable;
 import com.flab.bbt.product.domain.Product;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.data.domain.Pageable;
 
 public class ProductRepositoryImpl implements ProductRepository {
 

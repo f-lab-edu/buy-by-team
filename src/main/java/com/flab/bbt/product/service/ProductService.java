@@ -1,11 +1,11 @@
 package com.flab.bbt.product.service;
 
-import com.flab.bbt.common.Pageable;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

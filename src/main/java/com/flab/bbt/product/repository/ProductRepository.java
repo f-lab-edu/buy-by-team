@@ -1,9 +1,9 @@
 package com.flab.bbt.product.repository;
 
-import com.flab.bbt.common.Pageable;
 import com.flab.bbt.product.domain.Product;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductRepository{
     Product save(Product product);

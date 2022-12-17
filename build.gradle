@@ -26,6 +26,9 @@ dependencies {
 	implementation 'mysql:mysql-connector-java'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 
+	// https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons
+	implementation 'org.springframework.data:spring-data-commons:2.7.6'
+
 	// test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testCompileOnly 'org.projectlombok:lombok'

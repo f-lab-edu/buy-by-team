@@ -2,13 +2,14 @@ package com.flab.bbt.product.controller;
 
 import com.flab.bbt.common.CommonResponse;
 
-import com.flab.bbt.common.Pageable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.request.ProductRequest;
 import com.flab.bbt.product.response.ProductResponse;
 import com.flab.bbt.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.data.domain.Pageable;
 
 import javax.validation.Valid;
 import java.util.List;
