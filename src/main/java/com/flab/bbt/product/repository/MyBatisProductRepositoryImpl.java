@@ -1,11 +1,11 @@
 package com.flab.bbt.product.repository;
 
-import com.flab.bbt.common.Pageable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.mybatis.ProductMapper;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
