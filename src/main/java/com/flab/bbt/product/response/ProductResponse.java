@@ -21,6 +21,7 @@ public class ProductResponse {
 
     public static ProductResponse convertToProductResponse(Product product) {
         return ProductResponse.builder()
+            .id(product.getId())
             .name(product.getName())
             .imgUrl(product.getImgUrl())
             .priceSale(product.getPriceSale())

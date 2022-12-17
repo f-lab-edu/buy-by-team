@@ -5,6 +5,7 @@ import com.flab.bbt.product.repository.mybatis.ProductMapper;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -25,8 +26,8 @@ public class MyBatisProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> findAll() {
-        return productMapper.findAll();
+    public List<Product> findListWithPagination(Pageable pageable) {
+        return productMapper.findListWithPagination(pageable);
     }
 
     @Override

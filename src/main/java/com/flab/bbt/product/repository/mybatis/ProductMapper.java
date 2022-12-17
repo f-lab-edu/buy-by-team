@@ -4,11 +4,12 @@ import com.flab.bbt.product.domain.Product;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.domain.Pageable;
 
 @Mapper
 public interface ProductMapper {
     int save(Product product);
     Optional<Product> findById(Long id);
-    List<Product> findAll();
+    List<Product> findListWithPagination(Pageable pageable);
     Optional<Product> findBySkuCode(String skuCode);
 }
