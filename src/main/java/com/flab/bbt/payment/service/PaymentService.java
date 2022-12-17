@@ -26,7 +26,7 @@ public class PaymentService {
         });
 
         // complete payment
-        paymentRepository.update(PaymentStatus.SUCCESS, payment);
+        paymentRepository.updateStatus(PaymentStatus.SUCCESS, payment);
     }
 
 
