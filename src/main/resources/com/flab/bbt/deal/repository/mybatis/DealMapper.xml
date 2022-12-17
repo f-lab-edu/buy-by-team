@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.bbt.deal.repository.mybatis.DealMapper">
+
+  <insert id="saveDeal" useGeneratedKeys="true" keyProperty="id">
+    insert into deal (owner_id, product_id, target_num, participant_num, deal_status, is_private, target_period)
+    values (#{owner.id}, #{product.id}, #{targetNum}, #{participantNum}, #{dealStatus}, #{isPrivate}, #{targetPeriod})
+  </insert>
+</mapper>
