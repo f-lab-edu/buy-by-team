@@ -22,7 +22,8 @@ public class Payment {
     private int method;
     private int status;
 
-    public void updateStatus(PaymentStatus status) {
+    public Payment updateStatus(PaymentStatus status) {
         this.status = status.statusCode;
+        return this;
     }
 }

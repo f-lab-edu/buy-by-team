@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface PaymentRepository {
     Payment save(Payment payment);
     Optional<Payment> findById(Long id);
-    Payment updateStatus(PaymentStatus status, Payment payment);
+    Payment updatePaymentStatusById(PaymentStatus status, Long id);
 }

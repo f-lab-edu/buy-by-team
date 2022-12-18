@@ -21,12 +21,13 @@ public class PaymentService {
     }
 
     public void completePayment(Long paymentId){
+        // check if payment id is valid
         Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> {
                 return new CustomException(ErrorCode.PAYMENT_NOT_FOUND);
         });
 
         // complete payment
-        paymentRepository.updateStatus(PaymentStatus.SUCCESS, payment);
+        paymentRepository.updatePaymentStatusById(PaymentStatus.SUCCESS, payment.getId());
     }
 
 

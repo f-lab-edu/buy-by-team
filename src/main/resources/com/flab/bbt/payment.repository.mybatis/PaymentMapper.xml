@@ -14,14 +14,9 @@
     where id = #{id}
   </select>
 
-  <select id="findAll" resultType="com.flab.bbt.payment.domain.Payment">
-    select id, name, sku_code, img_url, price_sale, price_discount, discount_rate
-    from product
-  </select>
-
-  <select id="updateStatus" resultType="com.flab.bbt.payment.domain.Payment">
-    select id, name, sku_code, img_url, price_sale, price_discount, discount_rate
-    from product
-    where sku_code = #{skuCode}
+  <select id="updateStatusById" resultType="com.flab.bbt.payment.domain.Payment">
+    select id, user_id, order_id, method, status
+    from payment
+    where id = #{id}
   </select>
 </mapper>

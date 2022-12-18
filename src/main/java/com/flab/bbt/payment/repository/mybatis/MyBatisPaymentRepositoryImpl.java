@@ -29,7 +29,7 @@ public class MyBatisPaymentRepositoryImpl implements PaymentRepository {
     }
 
     @Override
-    public Payment updateStatus(PaymentStatus status, Payment payment) {
-        return paymentMapper.updateStatus(status.getStatusCode(), payment.getId());
+    public Payment updatePaymentStatusById(PaymentStatus status, Long id) {
+        return paymentMapper.updateStatusById(status.getStatusCode(), id);
     }
 }
