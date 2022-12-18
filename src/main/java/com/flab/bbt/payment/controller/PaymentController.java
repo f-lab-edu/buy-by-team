@@ -33,5 +33,4 @@ public class PaymentController {
         return CommonResponse.success();
     }
 
-
 }

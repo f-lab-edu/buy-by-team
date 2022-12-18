@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.bbt.payment.repository.PaymentMapper">
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="id">
+    insert into payment (user_id, order_id, method, status)
+    values (#{user_id}, #{order_id}, #{method}, #{status})
+  </insert>
+
+  <select id="findById" resultType="com.flab.bbt.payment.domain.Payment">
+    select id, user_id, order_id, method, status
+    from payment
+    where id = #{id}
+  </select>
+
+  <select id="updateStatusById" resultType="com.flab.bbt.payment.domain.Payment">
+    select id, user_id, order_id, method, status
+    from payment
+    where id = #{id}
+  </select>
+</mapper>
