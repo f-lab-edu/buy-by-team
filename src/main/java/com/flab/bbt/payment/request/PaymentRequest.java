@@ -3,6 +3,7 @@ package com.flab.bbt.payment.request;
 import com.flab.bbt.payment.domain.Payment;
 import com.flab.bbt.payment.domain.PaymentStatus;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,13 +15,13 @@ import lombok.NoArgsConstructor;
 @Getter
 public class PaymentRequest {
 
-    @NotBlank(message = "User ID는 필수 입력 값입니다.")
+    @NotNull(message = "User ID는 필수 입력 값입니다.")
     private long user_id;
 
-    @NotBlank(message = "Order ID는 필수 입력 값입니다.")
+    @NotNull(message = "Order ID는 필수 입력 값입니다.")
     private long order_id;
 
-    @NotBlank(message = "결제수단은 필수 입력 값입니다.")
+    @NotNull(message = "결제수단은 필수 입력 값입니다.")
     private int method;
 
     public Payment convertToEntity(){

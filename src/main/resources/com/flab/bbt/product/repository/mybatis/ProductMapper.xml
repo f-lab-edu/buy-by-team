@@ -24,10 +24,4 @@
     from product
     where sku_code = #{skuCode}
   </select>
-
-  <update id="updateStatus">
-    update payment
-    set status=#{param.status}
-    where id = #{id}
-  </update>
 </mapper>

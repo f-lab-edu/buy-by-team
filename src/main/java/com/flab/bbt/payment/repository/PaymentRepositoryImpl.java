@@ -14,11 +14,9 @@ public class PaymentRepositoryImpl implements PaymentRepository{
     private static Map<Long, Payment> paymentDb = new ConcurrentHashMap<>();
     private static AtomicLong sequence = new AtomicLong(0);
     @Override
-    public Payment save(Payment payment) {
+    public void save(Payment payment) {
         payment.setId(sequence.incrementAndGet());
         paymentDb.put(payment.getId(), payment);
-
-        return payment;
     }
 
     @Override

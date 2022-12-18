@@ -28,7 +28,9 @@ public class PaymentController {
 
     @PostMapping("create")
     public CommonResponse createPayment(@Valid @RequestBody PaymentRequest paymentRequest){
+        // userId session validation
         Payment payment = paymentRequest.convertToEntity();
+
         paymentService.createPayment(payment);
         return CommonResponse.success();
     }
