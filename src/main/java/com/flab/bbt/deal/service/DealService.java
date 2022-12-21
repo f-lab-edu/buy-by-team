@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class DealService {
     private final DealRepository dealRepository;
 
-    public void createDeal(Deal deal) {
-        dealRepository.saveDeal(deal);
+    public Deal createDeal(Deal deal) {
+        return dealRepository.save(deal);
     }
 }

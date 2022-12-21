@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface DealMapper {
-    int saveDeal(Deal deal);
+    int save(Deal deal);
 }

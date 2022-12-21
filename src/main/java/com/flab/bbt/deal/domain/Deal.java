@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Deal {
     private Long id;
-    private User owner;
-    private Product product;
-    private int targetNum;
-    private int participantNum;
+    private Long productId;
+    private int targetNum; // PriceTable 스냅샷. 목표인원
+    private int discountPrice; // PriceTable 스냅샷. 할인가
+    private int targetPeriod; // PriceTable 스냅샷. 마감기한 계산을 위한 필드
     private DealStatus dealStatus;
+    private int participantCount;
     private boolean isPrivate;
-    private String targetPeriod;
     private LocalDateTime expiredAt;
 }

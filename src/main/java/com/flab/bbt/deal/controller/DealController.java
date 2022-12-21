@@ -26,17 +26,10 @@ public class DealController {
     private final ProductService productService;
 
     @PostMapping()
-    public CommonResponse createDeal(@Valid @RequestBody DealRequest dealRequest,
-        HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
-
+    public CommonResponse createDeal(@Valid @RequestBody DealRequest dealRequest) {
         Product product = productService.findProductById(dealRequest.getProductId());
+        Deal deal = dealService.createDeal(dealRequest.converToEntity(product));
 
-        Deal deal = dealRequest.converToEntity(user, product);
-
-        dealService.createDeal(deal);
-
-        return CommonResponse.success();
+        return CommonResponse.success(deal);
     }
 }

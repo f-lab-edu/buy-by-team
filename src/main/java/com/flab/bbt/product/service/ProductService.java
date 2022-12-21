@@ -2,6 +2,7 @@ package com.flab.bbt.product.service;
 
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
+import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,9 @@ public class ProductService {
 
     public List<Product> findProducts() {
         return productRepository.findAll();
+    }
+
+    public PriceTable createPriceTable(PriceTable priceTable) {
+        return productRepository.savePriceTable(priceTable);
     }
 }
