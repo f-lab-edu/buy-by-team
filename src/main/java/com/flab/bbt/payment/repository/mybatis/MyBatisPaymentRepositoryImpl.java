@@ -18,8 +18,9 @@ public class MyBatisPaymentRepositoryImpl implements PaymentRepository {
     private final PaymentMapper paymentMapper;
 
     @Override
-    public void save(Payment payment) {
+    public Payment save(Payment payment) {
         paymentMapper.save(payment);
+        return payment;
     }
 
     @Override

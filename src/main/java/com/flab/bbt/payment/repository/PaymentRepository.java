@@ -6,7 +6,7 @@ import com.flab.bbt.payment.domain.PaymentStatus;
 import java.util.Optional;
 
 public interface PaymentRepository {
-    void save(Payment payment);
+    Payment save(Payment payment);
     Optional<Payment> findById(Long id);
     Payment updatePaymentStatusById(PaymentStatus status, Long id);
 }
