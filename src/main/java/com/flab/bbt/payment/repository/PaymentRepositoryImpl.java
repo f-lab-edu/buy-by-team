@@ -17,7 +17,6 @@ public class PaymentRepositoryImpl implements PaymentRepository{
     public Payment save(Payment payment) {
         payment.setId(sequence.incrementAndGet());
         paymentDb.put(payment.getId(), payment);
-
         return payment;
     }
 
