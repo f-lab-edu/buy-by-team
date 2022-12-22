@@ -2,7 +2,6 @@ package com.flab.bbt.payment.repository.mybatis;
 
 import com.flab.bbt.payment.domain.Payment;
 import com.flab.bbt.payment.domain.PaymentStatus;
-import com.flab.bbt.payment.repository.PaymentMapper;
 import com.flab.bbt.payment.repository.PaymentRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,8 @@ public class MyBatisPaymentRepositoryImpl implements PaymentRepository {
 
     @Override
     public Payment save(Payment payment) {
-        return paymentMapper.save(payment);
+        paymentMapper.save(payment);
+        return payment;
     }
 
     @Override
