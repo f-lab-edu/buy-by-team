@@ -3,17 +3,18 @@ package com.flab.bbt.auth.service;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
+import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final PasswordEncrypter passwordEncrypter;
-
+    @Transactional
     public void signUp(User user) {
         if (isDuplicatedEmail(user.getEmail())) {
             throw new CustomException(ErrorCode.DUPLICATE_EMAIL);

@@ -1,6 +1,7 @@
 package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
+import com.flab.bbt.user.domain.UserProfile;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -20,10 +21,17 @@ public class UserRepositoryImpl implements UserRepository {
     private static AtomicLong sequence = new AtomicLong(0);
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         user.setId(sequence.incrementAndGet());
         userDb.put(user.getId(), user);
         userEmailIndex.put(user.getEmail(), user.getId());
+
+        return user;
+    }
+
+    @Override
+    public UserProfile saveUserProfile(UserProfile userProfile) {
+        return userProfile;
     }
 
     @Override
@@ -54,8 +62,18 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public Optional<UserProfile> findUserProfileByUserId(Long userId) {
+        return Optional.empty();
+    }
+
+    @Override
     public User update(User user) {
         userDb.replace(user.getId(), user);
         return user;
+    }
+
+    @Override
+    public UserProfile updateUserProfile(UserProfile userProfile) {
+        return userProfile;
     }
 }

@@ -8,6 +8,11 @@
     values (#{email}, #{password})
   </insert>
 
+  <insert id="saveUserProfile" useGeneratedKeys="true" keyProperty="id">
+    insert into user_profile (name, phone_no, user_id)
+    values (#{name}, #{phoneNo}, #{userId})
+  </insert>
+
   <select id="findById" resultType="com.flab.bbt.user.domain.User">
     select *
     from user
@@ -26,10 +31,23 @@
     where email = #{email} and password = #{password}
   </select>
 
+  <select id="findUserProfileByUserId" resultType="com.flab.bbt.user.domain.UserProfile">
+    select id, name, phone_no, user_id
+    from user_profile
+    where user_id = #{userId}
+  </select>
+
   <update id="update">
-  update user
-  set email=#{param.email},
-  password=#{param.password},
-  where id = #{id}
+    update user
+    set email=#{param.email},
+    password=#{param.password},
+    where id = #{id}
+  </update>
+
+  <update id="updateUserProfile">
+    update user_profile
+    set name=#{name},
+    phone_no=#{phoneNo}
+    where id = #{id}
   </update>
 </mapper>
