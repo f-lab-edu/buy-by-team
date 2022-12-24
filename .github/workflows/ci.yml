@@ -2,9 +2,9 @@ name: bbt CI
 
 on:
   push:
-    branches: [ "feature/testcontainer-and-ci-setup" ]
+    branches: [ "develop", "master" ]
   pull_request:
-    branches: [ "feature/testcontainer-and-ci-setup" ]
+    branches: [ "develop", "master" ]
 
 jobs:
   check-code-format:
