@@ -9,9 +9,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class PaymentRepositoryImpl implements PaymentRepository{
+public class PaymentRepositoryImpl implements PaymentRepository {
+
     private static Map<Long, Payment> paymentDb = new ConcurrentHashMap<>();
     private static AtomicLong sequence = new AtomicLong(0);
+
     @Override
     public Payment save(Payment payment) {
         payment.setId(sequence.incrementAndGet());

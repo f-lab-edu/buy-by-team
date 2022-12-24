@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PurchaseService {
+
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final PaymentRepository paymentRepository;
 
 
-    public PurchaseService(UserRepository userRepository, OrderRepository orderRepository, PaymentRepository paymentRepository) {
+    public PurchaseService(UserRepository userRepository, OrderRepository orderRepository,
+        PaymentRepository paymentRepository) {
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
         this.paymentRepository = paymentRepository;

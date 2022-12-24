@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 
-public interface ProductRepository{
+public interface ProductRepository {
+
     Product save(Product product);
+
     Optional<Product> findById(Long id);
+
     List<Product> findListWithPagination(Pageable pageable);
+
     Optional<Product> findBySkuCode(String skuCode);
 }
