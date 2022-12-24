@@ -4,8 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-gradle-wrapper*
-gradlew*
+
 ### STS ###
 .apt_generated
 .classpath

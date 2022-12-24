@@ -13,13 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class HomeController {
+
     @GetMapping("/")
     public CommonResponse authorizeUserBySession(
-            @SessionAttribute(name= SessionConst.COOKIE_SESSION_ID, required = false) User user){
-        if(user==null){
+        @SessionAttribute(name = SessionConst.COOKIE_SESSION_ID, required = false) User user) {
+        if (user == null) {
             // authorized user does not exist! redirect to login view
             throw new CustomException(ErrorCode.USER_NOT_AUTHORIZED);
-        }else{
+        } else {
             // authorized user exists!
             return CommonResponse.success();
         }
