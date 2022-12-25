@@ -13,21 +13,23 @@ import org.springframework.stereotype.Service;
 public class PaymentService {
     private final PaymentRepository paymentRepository;
 
-    public void createPayment(Payment payment){
+    public Payment createPayment(Payment payment){
         // validation for payment --> 로직 추가 예정?
 
         // create payment
         paymentRepository.save(payment);
+        return payment;
     }
 
     public void completePayment(Long paymentId){
-        // check if payment id is valid
-        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> {
-                return new CustomException(ErrorCode.PAYMENT_NOT_FOUND);
-        });
-
-        // complete payment
+        Payment payment = findPaymentById(paymentId);
         paymentRepository.updatePaymentStatusById(PaymentStatus.SUCCESS, payment.getId());
+    }
+
+    public Payment findPaymentById(Long paymentId){
+        return paymentRepository.findById(paymentId).orElseThrow(() -> {
+            return new CustomException(ErrorCode.PAYMENT_NOT_FOUND);
+        });
     }
 
 
