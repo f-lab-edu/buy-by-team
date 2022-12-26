@@ -2,11 +2,11 @@ package com.flab.bbt.product.repository;
 
 import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.data.domain.Pageable;
 
 public class ProductRepositoryImpl implements ProductRepository {
 
@@ -44,7 +44,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Product> findListWithPagination(Pageable pageable) {
         return new ArrayList<>(productDb.values());
     }
 }

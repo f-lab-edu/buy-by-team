@@ -3,7 +3,6 @@ package com.flab.bbt.product.controller;
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
-import com.flab.bbt.product.repository.ProductRepository;
 import com.flab.bbt.product.request.PriceTableRequest;
 import com.flab.bbt.product.request.ProductRequest;
 import com.flab.bbt.product.response.ProductResponse;
@@ -11,6 +10,7 @@ import com.flab.bbt.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Pageable;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,9 +22,15 @@ public class ProductController {
 
     private final ProductService productService;
 
+    /**
+     *
+     * @param pageable
+     * page, size가 request param으로 넘어오면 Pageable 객체로 변환한다.
+     * 이때 custom HandlerMethodArgumentResolver를 통해 param을 적절히 변환하여 반환한다.
+     */
     @GetMapping
-    public CommonResponse getProductList() {
-        List<Product> products = productService.findProducts();
+    public CommonResponse getProductList(Pageable pageable) {
+        List<Product> products = productService.findProducts(pageable);
 
         return CommonResponse.success(products.stream()
                 .map(ProductResponse::convertToProductResponse)

@@ -5,6 +5,7 @@ import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.ProductRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +36,8 @@ public class ProductService {
             });
     }
 
-    public List<Product> findProducts() {
-        return productRepository.findAll();
+    public List<Product> findProducts(Pageable pageable) {
+        return productRepository.findListWithPagination(pageable);
     }
 
     public PriceTable createPriceTable(PriceTable priceTable) {

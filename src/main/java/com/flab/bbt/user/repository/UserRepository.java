@@ -1,14 +1,14 @@
 package com.flab.bbt.user.repository;
 
 import com.flab.bbt.user.domain.User;
-
 import com.flab.bbt.user.domain.UserProfile;
 import java.util.Optional;
-import org.apache.ibatis.annotations.Mapper;
 
 public interface UserRepository {
 
-    void save(User user);
+    User save(User user);
+
+    UserProfile saveUserProfile(UserProfile userProfile);
 
     Optional<User> findById(Long id);
 
@@ -16,5 +16,9 @@ public interface UserRepository {
 
     Optional<User> findByEmailAndPassword(String email, String password);
 
+    Optional<UserProfile> findUserProfileByUserId(Long userId);
+
     User update(User user);
+
+    UserProfile updateUserProfile(UserProfile userProfile);
 }
