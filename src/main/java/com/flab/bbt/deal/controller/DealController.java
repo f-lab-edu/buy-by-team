@@ -28,7 +28,7 @@ public class DealController {
     @PostMapping()
     public CommonResponse createDeal(@Valid @RequestBody DealRequest dealRequest) {
         Product product = productService.findProductById(dealRequest.getProductId());
-        Deal deal = dealService.createDeal(dealRequest.converToEntity(product));
+        Deal deal = dealService.createDeal(dealRequest.converToEntity(product.getId()));
 
         return CommonResponse.success(deal);
     }

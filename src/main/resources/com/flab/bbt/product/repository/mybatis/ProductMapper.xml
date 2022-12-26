@@ -26,7 +26,7 @@
   </select>
 
   <insert id="savePriceTable" useGeneratedKeys="true" keyProperty="id">
-    insert into price_table (product_id, target_num, discount_price, target_period)
-    values (#{productId}, #{targetNum}, #{discountPrice}, #{targetPeriod})
+    insert into price_table (product_id, group_size, discount_price, target_period)
+    values (#{productId}, #{groupSize}, #{discountPrice}, #{targetPeriod})
   </insert>
 </mapper>

@@ -4,7 +4,7 @@
 <mapper namespace="com.flab.bbt.deal.repository.mybatis.DealMapper">
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id">
-    insert into deal (product_id, target_num, discount_price, target_period, deal_status, participant_count, is_private)
-    values (#{productId}, #{targetNum}, #{discountPrice}, #{targetPeriod}, #{dealStatus}, #{participantCount}, #{isPrivate})
+    insert into deal (product_id, group_size, discount_price, status, participant_count, is_private)
+    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount}, #{isPrivate})
   </insert>
 </mapper>

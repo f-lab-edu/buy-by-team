@@ -15,24 +15,20 @@ public class DealRequest {
     private Long productId;
 
     @NotNull(message = "목표인원은 필수 입력 값입니다.")
-    private int targetNum;
+    private int groupSize;
 
     @NotNull(message = "할인가격은 필수 입력 값입니다.")
     private int discountPrice;
 
-    @NotNull(message = "목표기간은 필수 입력 값입니다.")
-    private int targetPeriod;
-
     @NotNull(message = "딜 공개 여부는 필수 입력 값입니다.")
     private boolean isPrivate;
 
-    public Deal converToEntity(Product product){
+    public Deal converToEntity(Long productId){
         return Deal.builder()
-            .productId(product.getId())
-            .targetNum(this.getTargetNum())
+            .productId(productId)
+            .groupSize(this.getGroupSize())
             .discountPrice(this.getDiscountPrice())
-            .targetPeriod(this.getTargetPeriod())
-            .dealStatus(DealStatus.CREATED)
+            .status(DealStatus.CREATED)
             .participantCount(0)
             .isPrivate(this.isPrivate)
             .build();

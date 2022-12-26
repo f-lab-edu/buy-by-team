@@ -48,7 +48,7 @@ public class ProductController {
     @PostMapping("/{productId}/price-tables")
     public CommonResponse createPriceTable(@Valid @PathVariable long productId, @RequestBody PriceTableRequest request) {
         Product product = productService.findProductById(productId);
-        PriceTable priceTable = productService.createPriceTable(request.convertToEntity(product));
+        PriceTable priceTable = productService.createPriceTable(request.convertToEntity(product.getId()));
 
         return CommonResponse.success(priceTable);
     }

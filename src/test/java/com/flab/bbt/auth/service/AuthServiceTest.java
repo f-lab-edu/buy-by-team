@@ -39,8 +39,6 @@ class AuthServiceTest {
         user = User.builder()
             .email("test@test.com")
             .password("encryptedPassword")
-            .name("test")
-            .phoneNo("01012341234")
             .build();
     }
 
@@ -49,7 +47,6 @@ class AuthServiceTest {
     void signUpTest() {
         // given
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
-        when(userRepository.save(any(User.class))).thenReturn(user);
 
         //when
         authService.signUp(user);
