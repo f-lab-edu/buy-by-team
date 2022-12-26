@@ -24,4 +24,9 @@
     from product
     where sku_code = #{skuCode}
   </select>
+
+  <insert id="savePriceTable" useGeneratedKeys="true" keyProperty="id">
+    insert into price_table (product_id, group_size, discount_price, target_period)
+    values (#{productId}, #{groupSize}, #{discountPrice}, #{targetPeriod})
+  </insert>
 </mapper>

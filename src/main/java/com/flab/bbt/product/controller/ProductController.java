@@ -1,8 +1,9 @@
 package com.flab.bbt.product.controller;
 
 import com.flab.bbt.common.CommonResponse;
-
+import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
+import com.flab.bbt.product.request.PriceTableRequest;
 import com.flab.bbt.product.request.ProductRequest;
 import com.flab.bbt.product.response.ProductResponse;
 import com.flab.bbt.product.service.ProductService;
@@ -48,6 +49,14 @@ public class ProductController {
         Product product = request.convertToEntity(request);
         productService.register(product);
         return CommonResponse.success();
+    }
+
+    @PostMapping("/{productId}/price-tables")
+    public CommonResponse createPriceTable(@Valid @PathVariable long productId, @RequestBody PriceTableRequest request) {
+        Product product = productService.findProductById(productId);
+        PriceTable priceTable = productService.createPriceTable(request.convertToEntity(product.getId()));
+
+        return CommonResponse.success(priceTable);
     }
 
 }

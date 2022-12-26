@@ -1,5 +1,6 @@
 package com.flab.bbt.product.repository;
 
+import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
 
 import java.util.*;
@@ -35,6 +36,11 @@ public class ProductRepositoryImpl implements ProductRepository {
         } else {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public PriceTable savePriceTable(PriceTable priceTable) {
+        return null;
     }
 
     @Override

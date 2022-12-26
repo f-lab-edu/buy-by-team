@@ -42,7 +42,6 @@ class AuthServiceTest {
         user = User.builder()
             .email("test@test.com")
             .password("encryptedPassword")
-            .userProfile(userProfile)
             .build();
     }
 

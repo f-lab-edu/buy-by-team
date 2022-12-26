@@ -1,5 +1,6 @@
 package com.flab.bbt.product.repository;
 
+import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.mybatis.ProductMapper;
 import java.util.List;
@@ -33,5 +34,11 @@ public class MyBatisProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<Product> findBySkuCode(String skuCode) {
         return productMapper.findBySkuCode(skuCode);
+    }
+
+    @Override
+    public PriceTable savePriceTable(PriceTable priceTable) {
+        productMapper.savePriceTable(priceTable);
+        return priceTable;
     }
 }
