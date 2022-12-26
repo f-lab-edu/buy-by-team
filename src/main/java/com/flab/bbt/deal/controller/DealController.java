@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,12 @@ public class DealController {
         Product product = productService.findProductById(dealRequest.getProductId());
         Deal deal = dealService.createDeal(dealRequest.converToEntity(product.getId()));
 
+        return CommonResponse.success(deal);
+    }
+
+    @GetMapping("/{id}")
+    public CommonResponse getDeal(@PathVariable long id) {
+        Deal deal = dealService.findDealById(id);
         return CommonResponse.success(deal);
     }
 }

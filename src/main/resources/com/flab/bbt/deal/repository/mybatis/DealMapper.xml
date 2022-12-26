@@ -4,7 +4,14 @@
 <mapper namespace="com.flab.bbt.deal.repository.mybatis.DealMapper">
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id">
-    insert into deal (product_id, group_size, discount_price, status, participant_count, is_private)
-    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount}, #{isPrivate})
+    insert into deal (product_id, group_size, discount_price, status, participant_count, is_private, expired_at, closed_at)
+    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount}, #{isPrivate}, #{expiredAt}, #{closedAt})
   </insert>
+
+
+  <select id="findById" resultType="com.flab.bbt.deal.domain.Deal">
+    select *
+    from deal
+    where id = #{id}
+  </select>
 </mapper>
