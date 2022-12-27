@@ -1,7 +1,5 @@
 package com.flab.bbt.payment.domain;
 
-import com.flab.bbt.user.domain.UserProfile;
-import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
