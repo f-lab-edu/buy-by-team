@@ -26,18 +26,3 @@ create table if not exists mysqldb.product (
                          PRIMARY KEY(id),
                          index index_product_on_sku_code (sku_code)
 );
-
-create table if not exists mysqldb.deal (
-                                               id INT NOT NULL AUTO_INCREMENT,
-                                               product_id int,
-                                               group_size int,
-                                               discount_price int,
-                                               status varchar(255),
-                                               participant_count int,
-                                               is_private boolean,
-                                               expired_at datetime,
-                                               closed_at datetime,
-                                               PRIMARY KEY(id),
-                                               foreign key (product_id) references product(id)
-
-);
