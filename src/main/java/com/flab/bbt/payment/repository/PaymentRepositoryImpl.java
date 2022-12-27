@@ -17,7 +17,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     @Override
     public Payment save(Payment payment) {
-        // payment.setId(sequence.incrementAndGet());
+        payment.setId(sequence.incrementAndGet());
         paymentDb.put(payment.getId(), payment);
         return payment;
     }

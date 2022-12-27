@@ -15,6 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Payment {
 
+    @Setter
     private long id;
     private long userId;
     private long orderId;
