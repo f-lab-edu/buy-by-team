@@ -9,9 +9,14 @@ import org.springframework.data.domain.Pageable;
 
 @Mapper
 public interface ProductMapper {
+
     int save(Product product);
+
     Optional<Product> findById(Long id);
+
     List<Product> findListWithPagination(Pageable pageable);
+
     Optional<Product> findBySkuCode(String skuCode);
+
     int savePriceTable(PriceTable priceTable);
 }

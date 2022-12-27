@@ -14,5 +14,5 @@ public class Participant {
     private Long id;
     private Long dealId;
     private Long userId;
-    private boolean is_owner;
+    private boolean isOwner;
 }

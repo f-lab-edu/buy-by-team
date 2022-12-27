@@ -23,18 +23,16 @@ public class ProductController {
     private final ProductService productService;
 
     /**
-     *
-     * @param pageable
-     * page, size가 request param으로 넘어오면 Pageable 객체로 변환한다.
-     * 이때 custom HandlerMethodArgumentResolver를 통해 param을 적절히 변환하여 반환한다.
+     * @param pageable page, size가 request param으로 넘어오면 Pageable 객체로 변환한다. 이때 custom
+     *                 HandlerMethodArgumentResolver를 통해 param을 적절히 변환하여 반환한다.
      */
     @GetMapping
     public CommonResponse getProductList(Pageable pageable) {
         List<Product> products = productService.findProducts(pageable);
 
         return CommonResponse.success(products.stream()
-                .map(ProductResponse::convertToProductResponse)
-                .collect(Collectors.toList())
+            .map(ProductResponse::convertToProductResponse)
+            .collect(Collectors.toList())
         );
     }
 
@@ -52,9 +50,11 @@ public class ProductController {
     }
 
     @PostMapping("/{productId}/price-tables")
-    public CommonResponse createPriceTable(@Valid @PathVariable long productId, @RequestBody PriceTableRequest request) {
+    public CommonResponse createPriceTable(@Valid @PathVariable long productId,
+        @RequestBody PriceTableRequest request) {
         Product product = productService.findProductById(productId);
-        PriceTable priceTable = productService.createPriceTable(request.convertToEntity(product.getId()));
+        PriceTable priceTable = productService.createPriceTable(
+            request.convertToEntity(product.getId()));
 
         return CommonResponse.success(priceTable);
     }
