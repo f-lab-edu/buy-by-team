@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 public class MyBatisDealRepositoryImpl implements DealRepository {
 
     private final DealMapper dealMapper;
+
     @Override
     public Deal save(Deal deal) {
         dealMapper.save(deal);
