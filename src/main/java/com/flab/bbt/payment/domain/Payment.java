@@ -1,7 +1,5 @@
 package com.flab.bbt.payment.domain;
 
-import com.flab.bbt.user.domain.UserProfile;
-import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,10 +14,10 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Payment {
 
-
+    @Setter
     private long id;
-    private long user_id;
-    private long order_id;
+    private long userId;
+    private long orderId;
     private int method;
     private int status;
 

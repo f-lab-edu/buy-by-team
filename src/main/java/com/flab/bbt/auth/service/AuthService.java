@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
     private final UserRepository userRepository;
+
     @Transactional
     public void signUp(User user) {
         if (isDuplicatedEmail(user.getEmail())) {

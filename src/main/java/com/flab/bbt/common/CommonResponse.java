@@ -1,7 +1,6 @@
 package com.flab.bbt.common;
 
 import com.flab.bbt.exception.ErrorCode;
-import com.flab.bbt.user.domain.User;
 import lombok.Builder;
 
 import java.util.Collections;
@@ -72,10 +71,10 @@ public class CommonResponse<T> {
 
         @Override
         public String toString() {
-            return "FieldError{" +
-                "field='" + field + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+            return "FieldError{"
+                + "field='" + field + '\''
+                + ", message='" + message + '\''
+                + '}';
         }
 
     }

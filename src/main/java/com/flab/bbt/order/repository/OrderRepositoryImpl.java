@@ -9,7 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class OrderRepositoryImpl implements OrderRepository{
+public class OrderRepositoryImpl implements OrderRepository {
+
     private static Map<Long, Order> orderDb = new ConcurrentHashMap<>();
     private static AtomicLong sequence = new AtomicLong(0);
 

@@ -1,5 +1,7 @@
 package com.flab.bbt.user.repository;
 
+import com.flab.bbt.AbstractContainerBaseTest;
+import com.flab.bbt.ConfigureTestProfile;
 import com.flab.bbt.user.domain.User;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +9,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class UserRepositoryImplTest {
+@ConfigureTestProfile
+class UserRepositoryImplTest extends AbstractContainerBaseTest {
 
     UserRepositoryImpl repo = new UserRepositoryImpl();
 

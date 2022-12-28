@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.PageRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -112,10 +113,10 @@ class ProductServiceTest {
     @DisplayName("제품 전체 조회시 전체 제품이 성공적으로 조회된다.")
     void findProductsTest() {
         // given
-        when(productRepository.findAll()).thenReturn(getProductList());
+        when(productRepository.findListWithPagination(PageRequest.of(0, 10))).thenReturn(getProductList());
 
         // when
-        List<Product> products = productService.findProducts();
+        List<Product> products = productService.findProducts(PageRequest.of(0, 10));
 
         // then
         assertThat(products.size()).isEqualTo(2);
