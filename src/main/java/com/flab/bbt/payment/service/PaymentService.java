@@ -28,9 +28,7 @@ public class PaymentService {
     }
 
     public Payment findPaymentById(Long paymentId) {
-        return paymentRepository.findById(paymentId).orElseThrow(() -> {
-            return new CustomException(ErrorCode.PAYMENT_NOT_FOUND);
-        });
+        return paymentRepository.findById(paymentId).orElseThrow(() -> new CustomException(ErrorCode.PAYMENT_NOT_FOUND));
     }
 
 

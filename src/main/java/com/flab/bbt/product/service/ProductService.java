@@ -31,9 +31,7 @@ public class ProductService {
 
     public Product findProductById(long id) {
         return productRepository.findById(id)
-            .orElseThrow(() -> {
-                return new CustomException(ErrorCode.PRODUCT_NOT_FOUND);
-            });
+            .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
     }
 
     public List<Product> findProducts(Pageable pageable) {
