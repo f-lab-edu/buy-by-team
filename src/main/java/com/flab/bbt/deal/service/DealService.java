@@ -5,6 +5,8 @@ import com.flab.bbt.deal.repository.DealRepository;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.product.domain.Product;
+import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,23 @@ public class DealService {
 
     public Deal createDeal(Deal deal) {
         return dealRepository.save(deal);
+    }
+
+    public Deal incrementParticipantCount(Deal deal, int count) {
+        deal.setParticipantCount(deal.getParticipantCount() + count);
+        dealRepository.updateParticipantCountById(deal.getParticipantCount(), deal.getId());
+        return deal;
+    }
+
+    public Deal incrementParticipantCount(Deal deal) {
+        return incrementParticipantCount(deal, 1);
+    }
+
+    public Deal expireDeal(Deal deal, LocalDateTime expiredAt) {
+        return dealRepository.updateExpiredAtById(expiredAt, deal.getId());
+    }
+    public Deal expireDeal(Deal deal) {
+        return expireDeal(deal, LocalDateTime.now());
     }
 
     public Deal findDealById(long id) {

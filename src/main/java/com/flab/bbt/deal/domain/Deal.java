@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -19,6 +20,7 @@ public class Deal {
     private int groupSize; // PriceTable 스냅샷. 목표인원
     private int discountPrice; // PriceTable 스냅샷. 할인가
     private DealStatus status;
+    @Setter
     private int participantCount;
     private boolean isPrivate;
     private LocalDateTime expiredAt; // 마감되는 일시
