@@ -30,8 +30,6 @@ public class AuthService {
 
     public User authenticate(User user) {
         return userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword())
-            .orElseThrow(() -> {
-                return new CustomException(ErrorCode.USER_NOT_FOUND);
-            });
+            .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     }
 }

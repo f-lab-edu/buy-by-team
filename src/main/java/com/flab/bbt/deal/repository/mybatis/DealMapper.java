@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface DealMapper {
+
     int save(Deal deal);
+    
     Optional<Deal> findById(Long id);
+
 }

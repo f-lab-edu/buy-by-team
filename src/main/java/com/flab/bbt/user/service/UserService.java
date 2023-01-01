@@ -23,16 +23,12 @@ public class UserService {
 
     public User findUserById(Long id) {
         return userRepository.findById(id)
-            .orElseThrow(() -> {
-                return new CustomException(ErrorCode.USER_NOT_FOUND);
-            });
+            .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     }
 
     public UserProfile findUserProfileByUserId(Long userId) {
         return userRepository.findUserProfileByUserId(userId)
-            .orElseThrow(() -> {
-                return new CustomException(ErrorCode.USE_RPROFILE_NOT_FOUNT);
-            });
+            .orElseThrow(() -> new CustomException(ErrorCode.USE_RPROFILE_NOT_FOUNT));
     }
 
     public void updateUserProfile(Long userId, UserProfile updateUserProfile) {
