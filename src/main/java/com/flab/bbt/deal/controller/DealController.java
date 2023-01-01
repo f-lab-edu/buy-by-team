@@ -43,6 +43,12 @@ public class DealController {
         return CommonResponse.success(deal);
     }
 
+    @PatchMapping("/{dealId}")
+    public CommonResponse participateDeal(@PathVariable Long dealId) {
+        // in progress
+        dealService.incrementParticipantCount(dealId);
+        return CommonResponse.success();
+    }
 
 
 }

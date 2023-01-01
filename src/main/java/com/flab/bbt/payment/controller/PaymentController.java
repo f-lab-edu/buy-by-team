@@ -21,7 +21,7 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping("{paymentId}/complete")
-    public CommonResponse completePayment(@PathVariable Long paymentId) {
+    public CommonResponse completePayment(`@PathVariable Long paymentId`) {
 
         paymentService.completePayment(paymentId);
         return CommonResponse.success();

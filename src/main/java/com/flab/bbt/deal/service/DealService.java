@@ -7,6 +7,7 @@ import com.flab.bbt.exception.ErrorCode;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +19,9 @@ public class DealService {
         return dealRepository.save(deal);
     }
 
-    public int incrementParticipantCount(Deal deal, int count) {
+    @Transactional
+    public int incrementParticipantCount(Long dealId, int count) {
+        Deal deal = findDealById(dealId);
         deal.setParticipantCount(deal.getParticipantCount() + count);
         if (deal.getParticipantCount() <= deal.getGroupSize()) {
             dealRepository.updateParticipantCountById(deal.getParticipantCount(), deal.getId());
@@ -29,8 +32,8 @@ public class DealService {
 
     }
 
-    public int incrementParticipantCount(Deal deal) {
-        return incrementParticipantCount(deal, 1);
+    public int incrementParticipantCount(Long dealId) {
+        return incrementParticipantCount(dealId, 1);
     }
 
     public int expireDeal(Deal deal, LocalDateTime expiredAt) {
