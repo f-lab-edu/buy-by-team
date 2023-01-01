@@ -22,10 +22,11 @@ public class PaymentService {
         return payment;
     }
 
-    public Payment completePayment(Long paymentId){
+    public Payment completePayment(Long paymentId) {
 
         Payment payment = findPaymentById(paymentId);
-        Payment updatedPayment = paymentRepository.updatePaymentStatusById(PaymentStatus.SUCCESS, payment.getId());
+        Payment updatedPayment = paymentRepository.updatePaymentStatusById(PaymentStatus.SUCCESS,
+            payment.getId());
         return updatedPayment;
     }
 
