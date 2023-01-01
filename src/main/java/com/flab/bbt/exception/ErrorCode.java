@@ -15,7 +15,10 @@ public enum ErrorCode {
     PRODUCT_ALREADY_EXISTS(5001, "이미 존재하는 상품입니다."),
 
     // Payment
-    PAYMENT_NOT_FOUND(6000, "존재하지 않은 결제 정보입니다.");
+    PAYMENT_NOT_FOUND(6000, "존재하지 않은 결제 정보입니다."),
+
+    // Deal
+    DEAL_NOT_FOUND(7000, "딜이 존재하지 않습니다.");
 
     long code;
     String message;
