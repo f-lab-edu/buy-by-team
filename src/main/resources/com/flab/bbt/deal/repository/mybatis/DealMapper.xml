@@ -15,18 +15,15 @@
     where id = #{id}
   </select>
 
-  <select id="updateParticipantCountById" resultType="com.flab.bbt.deal.domain.Deal">
+  <update id="updateParticipantCountById" useGeneratedKeys="true" keyProperty="id">
     update deal
     set participant_count=#{count}
     where id = #{id}
-  </select>
+  </update>
 
-  <update id="updateExpiredAtById">
+  <update id="updateExpiredAtById" useGeneratedKeys="true" keyProperty="id">
     update deal
     set expired_at=#{time}
     where id = #{id}
-    <selectKey keyProperty="id" resultType="com.flab.bbt.deal.domain.Deal" order="AFTER" >
-      select * from deal where id=#{id}
-    </selectKey>
   </update>
 </mapper>

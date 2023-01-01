@@ -29,10 +29,10 @@ public class DealService {
         return incrementParticipantCount(deal, 1);
     }
 
-    public Deal expireDeal(Deal deal, LocalDateTime expiredAt) {
+    public int expireDeal(Deal deal, LocalDateTime expiredAt) {
         return dealRepository.updateExpiredAtById(expiredAt, deal.getId());
     }
-    public Deal expireDeal(Deal deal) {
+    public int expireDeal(Deal deal) {
         return expireDeal(deal, LocalDateTime.now());
     }
 

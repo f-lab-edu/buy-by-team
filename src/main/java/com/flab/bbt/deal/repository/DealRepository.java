@@ -13,5 +13,5 @@ public interface DealRepository {
     Optional<Deal> findById(Long id);
     int updateParticipantCountById(int updatedCount, Long id);
 
-    Deal updateExpiredAtById(LocalDateTime time, Long id);
+    int updateExpiredAtById(LocalDateTime time, Long id);
 }

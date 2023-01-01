@@ -13,7 +13,7 @@ public interface DealMapper {
 
     int updateParticipantCountById(@Param("count") Integer updatedCount, @Param("id") Long id);
 
-    Deal updateExpiredAtById(@Param("time") LocalDateTime expiredAt, @Param("id") Long id);
+    int updateExpiredAtById(@Param("time") LocalDateTime expiredAt, @Param("id") Long id);
 
     Optional<Deal> findById(Long id);
 
