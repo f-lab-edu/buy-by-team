@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class DealService {
+
     private final DealRepository dealRepository;
 
     public Deal createDeal(Deal deal) {
@@ -19,10 +20,12 @@ public class DealService {
 
     public int incrementParticipantCount(Deal deal, int count) {
         deal.setParticipantCount(deal.getParticipantCount() + count);
-        if(deal.getParticipantCount() <= deal.getGroupSize()){
+        if (deal.getParticipantCount() <= deal.getGroupSize()) {
             dealRepository.updateParticipantCountById(deal.getParticipantCount(), deal.getId());
             return deal.getId().intValue();
-        }else return -1;
+        } else {
+            return -1;
+        }
 
     }
 
@@ -33,6 +36,7 @@ public class DealService {
     public int expireDeal(Deal deal, LocalDateTime expiredAt) {
         return dealRepository.updateExpiredAtById(expiredAt, deal.getId());
     }
+
     public int expireDeal(Deal deal) {
         return expireDeal(deal, LocalDateTime.now());
     }
