@@ -28,8 +28,7 @@ public class UserController {
 
     @PostMapping("/users/{id}/user-profiles")
     public CommonResponse createUserProfile(@PathVariable Long id,
-        @RequestBody UserProfileRequest userProfileRequest,
-        HttpServletRequest request) {
+        @RequestBody UserProfileRequest userProfileRequest, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
 
