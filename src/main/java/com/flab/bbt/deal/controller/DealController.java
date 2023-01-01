@@ -43,12 +43,6 @@ public class DealController {
         return CommonResponse.success(deal);
     }
 
-    @PostMapping("/{id}/expire")
-    public CommonResponse expireDeal(@PathVariable long id) {
-        Deal deal = dealService.findDealById(id);
-        Deal expiredDeal = dealService.expireDeal(deal);
-        return CommonResponse.success(expiredDeal);
-    }
 
 
 }
