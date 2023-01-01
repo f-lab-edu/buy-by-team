@@ -16,18 +16,18 @@ import lombok.NoArgsConstructor;
 public class PaymentRequest {
 
     @NotNull(message = "User ID는 필수 입력 값입니다.")
-    private long user_id;
+    private long userId;
 
     @NotNull(message = "Order ID는 필수 입력 값입니다.")
-    private long order_id;
+    private long orderId;
 
     @NotNull(message = "결제수단은 필수 입력 값입니다.")
     private int method;
 
-    public Payment convertToEntity(){
+    public Payment convertToEntity() {
         return Payment.builder()
-            .user_id(user_id)
-            .order_id(order_id)
+            .userId(userId)
+            .orderId(orderId)
             .method(method)
             .status(PaymentStatus.NEW.getStatusCode())
             .build();

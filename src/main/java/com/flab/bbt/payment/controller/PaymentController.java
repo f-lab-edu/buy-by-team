@@ -17,17 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/payment")
 public class PaymentController {
+
     private final PaymentService paymentService;
 
     @PostMapping("{paymentId}/complete")
-    public CommonResponse completePayment(@PathVariable Long paymentId){
+    public CommonResponse completePayment(@PathVariable Long paymentId) {
 
         paymentService.completePayment(paymentId);
         return CommonResponse.success();
     }
 
     @PostMapping("create")
-    public CommonResponse createPayment(@Valid @RequestBody PaymentRequest paymentRequest){
+    public CommonResponse createPayment(@Valid @RequestBody PaymentRequest paymentRequest) {
         // userId session validation
 
         Payment payment = paymentService.createPayment(paymentRequest.convertToEntity());

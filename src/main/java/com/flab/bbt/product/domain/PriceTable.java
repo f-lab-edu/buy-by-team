@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class PriceTable {
+
     private Long id;
     private Long productId;
     private int groupSize; // 목표인원
