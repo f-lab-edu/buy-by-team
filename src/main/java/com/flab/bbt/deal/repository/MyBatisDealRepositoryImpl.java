@@ -26,7 +26,6 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
 
     @Override
     public int updateExpiredAtById(LocalDateTime time, Long id) {
-        System.out.println(dealMapper.updateExpiredAtById(time, id));
         return dealMapper.updateExpiredAtById(time, id);
     }
 

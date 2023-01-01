@@ -8,9 +8,11 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface DealRepository {
+
     Deal save(Deal deal);
 
     Optional<Deal> findById(Long id);
+
     int updateParticipantCountById(int updatedCount, Long id);
 
     int updateExpiredAtById(LocalDateTime time, Long id);
