@@ -36,7 +36,7 @@ public class Deal {
     public void incrementParticipantCount(int count) {
         if (this.getParticipantCount() + count > this.getGroupSize()) {
             throw new CustomException(ErrorCode.DEAL_GROUP_SIZE_EXCEEDED);
-        }else{
+        } else {
             this.setParticipantCount(this.getParticipantCount() + count);
         }
     }
