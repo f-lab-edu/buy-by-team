@@ -33,4 +33,15 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     public Optional<Deal> findById(Long id) {
         return dealMapper.findById(id);
     }
+
+    @Override
+    public Optional<Deal> findByIdForUpdate(Long id) {
+        return dealMapper.findByIdForUpdate(id);
+    }
+
+    @Override
+    public Deal update(Deal deal) {
+        dealMapper.update(deal.getId(), deal);
+        return deal;
+    }
 }

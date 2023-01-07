@@ -15,6 +15,26 @@
     where id = #{id}
   </select>
 
+  <select id="findByIdForUpdate" resultType="com.flab.bbt.deal.domain.Deal">
+    select *
+    from deal
+    where id = #{id}
+    for update
+  </select>
+
+  <update id="update">
+    update deal
+    set productId=#{param.productId},
+        groupSize=#{param.groupSize},
+        discountPrice=#{param.discountPrice},
+        groupSize=#{param.groupSize},
+        participantCount=#{param.participantCount},
+        isPrivate=#{param.isPrivate},
+        expiredAt=#{param.expiredAt},
+        closedAt=#{param.closedAt},
+        where id = #{id}
+  </update>
+
   <update id="updateParticipantCountById" useGeneratedKeys="true" keyProperty="id">
     update deal
     set participant_count=#{count}

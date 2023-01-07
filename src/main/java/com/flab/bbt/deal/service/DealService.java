@@ -20,19 +20,13 @@ public class DealService {
     }
 
     @Transactional
-    public int incrementParticipantCount(Long dealId, int count) {
-        Deal deal = findDealById(dealId);
-        deal.setParticipantCount(deal.getParticipantCount() + count);
-        if (deal.getParticipantCount() <= deal.getGroupSize()) {
-            dealRepository.updateParticipantCountById(deal.getParticipantCount(), deal.getId());
-            return deal.getId().intValue();
-        } else {
-            return -1;
-        }
-
+    public Deal incrementParticipantCount(Long dealId, int count) {
+        Deal deal = findDealByIdForUpdate(dealId);
+        deal.incrementParticipantCount(count);
+        return dealRepository.update(deal);
     }
 
-    public int incrementParticipantCount(Long dealId) {
+    public Deal incrementParticipantCount(Long dealId) {
         return incrementParticipantCount(dealId, 1);
     }
 
@@ -46,6 +40,11 @@ public class DealService {
 
     public Deal findDealById(long id) {
         return dealRepository.findById(id)
+            .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
+    }
+
+    public Deal findDealByIdForUpdate(long id) {
+        return dealRepository.findByIdForUpdate(id)
             .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
     }
 }
