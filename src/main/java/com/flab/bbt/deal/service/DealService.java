@@ -7,6 +7,7 @@ import com.flab.bbt.exception.ErrorCode;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -19,7 +20,7 @@ public class DealService {
         return dealRepository.save(deal);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public Deal incrementParticipantCount(Long dealId, int count) {
         Deal deal = findDealByIdForUpdate(dealId);
         deal.incrementParticipantCount(count);
