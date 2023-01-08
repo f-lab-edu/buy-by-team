@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserProfileRequest {
+
     private String name;
     private String phoneNo;
 

@@ -4,8 +4,10 @@
 <mapper namespace="com.flab.bbt.deal.repository.mybatis.DealMapper">
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id">
-    insert into deal (product_id, group_size, discount_price, status, participant_count, is_private, expired_at, closed_at)
-    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount}, #{isPrivate}, #{expiredAt}, #{closedAt})
+    insert into deal (product_id, group_size, discount_price, status, participant_count, is_private,
+                      expired_at, closed_at)
+    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount},
+            #{isPrivate}, #{expiredAt}, #{closedAt})
   </insert>
 
 
@@ -14,4 +16,37 @@
     from deal
     where id = #{id}
   </select>
+
+  <select id="findByIdForUpdate" resultType="com.flab.bbt.deal.domain.Deal">
+    select *
+    from deal
+    where id = #{id}
+      for
+    update
+  </select>
+
+  <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
+    UPDATE deal
+    SET product_id       = #{productId},
+        group_size=#{groupSize},
+        discount_price=#{discountPrice},
+        group_size=#{groupSize},
+        participant_count=#{participantCount},
+        is_private=#{isPrivate},
+        expired_at=#{expiredAt},
+        closed_at=#{closedAt}
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateParticipantCountById" useGeneratedKeys="true" keyProperty="id">
+    update deal
+    set participant_count=#{count}
+    where id = #{id}
+  </update>
+
+  <update id="updateExpiredAtById" useGeneratedKeys="true" keyProperty="id">
+    update deal
+    set expired_at=#{time}
+    where id = #{id}
+  </update>
 </mapper>
