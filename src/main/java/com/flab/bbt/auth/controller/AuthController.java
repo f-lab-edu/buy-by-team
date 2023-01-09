@@ -7,6 +7,7 @@ import com.flab.bbt.auth.service.PasswordEncrypter;
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.user.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,23 +20,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
 
     private final AuthService authService;
     private final PasswordEncrypter passwordEncrypter;
 
-    public AuthController(AuthService authService, PasswordEncrypter passwordEncrypter) {
-        this.authService = authService;
-        this.passwordEncrypter = passwordEncrypter;
-    }
-
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public CommonResponse signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
         // 회원가입 진행
-        signUpRequest.setPassword(passwordEncrypter.encrypt(signUpRequest.getPassword()));
-        User user = signUpRequest.convertToEntity();
+        User user = signUpRequest.convertToEntityWith(passwordEncrypter.encrypt(signUpRequest.getPassword()));
         authService.signUp(user);
 
         return CommonResponse.success();
@@ -46,8 +42,7 @@ public class AuthController {
     public CommonResponse signIn(@Valid @RequestBody SignInRequest signInRequest,
         HttpServletRequest request) {
         // authenticate user
-        signInRequest.setPassword(passwordEncrypter.encrypt(signInRequest.getPassword()));
-        User user = signInRequest.convertToEntity();
+        User user = signInRequest.convertToEntityWith(passwordEncrypter.encrypt(signInRequest.getPassword()));
         User authenticatedUser = authService.authenticate(user);
 
         // authorize user via session

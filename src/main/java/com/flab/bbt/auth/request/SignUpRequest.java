@@ -15,15 +15,14 @@ public class SignUpRequest {
     @Email(message = "이메일 형식에 맞지 않습니다.")
     private String email;
 
-    @Setter
     @NotBlank(message = "패스워드는 필수 입력 값입니다.")
     private String password;
     private String name;
 
-    public User convertToEntity() {
+    public User convertToEntityWith(String encryptedPassword) {
         return User.builder()
             .email(this.getEmail())
-            .password(this.getPassword())
+            .password(encryptedPassword)
             .userProfile(getUserProfile())
             .build();
     }
