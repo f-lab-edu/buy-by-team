@@ -31,7 +31,8 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public CommonResponse signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
         // 회원가입 진행
-        User user = signUpRequest.convertToEntityWith(passwordEncrypter.encrypt(signUpRequest.getPassword()));
+        User user = signUpRequest.convertToEntityWith(
+            passwordEncrypter.encrypt(signUpRequest.getPassword()));
         authService.signUp(user);
 
         return CommonResponse.success();
@@ -42,7 +43,8 @@ public class AuthController {
     public CommonResponse signIn(@Valid @RequestBody SignInRequest signInRequest,
         HttpServletRequest request) {
         // authenticate user
-        User user = signInRequest.convertToEntityWith(passwordEncrypter.encrypt(signInRequest.getPassword()));
+        User user = signInRequest.convertToEntityWith(
+            passwordEncrypter.encrypt(signInRequest.getPassword()));
         User authenticatedUser = authService.authenticate(user);
 
         // authorize user via session
