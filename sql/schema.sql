@@ -11,8 +11,7 @@ create table if not exists mysqldb.user_profile (
                               name varchar(255),
                               phone_no varchar(255),
                               user_id int,
-                              primary key(id),
-                              foreign key (user_id) references user(id)
+                              primary key(id)
 );
 
 create table if not exists mysqldb.product (
@@ -38,8 +37,7 @@ create table if not exists mysqldb.deal (
                          expired_at TIMESTAMP,
                          closed_at TIMESTAMP,
                          PRIMARY KEY(id),
-                         index index_deal_on_status (status),
-                         foreign key (product_id) references product(id)
+                         index index_deal_on_status (status)
 );
 
 create table if not exists mysqldb.price_table (
@@ -48,7 +46,6 @@ create table if not exists mysqldb.price_table (
                          group_size int,
                          discount_price int,
                          target_period int,
-                         PRIMARY KEY(id),
-                         foreign key (product_id) references product(id)
+                         PRIMARY KEY(id)
 );
 
