@@ -7,10 +7,10 @@ import lombok.Setter;
 
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
 public class Product {
 
+    @Setter
     private long id;
     private String name;
     private String skuCode;
