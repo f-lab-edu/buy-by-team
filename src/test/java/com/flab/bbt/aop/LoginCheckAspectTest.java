@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flab.bbt.AbstractContainerBaseTest;
+import com.flab.bbt.ConfigureTestProfile;
 import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.payment.request.PaymentRequest;
@@ -21,7 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class LoginCheckAspectTest {
+@ConfigureTestProfile
+class LoginCheckAspectTest extends AbstractContainerBaseTest {
 
     @Autowired
     private MockMvc mockMvc;
