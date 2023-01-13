@@ -49,3 +49,12 @@ create table if not exists mysqldb.price_table (
                          PRIMARY KEY(id)
 );
 
+create table if not exists mysqldb.payment (
+                         id INT NOT NULL AUTO_INCREMENT,
+                         user_id int,
+                         order_id int,
+                         method int,
+                         status int,
+                         PRIMARY KEY(id)
+);
+
