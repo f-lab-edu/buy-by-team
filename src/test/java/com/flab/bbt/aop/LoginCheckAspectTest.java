@@ -5,13 +5,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.bbt.ConfigureTestProfile;
 import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.exception.CustomException;
-import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.payment.request.PaymentRequest;
 import com.flab.bbt.user.domain.User;
-import com.flab.bbt.user.domain.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ConfigureTestProfile
 class LoginCheckAspectTest {
 
     @Autowired
