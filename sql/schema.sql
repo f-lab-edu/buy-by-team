@@ -1,4 +1,4 @@
-create database mysqldb;
+create database if not exists mysqldb;
 create table if not exists mysqldb.user (
                       id INT NOT NULL AUTO_INCREMENT,
                       email VARCHAR(255) NOT NULL,

@@ -20,13 +20,14 @@ public class DealService {
         return dealRepository.save(deal);
     }
 
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public Deal incrementParticipantCount(Long dealId, int count) {
         Deal deal = findDealByIdForUpdate(dealId);
         deal.incrementParticipantCount(count);
-        return dealRepository.update(deal);
+        Deal updatedDeal = dealRepository.update(deal);
+        return updatedDeal;
     }
 
+    @Transactional
     public Deal incrementParticipantCount(Long dealId) {
         return incrementParticipantCount(dealId, 1);
     }
