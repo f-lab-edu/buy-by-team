@@ -48,6 +48,11 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public int delete(Long id) {
+        return 0;
+    }
+
+    @Override
     public List<Product> findListWithPagination(Pageable pageable) {
         return new ArrayList<>(productDb.values());
     }

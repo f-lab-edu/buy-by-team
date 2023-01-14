@@ -5,7 +5,7 @@
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id">
     insert into payment (user_id, order_id, method, status)
-    values (#{payment.user_id}, #{payment.order_id}, #{payment.method}, #{payment.status})
+    values (#{payment.userId}, #{payment.orderId}, #{payment.method}, #{payment.status})
   </insert>
 
   <select id="findById" resultType="com.flab.bbt.payment.domain.Payment">
