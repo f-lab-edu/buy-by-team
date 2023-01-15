@@ -34,7 +34,8 @@
         expired_at=#{deal.expiredAt},
         closed_at=#{deal.closedAt},
         version=#{newVersion}
-    WHERE id = #{deal.id} AND version = #{oldVersion}
+    WHERE id = #{deal.id}
+      AND version = #{oldVersion}
   </update>
 
   <update id="updateParticipantCountById" useGeneratedKeys="true" keyProperty="id">

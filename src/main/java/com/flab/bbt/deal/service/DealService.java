@@ -23,15 +23,16 @@ public class DealService {
 
     public Deal incrementParticipantCount(Long dealId, int count) {
         Deal record = findDealByIdForUpdate(dealId);
-        try{
+        try {
             Deal deal = record.incrementParticipantCount(count);
-            int updatedRows = dealRepository.update(deal, record.getVersion(), record.getVersion()+1);
-            if(updatedRows == 0){
+            int updatedRows = dealRepository.update(deal, record.getVersion(),
+                record.getVersion() + 1);
+            if (updatedRows == 0) {
                 throw new CustomException(ErrorCode.CONCURRENT_ACCESS);
             }
             record = deal;
-        }catch(CustomException e){
-            switch(e.getErrorCode()){
+        } catch (CustomException e) {
+            switch (e.getErrorCode()) {
                 case DEAL_GROUP_SIZE_EXCEEDED:
                     // TODO("정원 초과하더라도 다른 Deal에 참여할 수 있게 하는 로직 - 별도 이슈/PR로 빼겠습니다!")
                     break;
