@@ -22,7 +22,7 @@
     from deal
     where id = #{id}
       for
-    update
+    update NOWAIT
   </select>
 
   <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
@@ -34,7 +34,8 @@
         participant_count=#{participantCount},
         is_private=#{isPrivate},
         expired_at=#{expiredAt},
-        closed_at=#{closedAt}
+        closed_at=#{closedAt},
+        version=#{version}+1
     WHERE id = #{id}
   </update>
 

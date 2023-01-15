@@ -6,6 +6,7 @@ import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +22,13 @@ public class DealService {
     }
 
     public Deal incrementParticipantCount(Long dealId, int count) {
-        Deal deal = findDealByIdForUpdate(dealId);
-        deal.incrementParticipantCount(count);
+        Deal record = findDealByIdForUpdate(dealId);
+        Deal deal = record.incrementParticipantCount(count);
+        //check version
+        if (deal.getVersion() != record.getVersion()) {
+            throw new OptimisticLockingFailureException("Optimistic locking failure");
+        }
+
         Deal updatedDeal = dealRepository.update(deal);
         return updatedDeal;
     }

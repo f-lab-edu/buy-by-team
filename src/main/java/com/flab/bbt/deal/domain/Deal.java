@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Version;
 
 @Getter
 @AllArgsConstructor
@@ -27,17 +28,20 @@ public class Deal {
     private boolean isPrivate;
     private LocalDateTime expiredAt; // 마감되는 일시
     private LocalDateTime closedAt; // 성사된 일시
+    @Version
+    private Integer version;
 
     @JsonProperty("isPrivate")
     public boolean getIsPrivate() {
         return this.isPrivate;
     }
 
-    public void incrementParticipantCount(int count) {
+    public Deal incrementParticipantCount(int count) {
         if (this.getParticipantCount() + count > this.getGroupSize()) {
             throw new CustomException(ErrorCode.DEAL_GROUP_SIZE_EXCEEDED);
         } else {
             this.setParticipantCount(this.getParticipantCount() + count);
+            return this;
         }
     }
 }
