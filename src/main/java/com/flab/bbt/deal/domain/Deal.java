@@ -22,7 +22,8 @@ public class Deal {
     private Long productId;
     private int groupSize; // PriceTable 스냅샷. 목표인원
     private int discountPrice; // PriceTable 스냅샷. 할인가
-    private DealStatus status; // TODO("이거 관련 처리도.... + mapper xml에서도 ")
+    @Setter
+    private DealStatus status;
     @Setter
     private int participantCount;
     private boolean isPrivate;
@@ -36,10 +37,16 @@ public class Deal {
     }
 
     public Deal incrementParticipantCount(int count) {
-        if (this.getParticipantCount() + count > this.getGroupSize()) {
+        int updatedCount = this.getParticipantCount() + count;
+        if (updatedCount > this.getGroupSize()) {
             throw new CustomException(ErrorCode.DEAL_GROUP_SIZE_EXCEEDED);
+        } else if (updatedCount < this.getGroupSize()) {
+            this.setParticipantCount(updatedCount);
+            this.setStatus(DealStatus.IN_PROGRESS);
+            return this;
         } else {
-            this.setParticipantCount(this.getParticipantCount() + count);
+            this.setParticipantCount(updatedCount);
+            this.setStatus(DealStatus.COMPLETED);
             return this;
         }
     }

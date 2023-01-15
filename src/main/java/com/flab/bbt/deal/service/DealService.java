@@ -28,7 +28,6 @@ public class DealService {
         if(updatedRows == 0){
             throw new CustomException(ErrorCode.CONCURRENT_ACCESS);
         }
-
         return deal;
     }
 
