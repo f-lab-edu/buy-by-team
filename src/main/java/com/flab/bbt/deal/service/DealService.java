@@ -23,12 +23,26 @@ public class DealService {
 
     public Deal incrementParticipantCount(Long dealId, int count) {
         Deal record = findDealByIdForUpdate(dealId);
-        Deal deal = record.incrementParticipantCount(count);
-        int updatedRows = dealRepository.update(deal, record.getVersion(), record.getVersion()+1);
-        if(updatedRows == 0){
-            throw new CustomException(ErrorCode.CONCURRENT_ACCESS);
+        try{
+            Deal deal = record.incrementParticipantCount(count);
+            int updatedRows = dealRepository.update(deal, record.getVersion(), record.getVersion()+1);
+            if(updatedRows == 0){
+                throw new CustomException(ErrorCode.CONCURRENT_ACCESS);
+            }
+            record = deal;
+        }catch(CustomException e){
+            switch(e.getErrorCode()){
+                case DEAL_GROUP_SIZE_EXCEEDED:
+                    // TODO("정원 초과하더라도 다른 Deal에 참여할 수 있게 하는 로직 - 별도 이슈/PR로 빼겠습니다!")
+                    break;
+                case CONCURRENT_ACCESS:
+                    // TODO("동시성 문제가 발생했을 경우는 어떻게 하는 것이 좋을지 - 이것도 다른 Deal에 참여할 수 있게 하는 게 좋은지/가능할지")
+                    break;
+                default:
+                    //
+            }
         }
-        return deal;
+        return record;
     }
 
     @Transactional
