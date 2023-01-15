@@ -25,10 +25,13 @@ public class DealService {
         Deal record = findDealByIdForUpdate(dealId);
         Deal deal = record.incrementParticipantCount(count);
         System.out.println("deal.getVersion()"+ record.getVersion());
-        Deal updatedDeal = dealRepository.update(deal, record.getVersion(), record.getVersion()+1)
-            .orElseThrow(() -> new OptimisticLockingFailureException(ErrorCode.CONCURRENT_ACCESS.getMessage()));
-        System.out.println("updatedDeal"+updatedDeal);
-        return updatedDeal;
+        int updatedRows = dealRepository.update(deal, record.getVersion(), record.getVersion()+1);
+        if(updatedRows == 0){
+            new OptimisticLockingFailureException(ErrorCode.CONCURRENT_ACCESS.getMessage());
+        }
+
+        System.out.println("updatedDeal"+updatedRows);
+        return deal;
     }
 
     @Transactional

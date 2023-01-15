@@ -15,7 +15,7 @@ public interface DealMapper {
 
     int updateExpiredAtById(@Param("time") LocalDateTime expiredAt, @Param("id") Long id);
 
-    Optional<Deal> update(Deal deal, int oldVersion, int newVersion);
+    int update(Deal deal, int oldVersion, int newVersion);
 
     Optional<Deal> findById(Long id);
 

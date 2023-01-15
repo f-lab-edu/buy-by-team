@@ -23,18 +23,18 @@
     where id = #{id}
   </select>
 
-  <update id="update" parameterType="com.flab.bbt.deal.domain.Deal" useGeneratedKeys="true" keyProperty="id">
+  <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
     UPDATE deal
-    SET product_id       = #{productId},
-        group_size=#{groupSize},
-        discount_price=#{discountPrice},
-        group_size=#{groupSize},
-        participant_count=#{participantCount},
-        is_private=#{isPrivate},
-        expired_at=#{expiredAt},
-        closed_at=#{closedAt},
+    SET product_id       = #{deal.productId},
+        group_size=#{deal.groupSize},
+        discount_price=#{deal.discountPrice},
+        group_size=#{deal.groupSize},
+        participant_count=#{deal.participantCount},
+        is_private=#{deal.isPrivate},
+        expired_at=#{deal.expiredAt},
+        closed_at=#{deal.closedAt},
         version=#{newVersion}
-    WHERE id = #{id} AND version = #{oldVersion}
+    WHERE id = #{deal.id} AND version = #{oldVersion}
   </update>
 
   <update id="updateParticipantCountById" useGeneratedKeys="true" keyProperty="id">
