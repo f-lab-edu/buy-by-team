@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class UserProfileRequest {
+
     private String name;
     private String phoneNo;
 

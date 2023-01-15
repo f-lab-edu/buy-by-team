@@ -18,7 +18,9 @@ public enum ErrorCode {
     PAYMENT_NOT_FOUND(6000, "존재하지 않은 결제 정보입니다."),
 
     // Deal
-    DEAL_NOT_FOUND(7000, "딜이 존재하지 않습니다.");
+    DEAL_NOT_FOUND(7000, "딜이 존재하지 않습니다."),
+
+    DEAL_GROUP_SIZE_EXCEEDED(7001, "딜의 정원을 초과했습니다.");
 
     long code;
     String message;
