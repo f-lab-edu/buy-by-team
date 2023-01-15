@@ -24,13 +24,11 @@ public class DealService {
     public Deal incrementParticipantCount(Long dealId, int count) {
         Deal record = findDealByIdForUpdate(dealId);
         Deal deal = record.incrementParticipantCount(count);
-        System.out.println("deal.getVersion()"+ record.getVersion());
         int updatedRows = dealRepository.update(deal, record.getVersion(), record.getVersion()+1);
         if(updatedRows == 0){
-            new OptimisticLockingFailureException(ErrorCode.CONCURRENT_ACCESS.getMessage());
+            throw new CustomException(ErrorCode.CONCURRENT_ACCESS);
         }
 
-        System.out.println("updatedDeal"+updatedRows);
         return deal;
     }
 
