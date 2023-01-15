@@ -45,9 +45,8 @@ public class DealController {
 
     @PatchMapping("/{id}/participate")
     public CommonResponse participateDeal(@PathVariable Long id) {
-        // in progress
-        dealService.incrementParticipantCount(id);
-        return CommonResponse.success();
+        Deal updatedDeal = dealService.incrementParticipantCount(id);
+        return CommonResponse.success(updatedDeal);
     }
 
 

@@ -36,6 +36,7 @@ create table if not exists mysqldb.deal (
                          is_private boolean,
                          expired_at TIMESTAMP,
                          closed_at TIMESTAMP,
+                         version int,
                          PRIMARY KEY(id),
                          index index_deal_on_status (status)
 );

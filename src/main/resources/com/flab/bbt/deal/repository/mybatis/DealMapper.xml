@@ -5,9 +5,9 @@
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id">
     insert into deal (product_id, group_size, discount_price, status, participant_count, is_private,
-                      expired_at, closed_at)
+                      expired_at, closed_at, version)
     values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount},
-            #{isPrivate}, #{expiredAt}, #{closedAt})
+            #{isPrivate}, #{expiredAt}, #{closedAt}, #{version})
   </insert>
 
 
@@ -21,11 +21,9 @@
     select *
     from deal
     where id = #{id}
-      for
-    update NOWAIT
   </select>
 
-  <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
+  <update id="update" parameterType="com.flab.bbt.deal.domain.Deal" useGeneratedKeys="true" keyProperty="id">
     UPDATE deal
     SET product_id       = #{productId},
         group_size=#{groupSize},
@@ -35,8 +33,8 @@
         is_private=#{isPrivate},
         expired_at=#{expiredAt},
         closed_at=#{closedAt},
-        version=#{version}+1
-    WHERE id = #{id}
+        version=#{newVersion}
+    WHERE id = #{id} AND version = #{oldVersion}
   </update>
 
   <update id="updateParticipantCountById" useGeneratedKeys="true" keyProperty="id">

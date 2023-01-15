@@ -31,6 +31,7 @@ public class DealRequest {
             .discountPrice(this.getDiscountPrice())
             .status(DealStatus.CREATED)
             .participantCount(0)
+            .version(0)
             .isPrivate(this.isPrivate)
             .build();
     }

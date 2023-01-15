@@ -24,12 +24,10 @@ public class DealService {
     public Deal incrementParticipantCount(Long dealId, int count) {
         Deal record = findDealByIdForUpdate(dealId);
         Deal deal = record.incrementParticipantCount(count);
-        //check version
-        if (deal.getVersion() != record.getVersion()) {
-            throw new OptimisticLockingFailureException("Optimistic locking failure");
-        }
-
-        Deal updatedDeal = dealRepository.update(deal);
+        System.out.println("deal.getVersion()"+ record.getVersion());
+        Deal updatedDeal = dealRepository.update(deal, record.getVersion(), record.getVersion()+1)
+            .orElseThrow(() -> new OptimisticLockingFailureException(ErrorCode.CONCURRENT_ACCESS.getMessage()));
+        System.out.println("updatedDeal"+updatedDeal);
         return updatedDeal;
     }
 

@@ -40,8 +40,7 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     }
 
     @Override
-    public Deal update(Deal deal) {
-        dealMapper.update(deal);
-        return deal;
+    public Optional<Deal> update(Deal deal, int oldVersion, int newVersion) {
+        return dealMapper.update(deal, oldVersion, newVersion);
     }
 }
