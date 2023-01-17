@@ -1,12 +1,15 @@
 package com.flab.bbt.deal.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.flab.bbt.exception.CustomException;
+import com.flab.bbt.exception.ErrorCode;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -18,7 +21,8 @@ public class Deal {
     private Long productId;
     private int groupSize; // PriceTable 스냅샷. 목표인원
     private int discountPrice; // PriceTable 스냅샷. 할인가
-    private DealStatus status;
+    private DealStatus status; // TODO("이거 관련 처리도.... + mapper xml에서도 ")
+    @Setter
     private int participantCount;
     private boolean isPrivate;
     private LocalDateTime expiredAt; // 마감되는 일시
@@ -27,5 +31,13 @@ public class Deal {
     @JsonProperty("isPrivate")
     public boolean getIsPrivate() {
         return this.isPrivate;
+    }
+
+    public void incrementParticipantCount(int count) {
+        if (this.getParticipantCount() + count > this.getGroupSize()) {
+            throw new CustomException(ErrorCode.DEAL_GROUP_SIZE_EXCEEDED);
+        } else {
+            this.setParticipantCount(this.getParticipantCount() + count);
+        }
     }
 }
