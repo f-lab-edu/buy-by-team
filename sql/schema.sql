@@ -1,11 +1,12 @@
-create table if not exists user (
+create database if not exists mysqldb;
+create table if not exists mysqldb.user (
                       id INT NOT NULL AUTO_INCREMENT,
                       email VARCHAR(255) NOT NULL,
                       password VARCHAR(255) NOT NULL,
                       PRIMARY KEY(id)
 );
 
-create table if not exists user_profile (
+create table if not exists mysqldb.user_profile (
                               id INT NOT NULL AUTO_INCREMENT,
                               name varchar(255),
                               phone_no varchar(255),
@@ -13,7 +14,7 @@ create table if not exists user_profile (
                               primary key(id)
 );
 
-create table if not exists product (
+create table if not exists mysqldb.product (
                          id INT NOT NULL AUTO_INCREMENT,
                          name varchar(255),
                          sku_code varchar(255),
@@ -25,7 +26,7 @@ create table if not exists product (
                          index index_product_on_sku_code (sku_code)
 );
 
-create table if not exists deal (
+create table if not exists mysqldb.deal (
                          id INT NOT NULL AUTO_INCREMENT,
                          product_id int,
                          group_size int,
@@ -39,7 +40,7 @@ create table if not exists deal (
                          index index_deal_on_status (status)
 );
 
-create table if not exists price_table (
+create table if not exists mysqldb.price_table (
                          id INT NOT NULL AUTO_INCREMENT,
                          product_id int,
                          group_size int,
@@ -48,7 +49,7 @@ create table if not exists price_table (
                          PRIMARY KEY(id)
 );
 
-create table if not exists payment (
+create table if not exists mysqldb.payment (
                          id INT NOT NULL AUTO_INCREMENT,
                          user_id int,
                          order_id int,
