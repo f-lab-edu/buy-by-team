@@ -12,7 +12,7 @@ public interface DealRepository {
 
     Optional<Deal> findByIdForUpdate(Long id);
 
-    int update(Deal deal, int oldVersion, int newVersion);
+    int update(Deal deal);
 
     int updateParticipantCountById(int updatedCount, Long id);
 

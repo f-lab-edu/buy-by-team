@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Version;
 
 @Getter
 @AllArgsConstructor
@@ -36,18 +35,16 @@ public class Deal {
         return this.isPrivate;
     }
 
-    public Deal incrementParticipantCount(int count) {
+    public void incrementParticipantCount(int count) {
         int updatedCount = this.getParticipantCount() + count;
         if (updatedCount > this.getGroupSize()) {
             throw new CustomException(ErrorCode.DEAL_GROUP_SIZE_EXCEEDED);
         } else if (updatedCount < this.getGroupSize()) {
             this.setParticipantCount(updatedCount);
             this.setStatus(DealStatus.IN_PROGRESS);
-            return this;
         } else {
             this.setParticipantCount(updatedCount);
             this.setStatus(DealStatus.COMPLETED);
-            return this;
         }
     }
 }

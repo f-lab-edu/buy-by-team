@@ -6,9 +6,7 @@ import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -24,13 +22,11 @@ public class DealService {
     public Deal incrementParticipantCount(Long dealId, int count) {
         Deal record = findDealByIdForUpdate(dealId);
         try {
-            Deal deal = record.incrementParticipantCount(count);
-            int updatedRows = dealRepository.update(deal, record.getVersion(),
-                record.getVersion() + 1);
+            record.incrementParticipantCount(count);
+            int updatedRows = dealRepository.update(record);
             if (updatedRows == 0) {
                 throw new CustomException(ErrorCode.CONCURRENT_ACCESS);
             }
-            record = deal;
         } catch (CustomException e) {
             switch (e.getErrorCode()) {
                 case DEAL_GROUP_SIZE_EXCEEDED:
