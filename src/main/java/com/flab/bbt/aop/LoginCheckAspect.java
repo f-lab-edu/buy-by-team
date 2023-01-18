@@ -17,7 +17,7 @@ public class LoginCheckAspect {
 
     private final HttpSession session;
 
-    @Before("@annotation(com.flab.bbt.aop.LoginCheck)")
+    @Before("@annotation(com.flab.bbt.aop.LoginCheck) && execution(* com.flab.bbt..*Controller.*(..))")
     public void loginCheck() {
         User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
 

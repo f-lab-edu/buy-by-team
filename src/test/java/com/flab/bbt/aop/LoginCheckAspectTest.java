@@ -9,6 +9,7 @@ import com.flab.bbt.AbstractContainerBaseTest;
 import com.flab.bbt.ConfigureTestProfile;
 import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.exception.CustomException;
+import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.payment.request.PaymentRequest;
 import com.flab.bbt.user.domain.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.hamcrest.CoreMatchers.is;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -62,7 +65,7 @@ class LoginCheckAspectTest extends AbstractContainerBaseTest {
     }
 
     @Test
-    @DisplayName("로그인 안했을 시 @LoginCheck가 적용된 메소드가 작동하지 않는다.")
+    @DisplayName("로그인이 안되어있을 시 USER_UNAUTHORIZED의 CustomException을 발생시킨다.")
     void loginCheckFailTest() throws Exception {
         // given
         MockHttpSession mockHttpSession = new MockHttpSession();
@@ -79,7 +82,9 @@ class LoginCheckAspectTest extends AbstractContainerBaseTest {
             .andExpect(result -> assertTrue(
                 result.getResolvedException().getClass().isAssignableFrom(CustomException.class)
             ))
+            .andExpect(jsonPath("message", is(ErrorCode.USER_UNAUTHORIZED.getMessage())))
             .andExpect(status().isBadRequest());
+
     }
 
 }
