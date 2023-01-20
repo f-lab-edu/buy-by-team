@@ -30,7 +30,7 @@ import org.springframework.mock.web.MockHttpSession;
 @ExtendWith(MockitoExtension.class)
 public class LoginCheckAspectUnitTest extends AbstractContainerBaseTest {
 
-    private PaymentController paymentController;
+    private PaymentController proxyPaymentController;
 
     @MockBean
     private PaymentService paymentService;
@@ -45,7 +45,7 @@ public class LoginCheckAspectUnitTest extends AbstractContainerBaseTest {
         final AspectJProxyFactory proxyFactory = new AspectJProxyFactory(target);
         proxyFactory.addAspect(new LoginCheckAspect(mockHttpSession));
 
-        paymentController = proxyFactory.getProxy();
+        proxyPaymentController = proxyFactory.getProxy();
     }
 
     @Test
@@ -55,7 +55,7 @@ public class LoginCheckAspectUnitTest extends AbstractContainerBaseTest {
         mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, buildUser());
 
         // when then
-        assertDoesNotThrow(() -> paymentController.createPayment(buildPaymentRequest(), mockHttpSession));
+        assertDoesNotThrow(() -> proxyPaymentController.createPayment(buildPaymentRequest(), mockHttpSession));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class LoginCheckAspectUnitTest extends AbstractContainerBaseTest {
     void RaiseExceptionWhenUserNotSignIn() {
         // when
         CustomException e = assertThrows(CustomException.class,
-            () -> paymentController.createPayment(buildPaymentRequest(), mockHttpSession));
+            () -> proxyPaymentController.createPayment(buildPaymentRequest(), mockHttpSession));
 
         // then
         assertThat(e.getErrorCode().getMessage()).isEqualTo(ErrorCode.USER_UNAUTHORIZED.getMessage());

@@ -20,9 +20,7 @@ public class LoginCheckAspect {
     @Before("@annotation(com.flab.bbt.aop.LoginCheck) "
         + "&& execution(* com.flab.bbt..*Controller.*(..))")
     public void loginCheck() {
-        User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
-
-        if (user == null) {
+        if (session.getAttribute(SessionConst.COOKIE_SESSION_ID) == null) {
             throw new CustomException(ErrorCode.USER_UNAUTHORIZED);
         }
     }
