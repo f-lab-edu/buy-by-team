@@ -3,6 +3,7 @@ package com.flab.bbt.aop;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
 
 import com.flab.bbt.AbstractContainerBaseTest;
 import com.flab.bbt.ConfigureTestProfile;
@@ -18,11 +19,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.lang.reflect.Method;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -30,57 +35,79 @@ import org.springframework.mock.web.MockHttpSession;
 @ExtendWith(MockitoExtension.class)
 public class LoginCheckAspectUnitTest extends AbstractContainerBaseTest {
 
-    private PaymentController proxyPaymentController;
-
-    @MockBean
-    private PaymentService paymentService;
-
-    MockHttpSession mockHttpSession;
-
-    @BeforeEach
-    void beforeEach() {
-        mockHttpSession = new MockHttpSession();
-        final PaymentController target = new PaymentController(paymentService);
-
-        final AspectJProxyFactory proxyFactory = new AspectJProxyFactory(target);
-        proxyFactory.addAspect(new LoginCheckAspect(mockHttpSession));
-
-        proxyPaymentController = proxyFactory.getProxy();
-    }
 
     @Test
     @DisplayName("user가 로그인 했을 때 USER_UNAUTHORIZED Exception 발생없이 target이 성공적으로 동작한다.")
     void doNotRaiseExceptionWhenUserSignIn() {
+
         // given
+        MockHttpSession mockHttpSession = new MockHttpSession();
         mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, buildUser());
 
+        LoginCheckAspect aspect = new LoginCheckAspect(mockHttpSession);
         // when then
-        assertDoesNotThrow(() -> proxyPaymentController.createPayment(buildPaymentRequest(), mockHttpSession));
+        assertDoesNotThrow(() -> aspect.loginCheck());
     }
 
     @Test
     @DisplayName("user가 로그인을 안했다면 loginCheck Aspect에서 USER_UNAUTHORIZED exception을 발생시킨다.")
     void RaiseExceptionWhenUserNotSignIn() {
-        // when
-        CustomException e = assertThrows(CustomException.class,
-            () -> proxyPaymentController.createPayment(buildPaymentRequest(), mockHttpSession));
 
-        // then
+        // given
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        LoginCheckAspect aspect = new LoginCheckAspect(mockHttpSession);
+
+        // when then
+        CustomException e = assertThrows(CustomException.class, () -> aspect.loginCheck());
         assertThat(e.getErrorCode().getMessage()).isEqualTo(ErrorCode.USER_UNAUTHORIZED.getMessage());
     }
 
-    private PaymentRequest buildPaymentRequest() {
-        return PaymentRequest.builder()
-            .userId(1L)
-            .orderId(1L)
-            .method(1)
-            .build();
+    @Test
+    @DisplayName("LoginCheckAspect의 pointcut 정상동작 테스트")
+    void pointcutSuccessTest() throws NoSuchMethodException {
+
+        // given
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+        pointcut.setExpression(LoginCheckAspect.LOGIN_POINT_CUT);
+        Method method = TestController.class.getMethod("test", String.class);
+
+        assertThat(pointcut.matches(method, TestController.class)).isTrue();
+    }
+
+    @Test
+    @DisplayName("Service 컴포넌트는 @LoginCheck 어노테이션이 있어도 LoginCheckAspect 동작안함 ")
+    void pointcutServiceFailTest() throws NoSuchMethodException {
+
+        // given
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+        pointcut.setExpression(LoginCheckAspect.LOGIN_POINT_CUT);
+        Method method = TestService.class.getMethod("test", String.class);
+
+        assertThat(pointcut.matches(method, TestService.class)).isFalse();
     }
 
     private User buildUser() {
         return User.builder()
-            .email("test@test.com")
-            .password("encryptedPassword")
-            .build();
+                .email("test@test.com")
+                .password("encryptedPassword")
+                .build();
+    }
+}
+
+@RestController
+class TestController {
+
+    @LoginCheck
+    public String test(String str) {
+        return "test";
+    }
+}
+
+@RestController
+class TestService {
+
+    @LoginCheck
+    public String test(String str) {
+        return "test";
     }
 }
