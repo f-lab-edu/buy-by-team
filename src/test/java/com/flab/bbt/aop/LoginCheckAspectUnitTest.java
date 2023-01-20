@@ -75,7 +75,7 @@ public class LoginCheckAspectUnitTest extends AbstractContainerBaseTest {
     }
 
     @Test
-    @DisplayName("Service 컴포넌트는 @LoginCheck 어노테이션이 있어도 LoginCheckAspect 동작안함 ")
+    @DisplayName("XXX_Service 이름으로 끝난다면 @LoginCheck 어노테이션이 있어도 LoginCheckAspect 동작안함 ")
     void pointcutServiceFailTest() throws NoSuchMethodException {
 
         // given
