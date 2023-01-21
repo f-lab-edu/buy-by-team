@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,8 +18,10 @@ public class LoginCheckAspect {
 
     private final HttpSession session;
 
-    @Before("@annotation(com.flab.bbt.aop.LoginCheck) "
-        + "&& execution(* com.flab.bbt..*Controller.*(..))")
+    @Pointcut(AopConst.LOGIN_POINTCUT)
+    public void before(){}
+
+    @Before("before()")
     public void loginCheck() {
         if (session.getAttribute(SessionConst.COOKIE_SESSION_ID) == null) {
             throw new CustomException(ErrorCode.USER_UNAUTHORIZED);
