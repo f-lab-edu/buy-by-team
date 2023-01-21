@@ -36,8 +36,14 @@ class PaymentRepositoryTest extends AbstractContainerBaseTest {
     @Test
     @DisplayName("저장소에 성공적으로 저장된다.")
     void saveSuccessTest() {
+        // given
+        Payment payment = buildPayment();
+
         // then
         assertThat(savedPayment.getId()).isNotNull();
+        assertThat(payment.getUserId()).isEqualTo(savedPayment.getUserId());
+        assertThat(payment.getOrderId()).isEqualTo(savedPayment.getOrderId());
+        assertThat(payment.getMethod()).isEqualTo(savedPayment.getMethod());
     }
 
     @Test
@@ -63,7 +69,6 @@ class PaymentRepositoryTest extends AbstractContainerBaseTest {
 
     private Payment buildPayment() {
         return Payment.builder()
-            .id(1L)
             .userId(1L)
             .orderId(1L)
             .method(1)

@@ -34,8 +34,14 @@ class DealRepositoryTest extends AbstractContainerBaseTest {
     @Test
     @DisplayName("저장소에 성공적으로 저장된다.")
     void saveSuccessTest() {
+        // given
+        Deal deal = buildDeal();
+
         // then
         assertThat(savedDeal.getId()).isNotNull();
+        assertThat(deal.getProductId()).isEqualTo(savedDeal.getProductId());
+        assertThat(deal.getGroupSize()).isEqualTo(savedDeal.getGroupSize());
+        assertThat(deal.getDiscountPrice()).isEqualTo(savedDeal.getDiscountPrice());
     }
 
     @Test

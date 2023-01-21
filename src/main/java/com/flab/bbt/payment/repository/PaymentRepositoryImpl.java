@@ -28,9 +28,9 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     }
 
     @Override
-    public Payment updatePaymentStatusById(PaymentStatus status, Long id) {
+    public int updatePaymentStatusById(PaymentStatus status, Long id) {
         Payment payment = paymentDb.get(id).updateStatus(status);
         paymentDb.replace(id, payment);
-        return payment;
+        return 1;
     }
 }

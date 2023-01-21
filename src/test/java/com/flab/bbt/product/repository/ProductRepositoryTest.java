@@ -25,29 +25,26 @@ class ProductRepositoryTest extends AbstractContainerBaseTest {
     @Autowired
     private ProductRepository productRepository;
 
-    private Product savedProduct;
-
-    @BeforeEach
-    public void setUp() {
-        Product product = buildProduct();
-        savedProduct = productRepository.save(product);
-    }
-
-    @AfterEach
-    public void clean() {
-        productRepository.delete(savedProduct.getId());
-    }
-
     @Test
     @DisplayName("저장소에 성공적으로 저장된다.")
     void saveSuccessTest() {
+        // given
+        Product product = buildProductWithSkuCode("testSku1");
+        Product savedProduct = productRepository.save(product);
+
+
         // then
         assertThat(savedProduct.getId()).isNotNull();
+        assertThat(product.getName()).isEqualTo(savedProduct.getName());
+        assertThat(product.getSkuCode()).isEqualTo(savedProduct.getSkuCode());
     }
 
     @Test
     @DisplayName("product id로 성공적으로 조회된다.")
     void findByIdSuccessTest() {
+        // given
+        Product savedProduct = productRepository.save(buildProductWithSkuCode("testSku2"));
+
         // when
         Optional<Product> foundProduct = productRepository.findById(savedProduct.getId());
 
@@ -58,28 +55,39 @@ class ProductRepositoryTest extends AbstractContainerBaseTest {
     @Test
     @DisplayName("skuCode로 성공적으로 조회된다.")
     void findBySkuCodeSuccessTest() {
+        // given
+        String skuCode = "testSku3";
+        Product savedProduct = productRepository.save(buildProductWithSkuCode(skuCode));
+
         // when
-        Optional<Product> foundProduct = productRepository.findBySkuCode("testSku");
+        Optional<Product> foundProduct = productRepository.findBySkuCode(skuCode);
 
         // then
-        assertThat(foundProduct.get().getSkuCode()).isEqualTo("testSku");
+        assertThat(foundProduct.get().getSkuCode()).isEqualTo(skuCode);
     }
 
     @Test
     @DisplayName("price table이 저장소에 성공적으로 저장된다.")
     void savePriceTableSuccessTest() {
+        // given
+        PriceTable priceTable = buildPriceTable();
+
         // when
         PriceTable savedPriceTable = productRepository.savePriceTable(buildPriceTable());
 
         // then
-        assertThat(savedPriceTable.getId()).isEqualTo(1L);
+        assertThat(savedPriceTable.getId()).isNotNull();
+        assertThat(priceTable.getProductId()).isEqualTo(savedPriceTable.getProductId());
+        assertThat(priceTable.getGroupSize()).isEqualTo(savedPriceTable.getGroupSize());
+        assertThat(priceTable.getDiscountPrice()).isEqualTo(savedPriceTable.getDiscountPrice());
+        assertThat(priceTable.getTargetPeriod()).isEqualTo(savedPriceTable.getTargetPeriod());
     }
 
-    private Product buildProduct() {
+    private Product buildProductWithSkuCode(String skuCode) {
         return Product.builder()
             .name("test")
-            .skuCode("testSku")
-            .imgUrl("testUrl")
+            .skuCode(skuCode)
+            .imgUrl("/testUrl")
             .priceSale(2000)
             .priceDiscount(1000)
             .discountRate(50)
@@ -88,8 +96,7 @@ class ProductRepositoryTest extends AbstractContainerBaseTest {
 
     private PriceTable buildPriceTable() {
         return PriceTable.builder()
-            .id(1L)
-            .productId(savedProduct.getId())
+            .productId(1L)
             .groupSize(2)
             .discountPrice(1000)
             .targetPeriod(1)

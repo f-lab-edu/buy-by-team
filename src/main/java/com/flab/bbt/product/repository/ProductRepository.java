@@ -17,6 +17,4 @@ public interface ProductRepository {
     Optional<Product> findBySkuCode(String skuCode);
 
     PriceTable savePriceTable(PriceTable priceTable);
-
-    int delete(Long id);
 }

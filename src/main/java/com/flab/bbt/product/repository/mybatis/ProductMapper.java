@@ -19,6 +19,4 @@ public interface ProductMapper {
     Optional<Product> findBySkuCode(String skuCode);
 
     int savePriceTable(PriceTable priceTable);
-
-    int delete(Long id);
 }

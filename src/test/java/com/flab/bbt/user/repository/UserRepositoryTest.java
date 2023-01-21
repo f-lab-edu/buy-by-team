@@ -27,61 +27,66 @@ class UserRepositoryTest extends AbstractContainerBaseTest {
     @Autowired
     private UserRepository userRepository;
 
+    private String email = "test@test.com";
+
     @Test
     @DisplayName("user 정보가 저장소에 성공적으로 저장된다.")
     void saveSuccessTest() {
+        // given
+        User user = buildUser();
+
         // when
-        User savedUser = getSavedUser();
+        User savedUser = userRepository.save(user);
 
         // then
         assertThat(savedUser.getId()).isNotNull();
+        assertThat(user.getEmail()).isEqualTo(savedUser.getEmail());
+        assertThat(user.getPassword()).isEqualTo(savedUser.getPassword());
     }
 
     @Test
     @DisplayName("userProfile 정보가 저장소에 성공적으로 저장된다.")
     void saveUserProfileSuccessTest() {
+        // given
+        UserProfile userProfile = buildUserProfile();
+
         // when
-        UserProfile savedUserProfile = getSavedUserProfile();
+        UserProfile savedUserProfile = userRepository.saveUserProfile(userProfile);
 
         // then
         assertThat(savedUserProfile.getId()).isNotNull();
+        assertThat(userProfile.getUserId()).isEqualTo(savedUserProfile.getUserId());
+        assertThat(userProfile.getName()).isEqualTo(savedUserProfile.getName());
+        assertThat(userProfile.getPhoneNo()).isEqualTo(savedUserProfile.getPhoneNo());
     }
 
     @Test
     void findByIdSuccessTest() {
         // given
-        User savedUser = getSavedUser();
+        User savedUser = userRepository.save(buildUser());
 
         // when
-        Optional<User> result = userRepository.findById(savedUser.getId());
+        Optional<User> foundUser = userRepository.findById(savedUser.getId());
 
         // then
-        assertThat(result.get().getId()).isEqualTo(savedUser.getId());
+        assertThat(foundUser.get().getId()).isEqualTo(savedUser.getId());
     }
 
     @Test
     void findByEmailSuccessTest() {
         // given
-        User savedUser = getSavedUser();
+        User savedUser = userRepository.save(buildUser());
 
         // when
-        Optional<User> result = userRepository.findByEmail("test@test.com");
+        Optional<User> result = userRepository.findByEmail(email);
 
         // then
-        assertThat(result.get().getEmail()).isEqualTo("test@test.com");
-    }
-
-    private User getSavedUser() {
-        return userRepository.save(buildUser());
-    }
-
-    private UserProfile getSavedUserProfile() {
-        return userRepository.saveUserProfile(buildUserProfile());
+        assertThat(result.get().getEmail()).isEqualTo(email);
     }
 
     private User buildUser() {
         return User.builder()
-            .email("test@test.com")
+            .email(email)
             .password("encryptedPassword")
             .build();
     }

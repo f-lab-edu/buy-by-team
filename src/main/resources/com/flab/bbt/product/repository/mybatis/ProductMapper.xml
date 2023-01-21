@@ -29,8 +29,4 @@
     insert into price_table (product_id, group_size, discount_price, target_period)
     values (#{productId}, #{groupSize}, #{discountPrice}, #{targetPeriod})
   </insert>
-  
-  <delete id="delete">
-    delete from product where id = #{id}
-  </delete>
 </mapper>

@@ -41,9 +41,4 @@ public class MyBatisProductRepositoryImpl implements ProductRepository {
         productMapper.savePriceTable(priceTable);
         return priceTable;
     }
-
-    @Override
-    public int delete(Long id) {
-        return productMapper.delete(id);
-    }
 }
