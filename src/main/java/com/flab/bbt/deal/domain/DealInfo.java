@@ -30,7 +30,6 @@ public class DealInfo {
     //    private boolean isActive;
     private LocalDateTime startDate; // DealInfo가 유효한 기간
     private LocalDateTime endDate; // DealInfo가 유효한 기간
-//    private List<Deal> dealList;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
