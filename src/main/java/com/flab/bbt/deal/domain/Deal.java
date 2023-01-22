@@ -40,7 +40,7 @@ public class Deal {
 
     public DealStatus getStatus() {
         if (LocalDateTime.now().isAfter(this.getExpiredAt())) {
-            return DealStatus.FAIL;
+            return DealStatus.EXPIRED;
         }
         return status;
     }

@@ -2,6 +2,7 @@ package com.flab.bbt.deal.repository.mybatis;
 
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.DealInfo;
+import com.flab.bbt.deal.domain.DealStatus;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,9 @@ public interface DealMapper {
 
     int updateParticipantCountById(@Param("count") Integer updatedCount, @Param("id") Long id);
 
-    int updateExpiredAtById(@Param("time") LocalDateTime expiredAt, @Param("id") Long id);
+    int updateExpiredDeals(@Param("beforeStatus") DealStatus beforeStatus,
+        @Param("afterStatus") DealStatus afterStatus,
+        @Param("time") LocalDateTime time);
 
     int update(Deal deal);
 

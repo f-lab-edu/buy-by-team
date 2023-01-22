@@ -60,9 +60,9 @@
     where id = #{id}
   </update>
 
-  <update id="updateExpiredAtById" useGeneratedKeys="true" keyProperty="id">
+  <update id="updateExpiredDeals" useGeneratedKeys="true" keyProperty="id">
     update deal
-    set expired_at=#{time}
-    where id = #{id}
+    set status=#{afterStatus}
+    where status = #{beforeStatus}
   </update>
 </mapper>
