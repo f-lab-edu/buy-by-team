@@ -1,6 +1,7 @@
 package com.flab.bbt.deal.repository.mybatis;
 
 import com.flab.bbt.deal.domain.Deal;
+import com.flab.bbt.deal.domain.DealInfo;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,4 +22,5 @@ public interface DealMapper {
 
     Optional<Deal> findByIdForUpdate(Long id);
 
+    Optional<DealInfo> findDealInfoByProductId(Long productId, LocalDateTime currentTime);
 }

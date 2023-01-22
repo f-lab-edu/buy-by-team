@@ -1,13 +1,14 @@
 package com.flab.bbt.deal.service;
 
 import com.flab.bbt.deal.domain.Deal;
+import com.flab.bbt.deal.domain.DealInfo;
 import com.flab.bbt.deal.repository.DealRepository;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -36,6 +37,7 @@ public class DealService {
         return dealRepository.updateExpiredAtById(expiredAt, deal.getId());
     }
 
+    @Scheduled(cron = "0 0/30 0 * * ?")
     public int expireDeal(Deal deal) {
         return expireDeal(deal, LocalDateTime.now());
     }
@@ -49,4 +51,11 @@ public class DealService {
         return dealRepository.findByIdForUpdate(id)
             .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
     }
+
+    // 이게 DealRepository에 있는 게 맞는지 / ProductRepository에 있는 게 맞을지 / DealInfoRepository라는 것을 만들어야 할지
+    public DealInfo findDealInfoByProductId(long productId) {
+        return dealRepository.findDealInfoByProductId(productId)
+            .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
+    }
+
 }
