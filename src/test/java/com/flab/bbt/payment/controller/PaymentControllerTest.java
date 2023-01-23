@@ -2,6 +2,7 @@ package com.flab.bbt.payment.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -9,10 +10,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.bbt.AbstractContainerBaseTest;
 import com.flab.bbt.ConfigureTestProfile;
+import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.payment.domain.Payment;
 import com.flab.bbt.payment.domain.PaymentStatus;
 import com.flab.bbt.payment.request.PaymentRequest;
 import com.flab.bbt.payment.service.PaymentService;
+import com.flab.bbt.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
@@ -40,6 +44,9 @@ class PaymentControllerTest extends AbstractContainerBaseTest {
     @DisplayName("payment가 생성되면 200 ok를 내려준다.")
     void createPaymentSuccessTest() throws Exception {
         // given
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, mock(User.class));
+
         PaymentRequest paymentRequest = PaymentRequest.builder()
             .userId(1L)
             .orderId(1L)
@@ -50,6 +57,7 @@ class PaymentControllerTest extends AbstractContainerBaseTest {
 
         // when
         mockMvc.perform(post("/payment/create")
+                .session(mockHttpSession)
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
