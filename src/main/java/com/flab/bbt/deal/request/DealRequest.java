@@ -19,7 +19,7 @@ public class DealRequest {
     @NotNull(message = "딜 공개 여부는 필수 입력 값입니다.")
     private boolean isPrivate;
 
-    public Deal converToEntity(Long productId) {
+    public Deal convertToEntity(Long productId) {
         return Deal.builder()
             .productId(productId)
             .groupSize(this.getGroupSize())
