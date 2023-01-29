@@ -56,13 +56,10 @@ public class ProductController {
     /**
      * 제품의 가격 정책을 생성하는 API로, 어드민 권한이 있는 유저만이 호출할 수 있다 -- TODO("권한 체크")
      */
-    @PostMapping("/{productId}/price-tables")
+    @PostMapping("/{productId}/pricetables")
     public CommonResponse createPriceTable(@Valid @PathVariable long productId,
         @RequestBody PriceTableRequest request) {
-        Product product = productService.findProductById(productId);
-        PriceTable priceTable = productService.createPriceTable(
-            request.convertToEntity(product.getId()));
-
+        PriceTable priceTable = productService.createPriceTable(request.convertToEntity(productId));
         return CommonResponse.success(priceTable);
     }
 
