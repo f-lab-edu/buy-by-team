@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface DealMapper {
 
-    int save(Deal deal);
+    int create(Deal deal);
 
     int updateParticipantCountById(@Param("count") Integer updatedCount, @Param("id") Long id);
 

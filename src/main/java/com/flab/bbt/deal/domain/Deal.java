@@ -28,7 +28,7 @@ public class Deal {
     private boolean isPrivate;
     private LocalDateTime expiredAt; // 마감되는 일시
     private LocalDateTime closedAt; // 성사된 일시
-    private Integer version;
+    private int version;
 
     @JsonProperty("isPrivate")
     public boolean getIsPrivate() {

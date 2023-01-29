@@ -3,11 +3,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.bbt.deal.repository.mybatis.DealMapper">
 
-  <insert id="save" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" useGeneratedKeys="true" keyProperty="id">
     insert into deal (product_id, group_size, discount_price, status, participant_count, is_private,
                       expired_at, closed_at, version)
-    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount},
-            #{isPrivate}, #{expiredAt}, #{closedAt}, #{version})
+    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, 1,
+            #{isPrivate}, #{expiredAt}, #{closedAt}, 0)
   </insert>
 
 

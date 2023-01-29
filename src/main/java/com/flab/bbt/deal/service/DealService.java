@@ -16,7 +16,7 @@ public class DealService {
     private final DealRepository dealRepository;
 
     public Deal createDeal(Deal deal) {
-        return dealRepository.save(deal);
+        return dealRepository.createDeal(deal);
     }
 
     public Deal incrementParticipantCount(Long dealId, int count) {

@@ -1,11 +1,6 @@
 package com.flab.bbt.deal.request;
 
 import com.flab.bbt.deal.domain.Deal;
-import com.flab.bbt.deal.domain.DealStatus;
-import com.flab.bbt.product.domain.PriceTable;
-import com.flab.bbt.product.domain.Product;
-import com.flab.bbt.user.domain.User;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -29,9 +24,6 @@ public class DealRequest {
             .productId(productId)
             .groupSize(this.getGroupSize())
             .discountPrice(this.getDiscountPrice())
-            .status(DealStatus.CREATED)
-            .participantCount(0)
-            .version(0)
             .isPrivate(this.isPrivate)
             .build();
     }

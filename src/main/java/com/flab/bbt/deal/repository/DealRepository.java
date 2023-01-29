@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface DealRepository {
 
-    Deal save(Deal deal);
+    Deal createDeal(Deal deal);
 
     Optional<Deal> findById(Long id);
 

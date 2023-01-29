@@ -1,6 +1,7 @@
 package com.flab.bbt.deal.repository;
 
 import com.flab.bbt.deal.domain.Deal;
+import com.flab.bbt.deal.domain.DealStatus;
 import com.flab.bbt.deal.repository.mybatis.DealMapper;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -14,8 +15,9 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     private final DealMapper dealMapper;
 
     @Override
-    public Deal save(Deal deal) {
-        dealMapper.save(deal);
+    public Deal createDeal(Deal deal) {
+        deal.setStatus(DealStatus.CREATED);
+        dealMapper.create(deal);
         return deal;
     }
 
