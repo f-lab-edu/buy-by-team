@@ -1,5 +1,4 @@
-create database if not exists mysqldb;
-create table if not exists mysqldb.user
+create table if not exists user
 (
     id       INT          NOT NULL AUTO_INCREMENT,
     email    VARCHAR(255) NOT NULL,
@@ -7,7 +6,7 @@ create table if not exists mysqldb.user
     PRIMARY KEY (id)
 );
 
-create table if not exists mysqldb.user_profile
+create table if not exists user_profile
 (
     id       INT NOT NULL AUTO_INCREMENT,
     name     varchar(255),
@@ -16,7 +15,7 @@ create table if not exists mysqldb.user_profile
     primary key (id)
 );
 
-create table if not exists mysqldb.product
+create table if not exists product
 (
     id             INT NOT NULL AUTO_INCREMENT,
     name           varchar(255),
@@ -29,7 +28,7 @@ create table if not exists mysqldb.product
     index index_product_on_sku_code (sku_code)
 );
 
-create table if not exists mysqldb.deal
+create table if not exists deal
 (
     id                INT NOT NULL AUTO_INCREMENT,
     product_id        int,
@@ -45,12 +44,12 @@ create table if not exists mysqldb.deal
     index index_deal_on_status (status)
 );
 
-INSERT INTO mysqldb.price_table
+INSERT INTO price_table
 (product_id, deal_capacity, discount_price, deal_valid_period_in_days, is_deal_private, start_date,
  end_date)
 VALUES (1, 2, 13000, 24, true, TIMESTAMP '2023-01-01 00:00:00', TIMESTAMP '2023-01-31 23:59:59');
 
-create table if not exists mysqldb.price_table
+create table if not exists price_table
 (
     id             INT NOT NULL AUTO_INCREMENT,
     product_id     int,
