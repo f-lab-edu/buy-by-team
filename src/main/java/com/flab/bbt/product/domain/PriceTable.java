@@ -1,5 +1,7 @@
 package com.flab.bbt.product.domain;
 
+import com.flab.bbt.deal.domain.Deal;
+import com.flab.bbt.deal.domain.DealStatus;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,4 +27,17 @@ public class PriceTable {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public Deal convertToDealEntity() {
+        return Deal.builder()
+            .productId(this.getProductId())
+            .groupSize(this.getDealCapacity())
+            .discountPrice(this.getDiscountPrice())
+            .status(DealStatus.CREATED)
+            .participantCount(0)
+            .expiredAt(LocalDateTime.now().plusHours(this.getDealValidPeriodInDays()))
+            .isPrivate(this.isDealPrivate())
+            .priceTableId(this.getId())
+            .build();
+    }
 }
