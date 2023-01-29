@@ -33,8 +33,6 @@ public class ProductRequest {
             .name(request.getName())
             .skuCode(request.getSkuCode())
             .imgUrl(request.getImgUrl())
-            .priceDiscount(request.getPriceDiscount())
-            .discountRate(request.getDiscountRate())
             .build();
     }
 }
