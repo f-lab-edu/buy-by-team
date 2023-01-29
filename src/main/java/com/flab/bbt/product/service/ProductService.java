@@ -43,6 +43,6 @@ public class ProductService {
 
     public PriceTable findPriceTableByProductId(long productId) {
         return productRepository.findPriceTableByProductId(productId)
-            .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ErrorCode.PRICE_TABLE_NOT_FOUND));
     }
 }
