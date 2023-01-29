@@ -30,7 +30,8 @@
     select *
     from deal_info
     where product_id = #{productId}
-      AND end_date > #{currentTime}
+      AND end_date &gt; #{currentTime}
+      AND start_date &lt; #{currentTime}
   </select>
   <!--  <select id="findDealInfoByProductId" resultType="com.flab.bbt.deal.domain.DealInfo">-->
   <!--    select *-->
@@ -64,5 +65,7 @@
     update deal
     set status=#{afterStatus}
     where status = #{beforeStatus}
+      AND end_date &gt; #{time}
+      AND start_date &lt; #{time}
   </update>
 </mapper>
