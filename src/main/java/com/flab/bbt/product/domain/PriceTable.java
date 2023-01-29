@@ -13,8 +13,10 @@ import lombok.NoArgsConstructor;
 public class PriceTable {
 
     private Long id;
-    private Long productId;
-    private int groupSize; // 목표인원
-    private int discountPrice;
-    private int targetPeriod; // 마감기한 계산을 위한 필드. 예를 들어 1day일 경우 1.
+    private Long productId; // 제품의 ID
+    private int groupSize; // 제품에 대한 팀구매의 목표인원
+    private int priceSale; // 제품의 정가
+    private int priceDiscount; // 제품의 할인가
+    private int discountRate; // 제품의 할인율
+    private int targetPeriod; // 제품에 대한 팀구매의 만료기한(단위: day)
 }

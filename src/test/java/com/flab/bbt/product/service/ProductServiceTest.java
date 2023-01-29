@@ -1,11 +1,18 @@
 package com.flab.bbt.product.service;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.Mockito.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.product.domain.Product;
-import com.flab.bbt.product.repository.ProductRepository;
 import com.flab.bbt.product.repository.ProductRepositoryImpl;
-import com.flab.bbt.user.domain.User;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,22 +20,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
-//    private ProductRepository productRepository = new ProductRepositoryImpl();
-//    private ProductService productService = new ProductService(productRepository);
 
     @InjectMocks
     private ProductService productService;
@@ -36,23 +31,19 @@ class ProductServiceTest {
     private ProductRepositoryImpl productRepository;
 
     Product product;
-    Product product2;
 
     @BeforeEach
     public void setUp() {
         product = Product.builder()
-                         .name("test")
-                         .skuCode("SN00001")
-                         .imgUrl("url")
-                         .priceSale(10000)
-                         .priceDiscount(9000)
-                         .discountRate(10)
-                         .build();
+            .name("test")
+            .skuCode("SN00001")
+            .imgUrl("url")
+            .build();
     }
 
     @Test
     @DisplayName("제품 등록시 성공적으로 저장소에 저장된다.")
-    void registerSuccessTest(){
+    void registerSuccessTest() {
         // given
         when(productRepository.findBySkuCode(anyString())).thenReturn(Optional.empty());
         when(productRepository.save(any(Product.class))).thenReturn(product);
@@ -67,13 +58,13 @@ class ProductServiceTest {
 
     @Test
     @DisplayName("같은 SerialNum의 제품이 등록될 경우 제품 등록에 실패한다.")
-    void registerProductWithDplicatedSerialNumTest(){
+    void registerProductWithDplicatedSerialNumTest() {
         // given
         when(productRepository.findBySkuCode(anyString())).thenReturn(Optional.ofNullable(product));
 
         // when
         CustomException e = assertThrows(CustomException.class,
-                () -> productService.register(product));
+            () -> productService.register(product));
 
         // then
         assertThat(e.getErrorCode().getMessage()).isEqualTo("이미 존재하는 상품입니다.");
@@ -103,7 +94,7 @@ class ProductServiceTest {
 
         // when
         CustomException e = assertThrows(CustomException.class,
-                () -> productService.findProductById(test_id));
+            () -> productService.findProductById(test_id));
 
         // then
         assertThat(e.getErrorCode().getMessage()).isEqualTo("상품을 찾지 못했습니다.");
@@ -113,7 +104,8 @@ class ProductServiceTest {
     @DisplayName("제품 전체 조회시 전체 제품이 성공적으로 조회된다.")
     void findProductsTest() {
         // given
-        when(productRepository.findListWithPagination(PageRequest.of(0, 10))).thenReturn(getProductList());
+        when(productRepository.findListWithPagination(PageRequest.of(0, 10))).thenReturn(
+            getProductList());
 
         // when
         List<Product> products = productService.findProducts(PageRequest.of(0, 10));
@@ -124,13 +116,10 @@ class ProductServiceTest {
 
     private Product createAnotherProduct() {
         return Product.builder()
-                .name("test2")
-                .skuCode("SN00002")
-                .imgUrl("url")
-                .priceSale(20000)
-                .priceDiscount(18000)
-                .discountRate(10)
-                .build();
+            .name("test2")
+            .skuCode("SN00002")
+            .imgUrl("url")
+            .build();
     }
 
     private List<Product> getProductList() {

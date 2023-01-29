@@ -1,18 +1,23 @@
 package com.flab.bbt.product.request;
 
 import com.flab.bbt.product.domain.PriceTable;
-import com.flab.bbt.product.domain.Product;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
 public class PriceTableRequest {
+
     @NotNull(message = "목표인원은 필수 입력 값입니다.")
     private int groupSize;
 
-    @NotNull(message = "할인금액은 필수 입력 값입니다.")
-    private int discountPrice;
+    @NotNull(message = "제품의 할인가는 필수 입력 값입니다.")
+    private int priceDiscount;
+
+    @NotNull(message = "제품의 정가는 필수 입력 값입니다.")
+    private int priceSale;
+
+    @NotNull(message = "제품의 할인율은 필수 입력 값입니다.")
+    private int discountRate;
 
     @NotNull(message = "목표기간은 필수 입력 값입니다.")
     private int targetPeriod;
@@ -21,8 +26,10 @@ public class PriceTableRequest {
         return PriceTable.builder()
             .productId(productId)
             .groupSize(this.groupSize)
-            .discountPrice(this.discountPrice)
             .targetPeriod(this.targetPeriod)
+            .priceSale(this.priceSale)
+            .priceDiscount(this.priceDiscount)
+            .discountRate(this.discountRate)
             .build();
     }
 }
