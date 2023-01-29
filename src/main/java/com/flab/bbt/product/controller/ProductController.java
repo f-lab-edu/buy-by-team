@@ -55,10 +55,6 @@ public class ProductController {
 
     /**
      * 제품의 가격 정책을 생성하는 API로, 어드민 권한이 있는 유저만이 호출할 수 있다 -- TODO("권한 체크")
-     *
-     * @param productId
-     * @param request
-     * @return
      */
     @PostMapping("/{productId}/price-tables")
     public CommonResponse createPriceTable(@Valid @PathVariable long productId,
