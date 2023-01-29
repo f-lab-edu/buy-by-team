@@ -5,10 +5,9 @@ import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.ProductRepository;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ProductService {
@@ -40,5 +39,10 @@ public class ProductService {
 
     public PriceTable createPriceTable(PriceTable priceTable) {
         return productRepository.savePriceTable(priceTable);
+    }
+
+    public PriceTable findPriceTableByProductId(long productId) {
+        return productRepository.findPriceTableByProductId(productId)
+            .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
     }
 }

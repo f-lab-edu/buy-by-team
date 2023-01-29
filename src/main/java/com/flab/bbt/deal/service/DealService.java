@@ -4,7 +4,6 @@ import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.repository.DealRepository;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
-import com.flab.bbt.product.domain.PriceTable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -46,11 +45,4 @@ public class DealService {
         return dealRepository.findByIdForUpdate(id)
             .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
     }
-
-    // 이게 DealRepository에 있는 게 맞는지 / ProductRepository에 있는 게 맞을지 / DealInfoRepository라는 것을 만들어야 할지
-    public PriceTable findPriceTableByProductId(long productId) {
-        return dealRepository.findPriceTableByProductId(productId)
-            .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
-    }
-
 }

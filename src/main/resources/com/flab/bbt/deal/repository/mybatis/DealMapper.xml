@@ -26,14 +26,6 @@
   </select>
 
 
-  <select id="findPriceTableByProductId" resultType="com.flab.bbt.product.domain.PriceTable">
-    select *
-    from price_table
-    where product_id = #{productId}
-      AND end_date &gt; #{currentTime}
-      AND start_date &lt; #{currentTime}
-  </select>
-
   <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
     UPDATE deal
     SET product_id       = #{productId},

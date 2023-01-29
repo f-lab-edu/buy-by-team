@@ -26,7 +26,8 @@ public class DealController {
 
     @PostMapping()
     public CommonResponse createDeal(@Valid @RequestBody DealRequest dealRequest) {
-        PriceTable priceTable = dealService.findPriceTableByProductId(dealRequest.getProductId());
+        PriceTable priceTable = productService.findPriceTableByProductId(
+            dealRequest.getProductId());
         Deal deal = dealService.createDeal(dealRequest.converToEntity(priceTable));
 
         return CommonResponse.success(deal);

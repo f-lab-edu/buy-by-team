@@ -3,7 +3,6 @@ package com.flab.bbt.deal.repository;
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.DealStatus;
 import com.flab.bbt.deal.repository.mybatis.DealMapper;
-import com.flab.bbt.product.domain.PriceTable;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +29,6 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     public int updateExpiredDeals() {
         return dealMapper.updateExpiredDeals(DealStatus.IN_PROGRESS, DealStatus.EXPIRED,
             LocalDateTime.now());
-    }
-
-    @Override
-    public Optional<PriceTable> findPriceTableByProductId(Long productId) {
-        return dealMapper.findPriceTableByProductId(productId, LocalDateTime.now());
     }
 
     @Override
