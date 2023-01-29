@@ -6,7 +6,7 @@
   <insert id="create" useGeneratedKeys="true" keyProperty="id">
     insert into deal (product_id, group_size, discount_price, status, participant_count, is_private,
                       expired_at, closed_at, version)
-    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, 1,
+    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, 0,
             #{isPrivate}, #{expiredAt}, #{closedAt}, 0)
   </insert>
 
