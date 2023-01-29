@@ -6,6 +6,7 @@ public enum ErrorCode {
     INVALID_INPUT(3001, "입력값이 올바르지 않습니다."),
     DUPLICATE_EMAIL(3002, "이메일이 중복되었습니다."),
     USER_NOT_AUTHORIZED(3003, "권한이 없는 유저입니다."),
+    USER_UNAUTHORIZED(3004, "로그인이 필요합니다."),
 
     USE_RPROFILE_NOT_FOUNT(4000, "유저프로필을 찾지 못했습니다."),
     USER_PROFILE_ALREADY_EXISTS(4001, "유저프로필이 이미 존재합니다."),

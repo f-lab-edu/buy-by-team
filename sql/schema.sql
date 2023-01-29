@@ -51,11 +51,26 @@ VALUES (1, 2, 13000, 24, true, TIMESTAMP '2023-01-01 00:00:00', TIMESTAMP '2023-
 
 create table if not exists price_table
 (
-    id             INT NOT NULL AUTO_INCREMENT,
-    product_id     int,
-    group_size     int,
-    discount_price int,
-    target_period  int,
+    id                        INT NOT NULL AUTO_INCREMENT,
+    product_id                int,
+    deal_capacity             int,
+    discount_price            int,
+    is_deal_private           boolean,
+    deal_valid_period_in_days int,
+    start_date                TIMESTAMP,
+    end_date                  TIMESTAMP,
+    created_date              TIMESTAMP,
+    updated_date              TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+create table if not exists payment
+(
+    id       INT NOT NULL AUTO_INCREMENT,
+    user_id  int,
+    order_id int,
+    method   int,
+    status   int,
     PRIMARY KEY (id)
 );
 
