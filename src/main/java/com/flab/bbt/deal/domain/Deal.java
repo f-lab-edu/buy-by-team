@@ -22,7 +22,7 @@ public class Deal {
     private int groupSize; // PriceTable 스냅샷. 목표인원
     private int discountPrice; // PriceTable 스냅샷. 할인가
     private DealStatus status;
-    private Long dealInfoId;
+    private Long priceTableId;
 
     @Setter
     private int participantCount;

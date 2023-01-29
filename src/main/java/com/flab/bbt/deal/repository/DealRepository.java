@@ -1,7 +1,7 @@
 package com.flab.bbt.deal.repository;
 
 import com.flab.bbt.deal.domain.Deal;
-import com.flab.bbt.deal.domain.DealInfo;
+import com.flab.bbt.product.domain.PriceTable;
 import java.util.Optional;
 
 public interface DealRepository {
@@ -18,5 +18,5 @@ public interface DealRepository {
 
     int updateExpiredDeals();
 
-    Optional<DealInfo> findDealInfoByProductId(Long productId);
+    Optional<PriceTable> findPriceTableByProductId(Long productId);
 }

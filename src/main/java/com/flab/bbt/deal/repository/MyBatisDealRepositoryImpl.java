@@ -1,9 +1,9 @@
 package com.flab.bbt.deal.repository;
 
 import com.flab.bbt.deal.domain.Deal;
-import com.flab.bbt.deal.domain.DealInfo;
 import com.flab.bbt.deal.domain.DealStatus;
 import com.flab.bbt.deal.repository.mybatis.DealMapper;
+import com.flab.bbt.product.domain.PriceTable;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +33,8 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     }
 
     @Override
-    public Optional<DealInfo> findDealInfoByProductId(Long productId) {
-        return dealMapper.findDealInfoByProductId(productId, LocalDateTime.now());
+    public Optional<PriceTable> findPriceTableByProductId(Long productId) {
+        return dealMapper.findPriceTableByProductId(productId, LocalDateTime.now());
     }
 
     @Override

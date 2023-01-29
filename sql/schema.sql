@@ -33,7 +33,7 @@ create table if not exists mysqldb.deal
 (
     id                INT NOT NULL AUTO_INCREMENT,
     product_id        int,
-    deal_info_id      int,
+    price_table_id    int,
     group_size        int,
     discount_price    int,
     status            varchar(255),
@@ -45,21 +45,10 @@ create table if not exists mysqldb.deal
     index index_deal_on_status (status)
 );
 
-create table if not exists mysqldb.deal_info
-(
-    id           INT NOT NULL AUTO_INCREMENT,
-    product_id   int,
-    capacity     int,
-    active_hours int,
-    is_private   boolean,
-    start_date   TIMESTAMP,
-    end_date     TIMESTAMP,
-    PRIMARY KEY (id)
-);
-
-INSERT INTO mysqldb.deal_info
-(product_id, capacity, active_hours, is_private, start_date, end_date)
-VALUES (1, 2, 24, true, TIMESTAMP '2023-01-01 00:00:00', TIMESTAMP '2023-01-31 23:59:59');
+INSERT INTO mysqldb.price_table
+(product_id, deal_capacity, discount_price, deal_valid_period_in_days, is_deal_private, start_date,
+ end_date)
+VALUES (1, 2, 13000, 24, true, TIMESTAMP '2023-01-01 00:00:00', TIMESTAMP '2023-01-31 23:59:59');
 
 create table if not exists mysqldb.price_table
 (

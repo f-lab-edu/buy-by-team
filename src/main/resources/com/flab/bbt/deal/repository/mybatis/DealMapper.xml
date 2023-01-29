@@ -5,9 +5,9 @@
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id">
     insert into deal (product_id, group_size, discount_price, status, participant_count, is_private,
-                      expired_at, closed_at, deal_info_id)
+                      expired_at, closed_at, price_table_id)
     values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount},
-            #{isPrivate}, #{expiredAt}, #{closedAt}, #{dealInfoId})
+            #{isPrivate}, #{expiredAt}, #{closedAt}, #{priceTableId})
   </insert>
 
 
@@ -26,21 +26,13 @@
   </select>
 
 
-  <select id="findDealInfoByProductId" resultType="com.flab.bbt.deal.domain.DealInfo">
+  <select id="findPriceTableByProductId" resultType="com.flab.bbt.product.domain.PriceTable">
     select *
-    from deal_info
+    from price_table
     where product_id = #{productId}
       AND end_date &gt; #{currentTime}
       AND start_date &lt; #{currentTime}
   </select>
-  <!--  <select id="findDealInfoByProductId" resultType="com.flab.bbt.deal.domain.DealInfo">-->
-  <!--    select *-->
-  <!--    from deal_info-->
-  <!--    where productId = #{productId}-->
-  <!--        and endDate > NOW()-->
-  <!--        and startDate < NOW()-->
-  <!--  </select>-->
-
 
   <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
     UPDATE deal

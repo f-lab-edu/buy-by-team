@@ -21,8 +21,8 @@ public enum ErrorCode {
     DEAL_NOT_FOUND(7000, "딜이 존재하지 않습니다."),
 
     DEAL_GROUP_SIZE_EXCEEDED(7001, "딜의 정원을 초과했습니다."),
-    // DEAL INFO
-    DEAL_INFO_NOT_FOUND(7000, "딜에 대한 정보가 존재하지 않습니다."),
+    // PRICE_TABLE
+    PRICE_TABLE_NOT_FOUND(7000, "정보가 존재하지 않습니다."),
     ;
 
     long code;
