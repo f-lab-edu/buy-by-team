@@ -2,6 +2,7 @@ package com.flab.bbt.product.repository.mybatis;
 
 import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +20,6 @@ public interface ProductMapper {
     Optional<Product> findBySkuCode(String skuCode);
 
     int savePriceTable(PriceTable priceTable);
+
+    Optional<PriceTable> findPriceTableByProductId(Long productId, LocalDateTime currentTime);
 }

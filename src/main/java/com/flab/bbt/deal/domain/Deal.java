@@ -21,16 +21,28 @@ public class Deal {
     private Long productId;
     private int groupSize; // PriceTable 스냅샷. 목표인원
     private int discountPrice; // PriceTable 스냅샷. 할인가
-    private DealStatus status; // TODO("이거 관련 처리도.... + mapper xml에서도 ")
+    private DealStatus status;
+    private Long priceTableId;
+
     @Setter
     private int participantCount;
     private boolean isPrivate;
     private LocalDateTime expiredAt; // 마감되는 일시
     private LocalDateTime closedAt; // 성사된 일시
 
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
     @JsonProperty("isPrivate")
     public boolean getIsPrivate() {
         return this.isPrivate;
+    }
+
+    public DealStatus getStatus() {
+        if (LocalDateTime.now().isAfter(this.getExpiredAt())) {
+            return DealStatus.EXPIRED;
+        }
+        return status;
     }
 
     public void incrementParticipantCount(int count) {
@@ -40,4 +52,5 @@ public class Deal {
             this.setParticipantCount(this.getParticipantCount() + count);
         }
     }
+
 }

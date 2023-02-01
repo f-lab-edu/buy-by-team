@@ -4,10 +4,9 @@ import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.repository.DealRepository;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -32,12 +31,9 @@ public class DealService {
         return incrementParticipantCount(dealId, 1);
     }
 
-    public int expireDeal(Deal deal, LocalDateTime expiredAt) {
-        return dealRepository.updateExpiredAtById(expiredAt, deal.getId());
-    }
-
-    public int expireDeal(Deal deal) {
-        return expireDeal(deal, LocalDateTime.now());
+    @Scheduled(cron = "0 0/30 0 * * ?")
+    public int expireDeals() {
+        return dealRepository.updateExpiredDeals();
     }
 
     public Deal findDealById(long id) {
