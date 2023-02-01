@@ -23,6 +23,8 @@ public class Deal {
     private int discountPrice; // PriceTable 스냅샷. 할인가
     @Setter
     private DealStatus status;
+    private Long priceTableId;
+
     @Setter
     private int participantCount;
     private boolean isPrivate;
@@ -30,9 +32,19 @@ public class Deal {
     private LocalDateTime closedAt; // 성사된 일시
     private int version;
 
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
     @JsonProperty("isPrivate")
     public boolean getIsPrivate() {
         return this.isPrivate;
+    }
+
+    public DealStatus getStatus() {
+        if (LocalDateTime.now().isAfter(this.getExpiredAt())) {
+            return DealStatus.EXPIRED;
+        }
+        return status;
     }
 
     public void incrementParticipantCount(int count) {
@@ -51,5 +63,4 @@ public class Deal {
     public boolean isJoinable(int count) {
         return (this.getGroupSize() > this.getParticipantCount() + count);
     }
-
 }

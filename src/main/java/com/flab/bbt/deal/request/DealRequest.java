@@ -1,5 +1,4 @@
 package com.flab.bbt.deal.request;
-
 import com.flab.bbt.deal.domain.Deal;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;

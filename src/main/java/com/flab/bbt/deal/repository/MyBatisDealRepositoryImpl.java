@@ -27,8 +27,9 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     }
 
     @Override
-    public int updateExpiredAtById(LocalDateTime time, Long id) {
-        return dealMapper.updateExpiredAtById(time, id);
+    public int updateExpiredDeals() {
+        return dealMapper.updateExpiredDeals(DealStatus.IN_PROGRESS, DealStatus.EXPIRED,
+            LocalDateTime.now());
     }
 
     @Override

@@ -23,6 +23,7 @@
     where id = #{id}
   </select>
 
+
   <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
     UPDATE deal
     SET product_id       = #{deal.productId},
@@ -44,9 +45,11 @@
     where id = #{id}
   </update>
 
-  <update id="updateExpiredAtById" useGeneratedKeys="true" keyProperty="id">
+  <update id="updateExpiredDeals" useGeneratedKeys="true" keyProperty="id">
     update deal
-    set expired_at=#{time}
-    where id = #{id}
+    set status=#{afterStatus}
+    where status = #{beforeStatus}
+      AND end_date &gt; #{time}
+      AND start_date &lt; #{time}
   </update>
 </mapper>

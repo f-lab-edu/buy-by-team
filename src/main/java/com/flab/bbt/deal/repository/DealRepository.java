@@ -16,5 +16,5 @@ public interface DealRepository {
 
     int updateParticipantCountById(int updatedCount, Long id);
 
-    int updateExpiredAtById(LocalDateTime time, Long id);
+    int updateExpiredDeals();
 }

@@ -4,7 +4,7 @@ import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.request.DealRequest;
 import com.flab.bbt.deal.service.DealService;
-import com.flab.bbt.product.domain.Product;
+import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.service.ProductService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +26,9 @@ public class DealController {
 
     @PostMapping()
     public CommonResponse createDeal(@Valid @RequestBody DealRequest dealRequest) {
-        Product product = productService.findProductById(dealRequest.getProductId());
-        Deal deal = dealService.createDeal(dealRequest.convertToEntity(product.getId()));
-
+        PriceTable priceTable = productService.findPriceTableByProductId(
+            dealRequest.getProductId());
+        Deal deal = dealService.createDeal(priceTable.convertToDealEntity());
         return CommonResponse.success(deal);
     }
 
