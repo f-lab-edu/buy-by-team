@@ -47,4 +47,9 @@ public class Deal {
             this.setStatus(DealStatus.COMPLETED);
         }
     }
+
+    public boolean isJoinable(int count) {
+        return (this.getGroupSize() > this.getParticipantCount() + count);
+    }
+
 }
