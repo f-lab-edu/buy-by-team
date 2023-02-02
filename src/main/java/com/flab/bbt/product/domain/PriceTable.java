@@ -17,6 +17,9 @@ public class PriceTable {
     private int groupSize; // 제품에 대한 팀구매의 목표인원
     private int priceSale; // 제품의 정가
     private int priceDiscount; // 제품의 할인가
-    private int discountRate; // 제품의 할인율
     private int targetPeriod; // 제품에 대한 팀구매의 만료기한(단위: day)
+
+    public int getDiscountRate() {
+        return (priceSale - priceDiscount) / priceSale;
+    }
 }

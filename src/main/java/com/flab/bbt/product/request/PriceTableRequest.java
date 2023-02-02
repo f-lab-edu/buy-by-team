@@ -29,7 +29,6 @@ public class PriceTableRequest {
             .targetPeriod(this.targetPeriod)
             .priceSale(this.priceSale)
             .priceDiscount(this.priceDiscount)
-            .discountRate(this.discountRate)
             .build();
     }
 }
