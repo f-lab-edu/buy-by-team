@@ -21,6 +21,7 @@ public class Deal {
     private Long productId;
     private int groupSize; // PriceTable 스냅샷. 목표인원
     private int discountPrice; // PriceTable 스냅샷. 할인가
+    @Setter
     private DealStatus status;
     private Long priceTableId;
 
@@ -29,6 +30,7 @@ public class Deal {
     private boolean isPrivate;
     private LocalDateTime expiredAt; // 마감되는 일시
     private LocalDateTime closedAt; // 성사된 일시
+    private int version;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -46,11 +48,19 @@ public class Deal {
     }
 
     public void incrementParticipantCount(int count) {
-        if (this.getParticipantCount() + count > this.getGroupSize()) {
+        int updatedCount = this.getParticipantCount() + count;
+        if (updatedCount > this.getGroupSize()) {
             throw new CustomException(ErrorCode.DEAL_GROUP_SIZE_EXCEEDED);
+        } else if (updatedCount < this.getGroupSize()) {
+            this.setParticipantCount(updatedCount);
+            this.setStatus(DealStatus.IN_PROGRESS);
         } else {
-            this.setParticipantCount(this.getParticipantCount() + count);
+            this.setParticipantCount(updatedCount);
+            this.setStatus(DealStatus.COMPLETED);
         }
     }
 
+    public boolean isJoinable(int count) {
+        return (this.getGroupSize() > this.getParticipantCount() + count);
+    }
 }

@@ -3,11 +3,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.bbt.deal.repository.mybatis.DealMapper">
 
-  <insert id="save" useGeneratedKeys="true" keyProperty="id">
+  <insert id="create" useGeneratedKeys="true" keyProperty="id">
     insert into deal (product_id, group_size, discount_price, status, participant_count, is_private,
-                      expired_at, closed_at, price_table_id)
-    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, #{participantCount},
-            #{isPrivate}, #{expiredAt}, #{closedAt}, #{priceTableId})
+                      expired_at, closed_at, version)
+    values (#{productId}, #{groupSize}, #{discountPrice}, #{status}, 0,
+            #{isPrivate}, #{expiredAt}, #{closedAt}, 0)
   </insert>
 
 
@@ -21,22 +21,22 @@
     select *
     from deal
     where id = #{id}
-      for
-    update
   </select>
 
 
   <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
     UPDATE deal
-    SET product_id       = #{productId},
-        group_size=#{groupSize},
-        discount_price=#{discountPrice},
-        group_size=#{groupSize},
-        participant_count=#{participantCount},
-        is_private=#{isPrivate},
-        expired_at=#{expiredAt},
-        closed_at=#{closedAt}
-    WHERE id = #{id}
+    SET product_id       = #{deal.productId},
+        group_size=#{deal.groupSize},
+        discount_price=#{deal.discountPrice},
+        group_size=#{deal.groupSize},
+        participant_count=#{deal.participantCount},
+        is_private=#{deal.isPrivate},
+        expired_at=#{deal.expiredAt},
+        closed_at=#{deal.closedAt},
+        version=#{newVersion}
+    WHERE id = #{deal.id}
+      AND version = #{oldVersion}
   </update>
 
   <update id="updateParticipantCountById" useGeneratedKeys="true" keyProperty="id">

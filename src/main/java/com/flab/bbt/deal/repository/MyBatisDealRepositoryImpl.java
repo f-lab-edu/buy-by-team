@@ -15,8 +15,9 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     private final DealMapper dealMapper;
 
     @Override
-    public Deal save(Deal deal) {
-        dealMapper.save(deal);
+    public Deal createDeal(Deal deal) {
+        deal.setStatus(DealStatus.CREATED);
+        dealMapper.create(deal);
         return deal;
     }
 
@@ -42,8 +43,7 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     }
 
     @Override
-    public Deal update(Deal deal) {
-        dealMapper.update(deal);
-        return deal;
+    public int update(Deal deal) {
+        return dealMapper.update(deal, deal.getVersion(), deal.getVersion() + 1);
     }
 }
