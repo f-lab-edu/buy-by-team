@@ -1,22 +1,17 @@
 package com.flab.bbt.deal.controller;
 
 import com.flab.bbt.common.CommonResponse;
-import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.request.DealRequest;
 import com.flab.bbt.deal.service.DealService;
-import com.flab.bbt.product.domain.Product;
+import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.service.ProductService;
-import com.flab.bbt.user.domain.User;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +26,9 @@ public class DealController {
 
     @PostMapping()
     public CommonResponse createDeal(@Valid @RequestBody DealRequest dealRequest) {
-        Product product = productService.findProductById(dealRequest.getProductId());
-        Deal deal = dealService.createDeal(dealRequest.converToEntity(product.getId()));
-
+        PriceTable priceTable = productService.findPriceTableByProductId(
+            dealRequest.getProductId());
+        Deal deal = dealService.createDeal(priceTable.convertToDealEntity());
         return CommonResponse.success(deal);
     }
 
@@ -45,9 +40,8 @@ public class DealController {
 
     @PatchMapping("/{id}/participate")
     public CommonResponse participateDeal(@PathVariable Long id) {
-        // in progress
-        dealService.incrementParticipantCount(id);
-        return CommonResponse.success();
+        Deal updatedDeal = dealService.incrementParticipantCount(id);
+        return CommonResponse.success(updatedDeal);
     }
 
 

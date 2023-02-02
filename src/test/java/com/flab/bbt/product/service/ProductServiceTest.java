@@ -8,8 +8,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.flab.bbt.exception.CustomException;
+import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.ProductRepositoryImpl;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +27,7 @@ import org.springframework.data.domain.PageRequest;
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 
+    Long product_id = 1L;
     @InjectMocks
     private ProductService productService;
     @Mock
@@ -114,6 +117,34 @@ class ProductServiceTest {
         assertThat(products.size()).isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("유효한 제품 ID가 주어졌을 때, 해당 제품으로 생성할 수 있는 팀 구매에 대한 정보(할인가격, 목표 인원, 마감 기한, 공개 여부)를 조회할 수 있다")
+    void findPriceTableByProductIdTest() {
+        // given
+        when(productRepository.findPriceTableByProductId(product_id)).thenReturn(
+            Optional.ofNullable(createPriceTable(product_id)));
+
+        // when
+        PriceTable priceTable = productService.findPriceTableByProductId(product_id);
+
+        // then
+        assertThat(priceTable.getDealCapacity()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("제품 ID가 주어졌을 때, 해당 제품으로 생성할 수 있는 팀 구매에 대한 정보(할인가격, 목표 인원, 마감 기한, 공개 여부)를 조회할 수 있다")
+    void findPriceTableByProductId_ExceptionTest() {
+        // given
+        when(productRepository.findPriceTableByProductId(product_id)).thenReturn(Optional.empty());
+
+        // when
+        CustomException e = assertThrows(CustomException.class,
+            () -> productService.findPriceTableByProductId(product_id));
+
+        // then
+        assertThat(e.getErrorCode().getCode()).isEqualTo(7000);
+    }
+
     private Product createAnotherProduct() {
         return Product.builder()
             .name("test2")
@@ -128,5 +159,17 @@ class ProductServiceTest {
         productList.add(createAnotherProduct());
 
         return productList;
+    }
+
+    private PriceTable createPriceTable(Long productId) {
+        return PriceTable.builder()
+            .productId(productId)
+            .dealCapacity(2)
+            .discountPrice(10000)
+            .isDealPrivate(false)
+            .dealValidPeriodInDays(1)
+            .startDate(LocalDateTime.of(2023, 1, 29, 0, 0))
+            .endDate(LocalDateTime.of(2023, 1, 30, 0, 0))
+            .build();
     }
 }

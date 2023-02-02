@@ -21,23 +21,46 @@ public class Deal {
     private Long productId;
     private int groupSize; // PriceTable 스냅샷. 목표인원
     private int discountPrice; // PriceTable 스냅샷. 할인가
-    private DealStatus status; // TODO("이거 관련 처리도.... + mapper xml에서도 ")
+    @Setter
+    private DealStatus status;
+    private Long priceTableId;
+
     @Setter
     private int participantCount;
     private boolean isPrivate;
     private LocalDateTime expiredAt; // 마감되는 일시
     private LocalDateTime closedAt; // 성사된 일시
+    private int version;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @JsonProperty("isPrivate")
     public boolean getIsPrivate() {
         return this.isPrivate;
     }
 
-    public void incrementParticipantCount(int count) {
-        if (this.getParticipantCount() + count > this.getGroupSize()) {
-            throw new CustomException(ErrorCode.DEAL_GROUP_SIZE_EXCEEDED);
-        } else {
-            this.setParticipantCount(this.getParticipantCount() + count);
+    public DealStatus getStatus() {
+        if (LocalDateTime.now().isAfter(this.getExpiredAt())) {
+            return DealStatus.EXPIRED;
         }
+        return status;
+    }
+
+    public void incrementParticipantCount(int count) {
+        int updatedCount = this.getParticipantCount() + count;
+        if (updatedCount > this.getGroupSize()) {
+            throw new CustomException(ErrorCode.DEAL_GROUP_SIZE_EXCEEDED);
+        } else if (updatedCount < this.getGroupSize()) {
+            this.setParticipantCount(updatedCount);
+            this.setStatus(DealStatus.IN_PROGRESS);
+        } else {
+            this.setParticipantCount(updatedCount);
+            this.setStatus(DealStatus.COMPLETED);
+        }
+    }
+
+    public boolean isJoinable(int count) {
+        return (this.getGroupSize() > this.getParticipantCount() + count);
     }
 }

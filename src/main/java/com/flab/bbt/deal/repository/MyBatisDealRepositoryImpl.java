@@ -1,6 +1,7 @@
 package com.flab.bbt.deal.repository;
 
 import com.flab.bbt.deal.domain.Deal;
+import com.flab.bbt.deal.domain.DealStatus;
 import com.flab.bbt.deal.repository.mybatis.DealMapper;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -14,8 +15,9 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     private final DealMapper dealMapper;
 
     @Override
-    public Deal save(Deal deal) {
-        dealMapper.save(deal);
+    public Deal createDeal(Deal deal) {
+        deal.setStatus(DealStatus.CREATED);
+        dealMapper.create(deal);
         return deal;
     }
 
@@ -25,8 +27,9 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     }
 
     @Override
-    public int updateExpiredAtById(LocalDateTime time, Long id) {
-        return dealMapper.updateExpiredAtById(time, id);
+    public int updateExpiredDeals() {
+        return dealMapper.updateExpiredDeals(DealStatus.IN_PROGRESS, DealStatus.EXPIRED,
+            LocalDateTime.now());
     }
 
     @Override
@@ -40,8 +43,7 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     }
 
     @Override
-    public Deal update(Deal deal) {
-        dealMapper.update(deal);
-        return deal;
+    public int update(Deal deal) {
+        return dealMapper.update(deal, deal.getVersion(), deal.getVersion() + 1);
     }
 }
