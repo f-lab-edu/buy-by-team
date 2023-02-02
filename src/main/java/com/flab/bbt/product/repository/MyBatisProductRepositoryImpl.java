@@ -3,6 +3,7 @@ package com.flab.bbt.product.repository;
 import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
 import com.flab.bbt.product.repository.mybatis.ProductMapper;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -41,4 +42,10 @@ public class MyBatisProductRepositoryImpl implements ProductRepository {
         productMapper.savePriceTable(priceTable);
         return priceTable;
     }
+
+    @Override
+    public Optional<PriceTable> findPriceTableByProductId(Long productId) {
+        return productMapper.findPriceTableByProductId(productId, LocalDateTime.now());
+    }
+
 }
