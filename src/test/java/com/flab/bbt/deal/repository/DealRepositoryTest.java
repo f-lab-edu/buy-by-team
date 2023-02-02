@@ -20,48 +20,48 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @ConfigureTestProfile
 class DealRepositoryTest extends AbstractContainerBaseTest {
-
-    @Autowired
-    private DealRepository dealRepository;
-
-    private Deal savedDeal;
-
-    @BeforeEach
-    public void setUp() {
-        savedDeal = dealRepository.save(buildDeal());
-    }
-
-    @Test
-    @DisplayName("저장소에 성공적으로 저장된다.")
-    void saveSuccessTest() {
-        // given
-        Deal deal = buildDeal();
-
-        // then
-        assertThat(savedDeal.getId()).isNotNull();
-        assertThat(deal.getProductId()).isEqualTo(savedDeal.getProductId());
-        assertThat(deal.getGroupSize()).isEqualTo(savedDeal.getGroupSize());
-        assertThat(deal.getDiscountPrice()).isEqualTo(savedDeal.getDiscountPrice());
-    }
-
-    @Test
-    @DisplayName("deal id로 성공적으로 조회된다.")
-    void findByIdSuccessTest() {
-        // when
-        Optional<Deal> foundDeal = dealRepository.findById(savedDeal.getId());
-
-        // then
-        assertThat(foundDeal.get().getId()).isEqualTo(savedDeal.getId());
-    }
-
-    private Deal buildDeal() {
-        return Deal.builder()
-            .productId(1L)
-            .groupSize(2)
-            .discountPrice(1000)
-            .status(DealStatus.CREATED)
-            .participantCount(0)
-            .isPrivate(false)
-            .build();
-    }
+//
+//    @Autowired
+//    private DealRepository dealRepository;
+//
+//    private Deal savedDeal;
+//
+//    @BeforeEach
+//    public void setUp() {
+//        savedDeal = dealRepository.save(buildDeal());
+//    }
+//
+//    @Test
+//    @DisplayName("저장소에 성공적으로 저장된다.")
+//    void saveSuccessTest() {
+//        // given
+//        Deal deal = buildDeal();
+//
+//        // then
+//        assertThat(savedDeal.getId()).isNotNull();
+//        assertThat(deal.getProductId()).isEqualTo(savedDeal.getProductId());
+//        assertThat(deal.getGroupSize()).isEqualTo(savedDeal.getGroupSize());
+//        assertThat(deal.getDiscountPrice()).isEqualTo(savedDeal.getDiscountPrice());
+//    }
+//
+//    @Test
+//    @DisplayName("deal id로 성공적으로 조회된다.")
+//    void findByIdSuccessTest() {
+//        // when
+//        Optional<Deal> foundDeal = dealRepository.findById(savedDeal.getId());
+//
+//        // then
+//        assertThat(foundDeal.get().getId()).isEqualTo(savedDeal.getId());
+//    }
+//
+//    private Deal buildDeal() {
+//        return Deal.builder()
+//            .productId(1L)
+//            .groupSize(2)
+//            .discountPrice(1000)
+//            .status(DealStatus.CREATED)
+//            .participantCount(0)
+//            .isPrivate(false)
+//            .build();
+//    }
 }

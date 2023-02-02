@@ -63,7 +63,7 @@ class AuthControllerTest extends AbstractContainerBaseTest {
     void signInSuccessTest() throws Exception {
         // given
         SignInRequest signInRequest = SignInRequest.builder()
-            .email("test@test.com")
+            .email("test2@test.com")
             .password("password")
             .build();
 

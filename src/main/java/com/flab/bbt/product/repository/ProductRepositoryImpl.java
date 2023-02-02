@@ -2,7 +2,6 @@ package com.flab.bbt.product.repository;
 
 import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +44,11 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public PriceTable savePriceTable(PriceTable priceTable) {
         return null;
+    }
+
+    @Override
+    public Optional<PriceTable> findPriceTableByProductId(Long productId) {
+        return Optional.empty();
     }
 
     @Override

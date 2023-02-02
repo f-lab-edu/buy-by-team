@@ -78,9 +78,9 @@ class ProductRepositoryTest extends AbstractContainerBaseTest {
         // then
         assertThat(savedPriceTable.getId()).isNotNull();
         assertThat(priceTable.getProductId()).isEqualTo(savedPriceTable.getProductId());
-        assertThat(priceTable.getGroupSize()).isEqualTo(savedPriceTable.getGroupSize());
+        assertThat(priceTable.getDealCapacity()).isEqualTo(savedPriceTable.getDealCapacity());
         assertThat(priceTable.getDiscountPrice()).isEqualTo(savedPriceTable.getDiscountPrice());
-        assertThat(priceTable.getTargetPeriod()).isEqualTo(savedPriceTable.getTargetPeriod());
+        assertThat(priceTable.getDealValidPeriodInDays()).isEqualTo(savedPriceTable.getDealValidPeriodInDays());
     }
 
     private Product buildProductWithSkuCode(String skuCode) {
@@ -97,9 +97,9 @@ class ProductRepositoryTest extends AbstractContainerBaseTest {
     private PriceTable buildPriceTable() {
         return PriceTable.builder()
             .productId(1L)
-            .groupSize(2)
+            .dealCapacity(2)
             .discountPrice(1000)
-            .targetPeriod(1)
+            .dealValidPeriodInDays(1)
             .build();
     }
 }

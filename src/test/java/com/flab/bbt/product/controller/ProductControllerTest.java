@@ -69,9 +69,9 @@ class ProductControllerTest extends AbstractContainerBaseTest {
         when(productService.findProductById(anyLong())).thenReturn(product);
 
         PriceTableRequest priceTableRequest = PriceTableRequest.builder()
-            .groupSize(2)
+            .dealCapacity(2)
             .discountPrice(8000)
-            .targetPeriod(1)
+            .dealValidPeriodInDays(1)
             .build();
 
         String content = objectMapper.writeValueAsString(priceTableRequest);
