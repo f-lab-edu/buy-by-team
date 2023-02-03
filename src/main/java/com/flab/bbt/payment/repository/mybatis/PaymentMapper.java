@@ -11,5 +11,5 @@ public interface PaymentMapper {
 
     Optional<Payment> findById(Long id);
 
-    Payment updateStatusById(@Param("status")Integer status, Long id);
+    int updateStatusById(@Param("status")Integer status, @Param("id")Long id);
 }

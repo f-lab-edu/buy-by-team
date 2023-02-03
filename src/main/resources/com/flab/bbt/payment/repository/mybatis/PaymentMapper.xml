@@ -14,7 +14,7 @@
     where id = #{id}
   </select>
 
-  <update id="updateStatusById" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.bbt.payment.domain.Payment">
+  <update id="updateStatusById">
     update payment
     set status=#{status}
     where id = #{id}
