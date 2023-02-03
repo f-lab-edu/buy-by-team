@@ -17,13 +17,15 @@ public class User {
     private long id;
     private String email;
     private String password;
+
+    @Setter
     private UserProfile userProfile;
 
     public boolean matchPassword(String inputPassword) {
         return getPassword().equals(inputPassword);
     }
 
-    public void update(UserProfile userProfile) {
+    public void updateUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 }

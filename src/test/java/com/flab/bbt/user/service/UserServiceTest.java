@@ -5,8 +5,10 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.repository.UserRepository;
+import com.flab.bbt.user.request.UpdateUserRequest;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,29 +27,35 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    UserProfile userProfile;
-    UserProfile updatableUserProfile;
-
-    @BeforeEach
-    void setup() {
-        userProfile = UserProfile.builder()
-            .name("name")
-            .phoneNo("01011111111")
-            .build();
-    }
-
     @Test
     @DisplayName("유저프로필 업데이트에 성공한다.")
     void updateSuccessTest() {
         // given
         when(userRepository.findUserProfileByUserId(anyLong())).thenReturn(
-            Optional.ofNullable(userProfile));
+            Optional.ofNullable(getUser().getUserProfile()));
+
+        UserProfile updateUserProfile = updateUserRequest().convertToUserProfile();
 
         // when
-        Long userId = 1L;
-        userService.updateUserProfile(userId, userProfile);
+        userService.updateUserProfile(getUser(), updateUserProfile);
 
         // then
-        verify(userRepository).updateUserProfile(userProfile);
+        verify(userRepository).updateUserProfile(updateUserProfile);
+    }
+
+    private User getUser() {
+        return User.builder()
+            .id(1L)
+            .email("test@test.com")
+            .password("encryptedPassword")
+            .userProfile(new UserProfile("testName"))
+            .build();
+    }
+
+    private UpdateUserRequest updateUserRequest() {
+        return UpdateUserRequest.builder()
+            .name("updatedName")
+            .phoneNo("01011111111")
+            .build();
     }
 }

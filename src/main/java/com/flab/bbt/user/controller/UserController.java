@@ -8,6 +8,7 @@ import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.request.UpdateUserRequest;
 import com.flab.bbt.user.request.UserProfileRequest;
+import com.flab.bbt.user.response.UserResponse;
 import com.flab.bbt.user.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,20 +27,21 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/users/{id}/user-profiles")
-    public CommonResponse createUserProfile(@PathVariable Long id,
+    @PostMapping("/users/{userId}/user-profiles")
+    public CommonResponse createUserProfile(@PathVariable Long userId,
         @RequestBody UserProfileRequest userProfileRequest, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
 
-        if (user.getId() != id) {
+        if (user.getId() != userId) {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
 
-        UserProfile userProfile = userProfileRequest.convertToUserProfile(user);
-        userService.createUserProfile(user.getId(), userProfile);
+        user.setUserProfile(userProfileRequest.convertToUserProfile(userId));
+        User userWithCreatedProfile = userService.createUserProfile(user);
 
-        return CommonResponse.success();
+        return CommonResponse.success(
+            UserResponse.convertToUserResponse(userWithCreatedProfile));
     }
 
     @PatchMapping("/user-profiles")
@@ -48,9 +50,11 @@ public class UserController {
         HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
-        UserProfile userProfile = updateUserRequest.convertToUserProfile();
-        userService.updateUserProfile(user.getId(), userProfile);
 
-        return CommonResponse.success();
+        User userWithUpdatedProfile = userService.updateUserProfile(user,
+            updateUserRequest.convertToUserProfile());
+
+        return CommonResponse.success(
+            UserResponse.convertToUserResponse(userWithUpdatedProfile));
     }
 }
