@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.bbt.order.repository.mybatis.OrderMapper">
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.bbt.order.domain.Order">
+    insert into orders (deal_id, user_id, quantity, status, receiver_name, receiver_address, receiver_phone_no)
+    values (#{dealId}, #{userId}, #{quantity}, #{status}, #{deliveryInfo.receiverName}, #{deliveryInfo.receiverAddress}, #{deliveryInfo.receiverPhoneNo})
+  </insert>
+</mapper>

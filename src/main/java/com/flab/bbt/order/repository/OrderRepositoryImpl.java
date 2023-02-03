@@ -17,7 +17,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public Order save(Order order) {
         order.setId(sequence.incrementAndGet());
-        orderDb.put(order.getProductId(), order);
+        orderDb.put(order.getId(), order);
 
         return order;
     }

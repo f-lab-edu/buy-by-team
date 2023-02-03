@@ -9,8 +9,8 @@ class OrderTest {
 
     @Test
     void builder() {
-        Order order = Order.builder().productId(1).build();
+        Order order = Order.builder().dealId(1L).build();
 
-        assertThat(order.getProductId()).isEqualTo(1);
+        assertThat(order.getDealId()).isEqualTo(1L);
     }
 }

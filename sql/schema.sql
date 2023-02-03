@@ -68,3 +68,17 @@ create table if not exists payment
     status   int,
     PRIMARY KEY (id)
 );
+
+create table if not exists orders
+(
+    id                INT NOT NULL AUTO_INCREMENT,
+    deal_id           int,
+    user_id           int,
+    quantity          int,
+    status            varchar(255),
+    receiver_name     varchar(255),
+    receiver_address  varchar(255),
+    receiver_phone_no varchar(255),
+    PRIMARY KEY (id)
+);
+
