@@ -12,4 +12,3 @@ services:
       MYSQL_ROOT_PASSWORD: flab-bbt
     volumes:
       - "./sql/:/docker-entrypoint-initdb.d"
-    command: --init-file /docker-entrypoint-initdb.d/schema.sql

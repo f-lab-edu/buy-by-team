@@ -11,5 +11,5 @@ public interface PaymentRepository {
 
     Optional<Payment> findById(Long id);
 
-    Payment updatePaymentStatusById(PaymentStatus status, Long id);
+    int updatePaymentStatusById(PaymentStatus status, Long id);
 }

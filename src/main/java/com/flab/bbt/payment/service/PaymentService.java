@@ -25,9 +25,16 @@ public class PaymentService {
     public Payment completePayment(Long paymentId) {
 
         Payment payment = findPaymentById(paymentId);
-        Payment updatedPayment = paymentRepository.updatePaymentStatusById(PaymentStatus.SUCCESS,
+        payment.updateStatus(PaymentStatus.SUCCESS);
+
+        // [TODO] Payment의 status 필드가 현재 PaymentStatus 타입이 아닌 int여서
+        // 첫번째 파라미터에 payment.getStatus() 적용 불가 -> PaymentStatus 타입으로 변경 필요
+        int result = paymentRepository.updatePaymentStatusById(PaymentStatus.SUCCESS,
             payment.getId());
-        return updatedPayment;
+
+        // [TODO] result가 0일시 처리
+
+        return payment;
     }
 
     public Payment findPaymentById(Long paymentId) {
