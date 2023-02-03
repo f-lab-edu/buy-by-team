@@ -88,9 +88,6 @@ class ProductRepositoryTest extends AbstractContainerBaseTest {
             .name("test")
             .skuCode(skuCode)
             .imgUrl("/testUrl")
-            .priceSale(2000)
-            .priceDiscount(1000)
-            .discountRate(50)
             .build();
     }
 

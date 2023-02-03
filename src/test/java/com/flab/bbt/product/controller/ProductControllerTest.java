@@ -70,7 +70,8 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 
         PriceTableRequest priceTableRequest = PriceTableRequest.builder()
             .dealCapacity(2)
-            .discountPrice(8000)
+            .priceSale(10000)
+            .priceDiscount(8000)
             .dealValidPeriodInDays(1)
             .build();
 
@@ -91,9 +92,6 @@ class ProductControllerTest extends AbstractContainerBaseTest {
             .name("test")
             .skuCode("testSku")
             .imgUrl("testUrl")
-            .priceSale(2000)
-            .priceDiscount(1000)
-            .discountRate(50)
             .build();
     }
 
