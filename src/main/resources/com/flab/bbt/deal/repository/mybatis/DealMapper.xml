@@ -52,4 +52,16 @@
       AND end_date &gt; #{time}
       AND start_date &lt; #{time}
   </update>
+
+  <insert id="saveParticipant" useGeneratedKeys="true" keyProperty="id">
+    insert into participants (deal_id, user_id)
+    values (#{dealId}, #{userId})
+  </insert>
+
+  <select id="findParticipantByDealIdAndUserId" resultType="com.flab.bbt.deal.domain.Participant">
+    select id, deal_id, user_id
+    from participants
+    where deal_id = #{dealId} and user_id = #{userId}
+  </select>
+
 </mapper>

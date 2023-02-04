@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
 @Mapper
@@ -21,5 +22,6 @@ public interface ProductMapper {
 
     int savePriceTable(PriceTable priceTable);
 
-    Optional<PriceTable> findPriceTableByProductId(Long productId, LocalDateTime currentTime);
+    Optional<PriceTable> findPriceTableByProductId(@Param("productId") Long productId,
+        @Param("currentTime") LocalDateTime currentTime);
 }

@@ -1,9 +1,13 @@
 package com.flab.bbt.deal.service;
 
 import com.flab.bbt.deal.domain.Deal;
+import com.flab.bbt.deal.domain.Participant;
 import com.flab.bbt.deal.repository.DealRepository;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
+import com.flab.bbt.user.domain.User;
+import java.util.Optional;
+import javax.servlet.http.Part;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -34,8 +38,10 @@ public class DealService {
     }
 
     @Transactional
-    public Deal incrementParticipantCount(Long dealId) {
-        return incrementParticipantCount(dealId, 1);
+    public Deal participateDeal(Long dealId, Participant participant) {
+        Deal deal = incrementParticipantCount(dealId, 1);
+        dealRepository.saveParticipant(participant);
+        return deal;
     }
 
     @Scheduled(cron = "0 0/30 0 * * ?")
@@ -51,5 +57,9 @@ public class DealService {
     public Deal findDealByIdForUpdate(long id) {
         return dealRepository.findByIdForUpdate(id)
             .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
+    }
+
+    public boolean checkIfUserParticipateInDeal(Long dealId, Long userId) {
+        return dealRepository.findParticipantByDealIdAndUserId(dealId, userId).isPresent();
     }
 }
