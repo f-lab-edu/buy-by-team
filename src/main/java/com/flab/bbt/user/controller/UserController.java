@@ -2,6 +2,7 @@ package com.flab.bbt.user.controller;
 
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.common.SessionConst;
+import com.flab.bbt.common.annotation.CurrentUser;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
@@ -28,16 +29,14 @@ public class UserController {
 
     @PostMapping("/users/{id}/user-profiles")
     public CommonResponse createUserProfile(@PathVariable Long id,
-        @RequestBody UserProfileRequest userProfileRequest, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
+        @RequestBody UserProfileRequest userProfileRequest, @CurrentUser User currentUser) {
 
-        if (user.getId() != id) {
+        if (currentUser.getId() != id) {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
 
-        UserProfile userProfile = userProfileRequest.convertToUserProfile(user);
-        userService.createUserProfile(user.getId(), userProfile);
+        UserProfile userProfile = userProfileRequest.convertToUserProfile(currentUser);
+        userService.createUserProfile(currentUser.getId(), userProfile);
 
         return CommonResponse.success();
     }
@@ -45,11 +44,9 @@ public class UserController {
     @PatchMapping("/user-profiles")
     @ResponseStatus(HttpStatus.OK)
     public CommonResponse updateUserProfiile(@RequestBody UpdateUserRequest updateUserRequest,
-        HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
+        @CurrentUser User currentUser) {
         UserProfile userProfile = updateUserRequest.convertToUserProfile();
-        userService.updateUserProfile(user.getId(), userProfile);
+        userService.updateUserProfile(currentUser.getId(), userProfile);
 
         return CommonResponse.success();
     }
