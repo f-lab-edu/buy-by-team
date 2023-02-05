@@ -13,9 +13,6 @@ public class ProductResponse {
     private long id;
     private String name;
     private String imgUrl;
-    private int priceSale;
-    private int priceDiscount;
-    private int discountRate;
 
     public static ProductResponse convertToProductResponse(Product product) {
         return ProductResponse.builder()

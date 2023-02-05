@@ -18,7 +18,6 @@ public class PriceTable {
     private Long productId; // 제품의 ID
     private int priceSale; // 제품의 정가
     private int priceDiscount; // 제품의 할인가
-    private int targetPeriod; // 제품에 대한 팀구매의 만료기한(단위: day)
 
 
     private int dealCapacity; // 목표인원
