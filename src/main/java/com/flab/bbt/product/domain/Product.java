@@ -15,7 +15,4 @@ public class Product {
     private String name;
     private String skuCode;
     private String imgUrl;
-    private int priceSale;
-    private int priceDiscount;
-    private int discountRate;
 }

@@ -34,7 +34,6 @@ class ProductServiceTest {
     private ProductRepositoryImpl productRepository;
 
     Product product;
-    Product product2;
 
     @BeforeEach
     public void setUp() {
@@ -42,9 +41,6 @@ class ProductServiceTest {
             .name("test")
             .skuCode("SN00001")
             .imgUrl("url")
-            .priceSale(10000)
-            .priceDiscount(9000)
-            .discountRate(10)
             .build();
     }
 
@@ -154,9 +150,6 @@ class ProductServiceTest {
             .name("test2")
             .skuCode("SN00002")
             .imgUrl("url")
-            .priceSale(20000)
-            .priceDiscount(18000)
-            .discountRate(10)
             .build();
     }
 

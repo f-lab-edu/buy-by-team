@@ -1,13 +1,12 @@
 package com.flab.bbt.product.request;
 
 import com.flab.bbt.product.domain.Product;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
@@ -34,9 +33,6 @@ public class ProductRequest {
             .name(request.getName())
             .skuCode(request.getSkuCode())
             .imgUrl(request.getImgUrl())
-            .priceSale(request.getPriceSale())
-            .priceDiscount(request.getPriceDiscount())
-            .discountRate(request.getDiscountRate())
             .build();
     }
 }

@@ -7,12 +7,11 @@ import com.flab.bbt.product.request.PriceTableRequest;
 import com.flab.bbt.product.request.ProductRequest;
 import com.flab.bbt.product.response.ProductResponse;
 import com.flab.bbt.product.service.ProductService;
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.data.domain.Pageable;
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,13 +53,13 @@ public class ProductController {
         return CommonResponse.success();
     }
 
-    @PostMapping("/{productId}/price-tables")
+    /**
+     * 제품의 가격 정책을 생성하는 API로, 어드민 권한이 있는 유저만이 호출할 수 있다 -- TODO("권한 체크")
+     */
+    @PostMapping("/{productId}/pricetables")
     public CommonResponse createPriceTable(@Valid @PathVariable long productId,
         @RequestBody PriceTableRequest request) {
-        Product product = productService.findProductById(productId);
-        PriceTable priceTable = productService.createPriceTable(
-            request.convertToEntity(product.getId()));
-
+        PriceTable priceTable = productService.createPriceTable(request.convertToEntity(productId));
         return CommonResponse.success(priceTable);
     }
 

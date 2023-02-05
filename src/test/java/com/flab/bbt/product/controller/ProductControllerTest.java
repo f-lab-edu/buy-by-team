@@ -1,6 +1,5 @@
 package com.flab.bbt.product.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -44,9 +43,6 @@ class ProductControllerTest extends AbstractContainerBaseTest {
             .name("test")
             .skuCode("testSku")
             .imgUrl("/test")
-            .priceSale(10000)
-            .priceDiscount(8000)
-            .discountRate(20)
             .build();
 
         String content = objectMapper.writeValueAsString(productRequest);
@@ -70,14 +66,15 @@ class ProductControllerTest extends AbstractContainerBaseTest {
 
         PriceTableRequest priceTableRequest = PriceTableRequest.builder()
             .dealCapacity(2)
-            .discountPrice(8000)
+            .priceSale(10000)
+            .priceDiscount(8000)
             .dealValidPeriodInDays(1)
             .build();
 
         String content = objectMapper.writeValueAsString(priceTableRequest);
 
         // when
-        mockMvc.perform(post("/products/1/price-tables")
+        mockMvc.perform(post("/products/1/pricetables")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -91,9 +88,6 @@ class ProductControllerTest extends AbstractContainerBaseTest {
             .name("test")
             .skuCode("testSku")
             .imgUrl("testUrl")
-            .priceSale(2000)
-            .priceDiscount(1000)
-            .discountRate(50)
             .build();
     }
 

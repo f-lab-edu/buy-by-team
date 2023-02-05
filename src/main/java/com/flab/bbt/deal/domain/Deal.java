@@ -63,4 +63,5 @@ public class Deal {
     public boolean isJoinable(int count) {
         return (this.getGroupSize() > this.getParticipantCount() + count);
     }
+
 }
