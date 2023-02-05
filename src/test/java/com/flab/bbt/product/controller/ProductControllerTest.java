@@ -74,7 +74,7 @@ class ProductControllerTest extends AbstractContainerBaseTest {
         String content = objectMapper.writeValueAsString(priceTableRequest);
 
         // when
-        mockMvc.perform(post("/products/1/price-tables")
+        mockMvc.perform(post("/products/1/pricetables")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
