@@ -146,7 +146,7 @@ class ProductServiceTest {
             () -> productService.findPriceTableByProductId(product_id));
 
         // then
-        assertThat(e.getErrorCode().getCode()).isEqualTo(7000);
+        assertThat(e.getErrorCode().getCode()).isEqualTo(8000);
     }
 
     private Product createAnotherProduct() {

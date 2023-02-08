@@ -19,7 +19,8 @@ public interface DealMapper {
         @Param("afterStatus") DealStatus afterStatus,
         @Param("time") LocalDateTime time);
 
-    int update(@Param("deal") Deal deal, @Param("oldVersion") int oldVersion, @Param("newVersion") int newVersion);
+    int update(@Param("deal") Deal deal, @Param("oldVersion") int oldVersion,
+        @Param("newVersion") int newVersion);
 
     Optional<Deal> findById(Long id);
 
@@ -27,5 +28,6 @@ public interface DealMapper {
 
     int saveParticipant(Participant participant);
 
-    Optional<Participant> findParticipantByDealIdAndUserId(@Param("dealId") Long dealId, @Param("userId") Long userId);
+    Optional<Participant> findParticipantByDealIdAndUserId(@Param("dealId") Long dealId,
+        @Param("userId") Long userId);
 }
