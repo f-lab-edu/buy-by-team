@@ -2,6 +2,7 @@ package com.flab.bbt.deal.repository;
 
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.DealStatus;
+import com.flab.bbt.deal.domain.Participant;
 import com.flab.bbt.deal.repository.mybatis.DealMapper;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -45,5 +46,17 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     @Override
     public int update(Deal deal) {
         return dealMapper.update(deal, deal.getVersion(), deal.getVersion() + 1);
+    }
+
+    @Override
+    public Participant saveParticipant(Participant participant) {
+        dealMapper.saveParticipant(participant);
+
+        return participant;
+    }
+
+    @Override
+    public Optional<Participant> findParticipantByDealIdAndUserId(Long dealId, Long userId) {
+        return dealMapper.findParticipantByDealIdAndUserId(dealId, userId);
     }
 }

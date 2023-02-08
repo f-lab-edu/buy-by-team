@@ -23,9 +23,10 @@ public enum ErrorCode {
 
     DEAL_GROUP_SIZE_EXCEEDED(7001, "딜의 정원을 초과했습니다."),
     CONCURRENT_ACCESS(7002, "동시 접근이 발생했습니다."),
+    ALEADY_PARTICIPATE_IN_DEAL(7003, "이미 참여한 딜입니다."),
 
     // PRICE_TABLE
-    PRICE_TABLE_NOT_FOUND(7000, "해당 제품에 대한 가격/팀구매 정보가 존재하지 않습니다.");
+    PRICE_TABLE_NOT_FOUND(8000, "해당 제품에 대한 가격/팀구매 정보가 존재하지 않습니다.");
 
     long code;
     String message;

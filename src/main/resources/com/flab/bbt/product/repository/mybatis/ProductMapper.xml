@@ -29,4 +29,11 @@
     insert into price_table (product_id, deal_capacity, discount_price, deal_valid_period_in_days)
     values (#{productId}, #{dealCapacity}, #{discountPrice}, #{dealValidPeriodInDays})
   </insert>
+
+  <select id="findPriceTableByProductId" resultType="com.flab.bbt.product.domain.PriceTable">
+    select id, product_id, deal_capacity, discount_price, is_deal_private, deal_valid_period_in_days,
+      start_date, end_date, created_date, updated_date
+    from price_table
+    where product_id = #{productId}
+  </select>
 </mapper>

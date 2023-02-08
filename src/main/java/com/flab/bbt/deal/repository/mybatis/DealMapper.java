@@ -2,6 +2,7 @@ package com.flab.bbt.deal.repository.mybatis;
 
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.DealStatus;
+import com.flab.bbt.deal.domain.Participant;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,11 +19,15 @@ public interface DealMapper {
         @Param("afterStatus") DealStatus afterStatus,
         @Param("time") LocalDateTime time);
 
-    int update(Deal deal, int oldVersion, int newVersion);
+    int update(@Param("deal") Deal deal, @Param("oldVersion") int oldVersion,
+        @Param("newVersion") int newVersion);
 
     Optional<Deal> findById(Long id);
 
     Optional<Deal> findByIdForUpdate(Long id);
 
+    int saveParticipant(Participant participant);
 
+    Optional<Participant> findParticipantByDealIdAndUserId(@Param("dealId") Long dealId,
+        @Param("userId") Long userId);
 }
