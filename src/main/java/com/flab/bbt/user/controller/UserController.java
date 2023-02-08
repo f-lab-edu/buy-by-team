@@ -37,7 +37,7 @@ public class UserController {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
 
-        user.setUserProfile(userProfileRequest.convertToUserProfile(userId));
+        user.updateUserProfile(userProfileRequest.convertToUserProfile(userId));
         User userWithCreatedProfile = userService.createUserProfile(user);
 
         return CommonResponse.success(

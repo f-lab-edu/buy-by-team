@@ -17,8 +17,6 @@ public class User {
     private long id;
     private String email;
     private String password;
-
-    @Setter
     private UserProfile userProfile;
 
     public boolean matchPassword(String inputPassword) {
