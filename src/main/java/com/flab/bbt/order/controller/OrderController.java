@@ -36,7 +36,7 @@ public class OrderController {
         User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
 
         // 유저가 이미 해당 딜에 참여한 상태일 경우의 처리
-        if(dealService.checkIfUserParticipateInDeal(orderRequest.getDealId(), user.getId())) {
+        if(dealService.isParticipant(orderRequest.getDealId(), user.getId())) {
             throw new CustomException(ErrorCode.ALEADY_PARTICIPATE_IN_DEAL);
         }
 

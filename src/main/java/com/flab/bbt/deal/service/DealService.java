@@ -59,7 +59,7 @@ public class DealService {
             .orElseThrow(() -> new CustomException(ErrorCode.DEAL_NOT_FOUND));
     }
 
-    public boolean checkIfUserParticipateInDeal(Long dealId, Long userId) {
+    public boolean isParticipant(Long dealId, Long userId) {
         return dealRepository.findParticipantByDealIdAndUserId(dealId, userId).isPresent();
     }
 }
