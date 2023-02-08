@@ -53,7 +53,8 @@ public class DealController {
 
         // TODO("deal에 이미 참여한 유저라면 참여 불가능하도록 처리")
 
-        Deal updatedDeal = dealService.participateDeal(dealId, Participant.toParticipant(dealId, user.getId()));
+        Deal updatedDeal = dealService.participateDeal(dealId,
+            Participant.toParticipant(dealId, user.getId()));
         return CommonResponse.success(updatedDeal);
     }
 }
