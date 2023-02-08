@@ -40,6 +40,7 @@ create table if not exists deal
     is_private        boolean,
     expired_at        TIMESTAMP,
     closed_at         TIMESTAMP,
+    version           int,
     PRIMARY KEY (id),
     index index_deal_on_status (status)
 );
@@ -81,4 +82,12 @@ create table if not exists orders
     receiver_phone_no varchar(255),
     PRIMARY KEY (id)
 );
+
+create table if not exists participants
+(
+  id                INT NOT NULL AUTO_INCREMENT,
+  deal_id           int,
+  user_id           int,
+  PRIMARY KEY (id)
+)
 
