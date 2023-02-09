@@ -48,9 +48,8 @@ public class ProductController {
 
     @PostMapping()
     public CommonResponse addProduct(@Valid @RequestBody ProductRequest request) {
-        Product product = request.convertToEntity(request);
-        productService.register(product);
-        return CommonResponse.success();
+        Product product = productService.register(request.convertToEntity(request));
+        return CommonResponse.success(product);
     }
 
     /**

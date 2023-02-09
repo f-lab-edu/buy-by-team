@@ -16,12 +16,14 @@ public class AuthService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void signUp(User user) {
+    public User signUp(User user) {
         if (isDuplicatedEmail(user.getEmail())) {
             throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
 
         userRepository.save(user);
+
+        return user;
     }
 
     private boolean isDuplicatedEmail(String email) {
