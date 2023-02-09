@@ -6,7 +6,9 @@ import com.flab.bbt.auth.service.AuthService;
 import com.flab.bbt.auth.service.PasswordEncrypter;
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.common.SessionConst;
+import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
@@ -45,12 +47,15 @@ public class AuthController {
         // authenticate user
         User user = signInRequest.convertToEntityWith(
             passwordEncrypter.encrypt(signInRequest.getPassword()));
-        User authenticatedUser = authService.authenticate(user);
+        Long userId = authService.authenticate(user);
 
-        // authorize user via session
-        HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.COOKIE_SESSION_ID, authenticatedUser);
-        return CommonResponse.success();
+        if (userId < 0) {
+            return CommonResponse.fail(ErrorCode.USER_NOT_FOUND);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute(SessionConst.COOKIE_SESSION_ID, userId);
+            return CommonResponse.success();
+        }
     }
 
     @PostMapping("/signout")
