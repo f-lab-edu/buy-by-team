@@ -1,0 +1,45 @@
+name: bbt CD
+
+on:
+  push:
+    branches: [ "feature/deploy-to-ncloud" ]
+
+jobs:
+  build:
+#    needs: [ check-code-format, test ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean build -x test -x checkstyleTest -x checkstyleMain
+
+      # 전송할 파일을 담을 디렉토리 생성
+      - name: Make Directory for deliver
+        run: mkdir deploy
+
+      # Jar 파일 Copy
+      - name: Copy Jar
+        run: cp ./build/libs/*.jar ./deploy/
+
+      # 압축
+      - name: Make zip file
+        run: zip -r -qq -j ./bbt-build.zip ./deploy
+
+      # ncloud Object Storage에 s3 cli 사용하여 zip파일 업로드
+      - name: Upload to Ncloud Object Storage
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws —endpoint-url=https://kr.object.ncloudstorage.com s3 cp --recursive ./bbt-build.zip s3://bbt-bucket/bbt/
+
