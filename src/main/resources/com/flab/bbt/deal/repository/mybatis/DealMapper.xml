@@ -23,6 +23,11 @@
     where id = #{id}
   </select>
 
+  <select id="findByStatus" resultType="com.flab.bbt.deal.domain.Deal">
+    select *
+    from deal
+    where status = #{status}
+  </select>
 
   <update id="update" parameterType="com.flab.bbt.deal.domain.Deal">
     UPDATE deal
