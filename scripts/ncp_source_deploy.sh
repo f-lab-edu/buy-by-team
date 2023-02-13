@@ -22,6 +22,8 @@ function makeSignature() {
 	SIGNATURE=$(echo -n -e "$SIG"|iconv -t utf8 |openssl dgst -sha256 -hmac $SECRETKEY -binary|openssl enc -base64)
 }
 
+makeSignature
+
 curl -i -X POST https://vpcsourcedeploy.apigw.ntruss.com$URI \
           -H "x-ncp-apigw-timestamp: $TIMESTAMP" \
           -H "x-ncp-iam-access-key: $ACCESSKEY" \
