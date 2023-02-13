@@ -31,6 +31,10 @@ jobs:
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./deploy/
 
+      # script file Copy
+      - name: Copy shell
+        run: cp ./scripts/* ./deploy/
+
       # 압축
       - name: Make zip file
         run: zip -r -qq -j ./bbt-build.zip ./deploy
@@ -43,4 +47,9 @@ jobs:
           AWS_DEFAULT_REGION: ap-northeast-2
         run: |
           aws --endpoint-url=https://kr.object.ncloudstorage.com s3 cp ./bbt-build.zip s3://bbt-bucket/bbt/
+
+      - name: deploy with NCP Source Deploy
+        run: |
+          chmod +x ${GITHUB_WORKSPACE}/scripts/ncp_source_deploy.sh
+          ${GITHUB_WORKSPACE}/scripts/ncp_source_deploy.sh
 
