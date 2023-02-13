@@ -19,4 +19,4 @@ else
 fi
 
 echo "> $JAR_PATH deploy"
-nohup java -jar $JAR_PATH --spring.profiles.active=prod --logging.file.path=/home/deploy/log/ --logging.level.org.hibernate.SQL=DEBUG >> /home/deploy/log/deploy.log 2>/home/deploy/log/deploy_err.log &
+nohup java -jar $JAR_PATH --spring.profiles.active=prod --logging.file.path=/home/ubuntu/log/ 2>&1 > /home/ubuntu/log/bbt-error.log &
