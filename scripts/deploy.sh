@@ -19,4 +19,4 @@ else
 fi
 
 echo "> $JAR_PATH deploy"
-nohup java -jar $JAR_PATH --spring.profiles.active=prod > /dev/null 2> /dev/null < /dev/null &
+nohup java -jar $JAR_PATH --spring.profiles.active=prod --logging.file.path=/home/deploy/log/ --logging.level.org.hibernate.SQL=DEBUG >> /home/deploy/log/deploy.log 2>/home/deploy/log/deploy_err.log &
