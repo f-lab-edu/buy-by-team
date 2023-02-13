@@ -52,3 +52,7 @@ checkstyle {
 	configFile = file("${rootDir}/google-checkstyle-config.xml") // 설정 파일 경로 지정
 	toolVersion = "10.4"
 }
+
+jar {
+	enabled = false
+}
