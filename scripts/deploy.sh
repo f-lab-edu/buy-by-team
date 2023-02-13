@@ -19,4 +19,4 @@ else
 fi
 
 echo "> $JAR_PATH deploy"
-nohup java -jar $JAR_PATH --spring.profiles.active=prod --server.port=8080 > /dev/null 2> /dev/null < /dev/null &
+nohup java -jar $JAR_PATH --spring.profiles.active=prod 2>&1 > bbt-error.log &
