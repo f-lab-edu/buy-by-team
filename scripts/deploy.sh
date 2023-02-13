@@ -20,4 +20,4 @@ fi
 
 echo "> $JAR_PATH deploy"
 nohup java -jar $JAR_PATH --spring.profiles.active=prod --logging.file.path=/home/ubuntu/log/ \
---logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/deploy_err.log &
+--logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/error.log &
