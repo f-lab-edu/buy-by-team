@@ -3,6 +3,7 @@ package com.flab.bbt.common.config;
 import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.common.annotation.CurrentUser;
 import com.flab.bbt.user.domain.User;
+import com.flab.bbt.user.service.UserService;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -21,6 +22,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final HttpSession session;
+    private final UserService userService;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -31,6 +33,10 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
-        return (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
+        Long userId = (Long) session.getAttribute(SessionConst.COOKIE_SESSION_ID);;
+
+        User currentUser = userService.findUserById(userId);
+
+        return currentUser;
     }
 }
