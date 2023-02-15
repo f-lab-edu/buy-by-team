@@ -31,7 +31,8 @@ public class AuthService {
     }
 
     public Long authenticate(User user) {
-        Optional<User> foundUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        Optional<User> foundUser = userRepository.findByEmailAndPassword(user.getEmail(),
+            user.getPassword());
 
         if (foundUser.isEmpty()) {
             return null;
