@@ -49,7 +49,7 @@ public class AuthController {
             passwordEncrypter.encrypt(signInRequest.getPassword()));
         Long userId = authService.authenticate(user);
 
-        if (userId < 0) {
+        if (userId == null) {
             return CommonResponse.fail(ErrorCode.USER_NOT_FOUND);
         } else {
             HttpSession session = request.getSession();

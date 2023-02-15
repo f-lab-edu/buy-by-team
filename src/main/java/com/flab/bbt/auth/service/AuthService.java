@@ -32,7 +32,7 @@ public class AuthService {
         Optional<User> foundUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
 
         if (foundUser.isEmpty()) {
-            return -1L;
+            return null;
         } else {
             return foundUser.get().getId();
         }
