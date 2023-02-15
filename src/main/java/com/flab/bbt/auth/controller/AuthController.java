@@ -8,7 +8,7 @@ import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.common.SessionConst;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
-import java.util.Optional;
+import com.flab.bbt.user.response.UserSignUpResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
@@ -33,11 +33,10 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public CommonResponse signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
         // 회원가입 진행
-        User user = signUpRequest.convertToEntityWith(
-            passwordEncrypter.encrypt(signUpRequest.getPassword()));
-        authService.signUp(user);
+        User user = authService.signUp(signUpRequest.convertToEntityWith(
+                        passwordEncrypter.encrypt(signUpRequest.getPassword())));
 
-        return CommonResponse.success();
+        return CommonResponse.success(UserSignUpResponse.convertToUserSignUpResponse(user));
     }
 
     @PostMapping("/signin")

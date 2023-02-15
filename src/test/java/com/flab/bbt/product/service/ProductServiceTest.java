@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.product.domain.PriceTable;
 import com.flab.bbt.product.domain.Product;
-import com.flab.bbt.product.repository.ProductRepositoryImpl;
+import com.flab.bbt.product.repository.ProductRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +31,9 @@ class ProductServiceTest {
     @InjectMocks
     private ProductService productService;
     @Mock
-    private ProductRepositoryImpl productRepository;
+    private ProductRepository productRepository;
 
     Product product;
-    Product product2;
 
     @BeforeEach
     public void setUp() {
@@ -42,9 +41,6 @@ class ProductServiceTest {
             .name("test")
             .skuCode("SN00001")
             .imgUrl("url")
-            .priceSale(10000)
-            .priceDiscount(9000)
-            .discountRate(10)
             .build();
     }
 
@@ -154,9 +150,6 @@ class ProductServiceTest {
             .name("test2")
             .skuCode("SN00002")
             .imgUrl("url")
-            .priceSale(20000)
-            .priceDiscount(18000)
-            .discountRate(10)
             .build();
     }
 

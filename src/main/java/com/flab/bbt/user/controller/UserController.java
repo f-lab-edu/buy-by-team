@@ -9,6 +9,7 @@ import com.flab.bbt.user.domain.User;
 import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.request.UpdateUserRequest;
 import com.flab.bbt.user.request.UserProfileRequest;
+import com.flab.bbt.user.response.UserResponse;
 import com.flab.bbt.user.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,18 +28,19 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/users/{id}/user-profiles")
-    public CommonResponse createUserProfile(@PathVariable Long id,
+    @PostMapping("/users/{userId}/user-profiles")
+    public CommonResponse createUserProfile(@PathVariable Long userId,
         @RequestBody UserProfileRequest userProfileRequest, @CurrentUser User currentUser) {
 
-        if (currentUser.getId() != id) {
+        if (currentUser.getId() != userId) {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
 
-        UserProfile userProfile = userProfileRequest.convertToUserProfile(currentUser);
-        userService.createUserProfile(currentUser.getId(), userProfile);
+        currentUser.updateUserProfile(userProfileRequest.convertToUserProfile(userId));
+        User userWithCreatedProfile = userService.createUserProfile(currentUser);
 
-        return CommonResponse.success();
+        return CommonResponse.success(
+            UserResponse.convertToUserResponse(userWithCreatedProfile));
     }
 
     @PatchMapping("/user-profiles")
@@ -46,8 +48,11 @@ public class UserController {
     public CommonResponse updateUserProfiile(@RequestBody UpdateUserRequest updateUserRequest,
         @CurrentUser User currentUser) {
         UserProfile userProfile = updateUserRequest.convertToUserProfile();
-        userService.updateUserProfile(currentUser.getId(), userProfile);
 
-        return CommonResponse.success();
+        User userWithUpdatedProfile = userService.updateUserProfile(currentUser,
+            updateUserRequest.convertToUserProfile());
+
+        return CommonResponse.success(
+            UserResponse.convertToUserResponse(userWithUpdatedProfile));
     }
 }

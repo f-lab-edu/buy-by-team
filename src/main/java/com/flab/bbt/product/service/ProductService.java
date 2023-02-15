@@ -19,13 +19,15 @@ public class ProductService {
     }
 
 
-    public void register(Product product) {
+    public Product register(Product product) {
         productRepository.findBySkuCode(product.getSkuCode()).ifPresent(
             p -> {
                 throw new CustomException(ErrorCode.PRODUCT_ALREADY_EXISTS);
             }
         );
         productRepository.save(product);
+
+        return product;
     }
 
     public Product findProductById(long id) {

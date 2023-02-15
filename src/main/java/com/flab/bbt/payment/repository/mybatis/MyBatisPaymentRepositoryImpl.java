@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 @Slf4j
-@Primary
 @Repository
 @RequiredArgsConstructor
 public class MyBatisPaymentRepositoryImpl implements PaymentRepository {
