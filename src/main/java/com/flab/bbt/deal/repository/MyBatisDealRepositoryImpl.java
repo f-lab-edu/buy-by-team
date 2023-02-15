@@ -4,6 +4,7 @@ import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.DealStatus;
 import com.flab.bbt.deal.repository.mybatis.DealMapper;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,12 @@ public class MyBatisDealRepositoryImpl implements DealRepository {
     public int updateExpiredDeals() {
         return dealMapper.updateExpiredDeals(DealStatus.IN_PROGRESS, DealStatus.EXPIRED,
             LocalDateTime.now());
+    }
+
+    @Override
+    public List<Deal> findByStatus(DealStatus status) {
+        // TODO("이 부분은 DB 외에 캐시 활용도 가능할듯")
+        return dealMapper.findByStatus(status);
     }
 
     @Override

@@ -1,7 +1,8 @@
 package com.flab.bbt.deal.repository;
 
 import com.flab.bbt.deal.domain.Deal;
-import java.time.LocalDateTime;
+import com.flab.bbt.deal.domain.DealStatus;
+import java.util.List;
 import java.util.Optional;
 
 public interface DealRepository {
@@ -17,4 +18,6 @@ public interface DealRepository {
     int updateParticipantCountById(int updatedCount, Long id);
 
     int updateExpiredDeals();
+
+    List<Deal> findByStatus(DealStatus status);
 }

@@ -3,6 +3,7 @@ package com.flab.bbt.deal.repository.mybatis;
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.DealStatus;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,5 +25,6 @@ public interface DealMapper {
 
     Optional<Deal> findByIdForUpdate(Long id);
 
+    List<Deal> findByStatus(DealStatus status);
 
 }
