@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.flab.bbt.AbstractContainerBaseTest;
 import com.flab.bbt.ConfigureTestProfile;
-import com.flab.bbt.order.domain.DeliveryInfo;
 import com.flab.bbt.order.domain.Order;
-import com.flab.bbt.order.domain.OrderStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +34,6 @@ class OrderRepositoryTest extends AbstractContainerBaseTest {
         assertThat(order.getDealId()).isEqualTo(savedOrder.getDealId());
         assertThat(order.getUserId()).isEqualTo(savedOrder.getUserId());
         assertThat(order.getQuantity()).isEqualTo(savedOrder.getQuantity());
-        assertThat(order.getDeliveryInfo()).isEqualTo(savedOrder.getDeliveryInfo());
     }
 
     private Order buildOrder() {
@@ -45,7 +41,6 @@ class OrderRepositoryTest extends AbstractContainerBaseTest {
             .dealId(1L)
             .userId(1L)
             .quantity(1)
-            .deliveryInfo(new DeliveryInfo("testName", "testAddress", "01012341234"))
             .build();
     }
 

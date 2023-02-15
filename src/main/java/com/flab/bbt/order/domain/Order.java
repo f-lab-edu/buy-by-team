@@ -20,8 +20,6 @@ public class Order {
     private Long userId;
     private int quantity;
 
-    private DeliveryInfo deliveryInfo;
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

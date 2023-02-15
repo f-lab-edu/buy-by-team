@@ -1,7 +1,6 @@
 package com.flab.bbt.order.repository;
 
 import com.flab.bbt.order.domain.Order;
-import com.flab.bbt.order.domain.OrderStatus;
 import com.flab.bbt.order.repository.mybatis.OrderMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
