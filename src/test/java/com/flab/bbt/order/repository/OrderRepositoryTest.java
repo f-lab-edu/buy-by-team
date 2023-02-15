@@ -45,7 +45,6 @@ class OrderRepositoryTest extends AbstractContainerBaseTest {
             .dealId(1L)
             .userId(1L)
             .quantity(1)
-            .status(OrderStatus.CREATED)
             .deliveryInfo(new DeliveryInfo("testName", "testAddress", "01012341234"))
             .build();
     }

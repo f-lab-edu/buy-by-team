@@ -20,9 +20,6 @@ public class Order {
     private Long userId;
     private int quantity;
 
-    @Setter
-    private OrderStatus status;
-
     private DeliveryInfo deliveryInfo;
 
     private LocalDateTime createdAt;

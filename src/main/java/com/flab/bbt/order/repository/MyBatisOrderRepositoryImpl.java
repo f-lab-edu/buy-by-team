@@ -16,7 +16,6 @@ public class MyBatisOrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Order save(Order order) {
-        order.setStatus(OrderStatus.CREATED);
         orderMapper.save(order);
 
         return order;
