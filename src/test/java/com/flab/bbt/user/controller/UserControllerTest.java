@@ -48,9 +48,10 @@ class UserControllerTest extends AbstractContainerBaseTest {
     void createUserProfileSuccessTest() throws Exception {
         // given
         MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, getUser());
+        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, getUser().getId());
 
         when(userService.createUserProfile(any(User.class))).thenReturn(getUser());
+        when(userService.findUserById(anyLong())).thenReturn(getUser());
 
         String content = objectMapper.writeValueAsString(getUserProfileRequest());
 
@@ -69,9 +70,10 @@ class UserControllerTest extends AbstractContainerBaseTest {
     void updateUserProfiileSuccessTest() throws Exception {
         // given
         MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, getUser());
+        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, getUser().getId());
 
         when(userService.updateUserProfile(any(User.class), any(UserProfile.class))).thenReturn(getUser());
+        when(userService.findUserById(anyLong())).thenReturn(getUser());
 
         String content = objectMapper.writeValueAsString(getUpdateUserRequest());
 

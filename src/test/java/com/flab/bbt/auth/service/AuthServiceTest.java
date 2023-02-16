@@ -86,16 +86,15 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("로그인 실패시 예외가 발생한다.")
+    @DisplayName("로그인 실패시 null을 반환한다.")
     void authenticateFailTest() {
         // given
         when(userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword())).thenReturn(Optional.empty());
 
         // when
-        CustomException e = assertThrows(CustomException.class,
-            () -> authService.authenticate(user));
+        Long result = authService.authenticate(user);
 
         // then
-        assertThat(e.getErrorCode().getMessage()).isEqualTo(ErrorCode.USER_NOT_FOUND.getMessage());
+        assertThat(result).isEqualTo(null);
     }
 }

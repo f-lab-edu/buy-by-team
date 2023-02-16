@@ -2,6 +2,7 @@ package com.flab.bbt.user.controller;
 
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.common.SessionConst;
+import com.flab.bbt.common.annotation.CurrentUser;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
@@ -29,16 +30,14 @@ public class UserController {
 
     @PostMapping("/users/{userId}/user-profiles")
     public CommonResponse createUserProfile(@PathVariable Long userId,
-        @RequestBody UserProfileRequest userProfileRequest, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
+        @RequestBody UserProfileRequest userProfileRequest, @CurrentUser User currentUser) {
 
-        if (user.getId() != userId) {
+        if (currentUser.getId() != userId) {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
 
-        user.updateUserProfile(userProfileRequest.convertToUserProfile(userId));
-        User userWithCreatedProfile = userService.createUserProfile(user);
+        currentUser.updateUserProfile(userProfileRequest.convertToUserProfile(userId));
+        User userWithCreatedProfile = userService.createUserProfile(currentUser);
 
         return CommonResponse.success(
             UserResponse.convertToUserResponse(userWithCreatedProfile));
@@ -47,11 +46,10 @@ public class UserController {
     @PatchMapping("/user-profiles")
     @ResponseStatus(HttpStatus.OK)
     public CommonResponse updateUserProfiile(@RequestBody UpdateUserRequest updateUserRequest,
-        HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute(SessionConst.COOKIE_SESSION_ID);
+        @CurrentUser User currentUser) {
+        UserProfile userProfile = updateUserRequest.convertToUserProfile();
 
-        User userWithUpdatedProfile = userService.updateUserProfile(user,
+        User userWithUpdatedProfile = userService.updateUserProfile(currentUser,
             updateUserRequest.convertToUserProfile());
 
         return CommonResponse.success(
