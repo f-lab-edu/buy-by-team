@@ -6,7 +6,9 @@ import com.flab.bbt.auth.service.AuthService;
 import com.flab.bbt.auth.service.PasswordEncrypter;
 import com.flab.bbt.common.CommonResponse;
 import com.flab.bbt.common.SessionConst;
+import com.flab.bbt.exception.ErrorCode;
 import com.flab.bbt.user.domain.User;
+import com.flab.bbt.user.response.UserSignUpResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
@@ -31,11 +33,10 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public CommonResponse signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
         // 회원가입 진행
-        User user = signUpRequest.convertToEntityWith(
-            passwordEncrypter.encrypt(signUpRequest.getPassword()));
-        authService.signUp(user);
+        User user = authService.signUp(signUpRequest.convertToEntityWith(
+                        passwordEncrypter.encrypt(signUpRequest.getPassword())));
 
-        return CommonResponse.success();
+        return CommonResponse.success(UserSignUpResponse.convertToUserSignUpResponse(user));
     }
 
     @PostMapping("/signin")
@@ -45,12 +46,15 @@ public class AuthController {
         // authenticate user
         User user = signInRequest.convertToEntityWith(
             passwordEncrypter.encrypt(signInRequest.getPassword()));
-        User authenticatedUser = authService.authenticate(user);
+        Long userId = authService.authenticate(user);
 
-        // authorize user via session
-        HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.COOKIE_SESSION_ID, authenticatedUser);
-        return CommonResponse.success();
+        if (userId == null) {
+            return CommonResponse.fail(ErrorCode.USER_NOT_FOUND);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute(SessionConst.COOKIE_SESSION_ID, userId);
+            return CommonResponse.success();
+        }
     }
 
     @PostMapping("/signout")

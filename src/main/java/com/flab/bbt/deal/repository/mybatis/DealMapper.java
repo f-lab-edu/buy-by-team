@@ -4,6 +4,7 @@ import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.DealStatus;
 import com.flab.bbt.deal.domain.Participant;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,6 +28,8 @@ public interface DealMapper {
     Optional<Deal> findByIdForUpdate(Long id);
 
     int saveParticipant(Participant participant);
+
+    List<Deal> findByStatus(DealStatus status);
 
     Optional<Participant> findParticipantByDealIdAndUserId(@Param("dealId") Long dealId,
         @Param("userId") Long userId);

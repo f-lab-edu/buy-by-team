@@ -23,7 +23,7 @@ public class User {
         return getPassword().equals(inputPassword);
     }
 
-    public void update(UserProfile userProfile) {
+    public void updateUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 }

@@ -4,23 +4,24 @@
 <mapper namespace="com.flab.bbt.product.repository.mybatis.ProductMapper">
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id">
-    insert into product (name, sku_code, img_url, price_sale, price_discount, discount_rate)
-    values (#{name}, #{skuCode}, #{imgUrl}, #{priceSale}, #{priceDiscount}, #{discountRate})
+    insert into product (name, sku_code, img_url)
+    values (#{name}, #{skuCode}, #{imgUrl})
   </insert>
 
   <select id="findById" resultType="com.flab.bbt.product.domain.Product">
-    select id, name, sku_code, img_url, price_sale, price_discount, discount_rate
+    select id, name, sku_code, img_url
     from product
     where id = #{id}
   </select>
 
   <select id="findListWithPagination" resultType="com.flab.bbt.product.domain.Product">
-    select id, name, sku_code, img_url, price_sale, price_discount, discount_rate
-    from product limit #{offset}, #{size}
+    select id, name, sku_code, img_url
+    from product
+    limit #{offset}, #{size}
   </select>
 
   <select id="findBySkuCode" resultType="com.flab.bbt.product.domain.Product">
-    select id, name, sku_code, img_url, price_sale, price_discount, discount_rate
+    select id, name, sku_code, img_url
     from product
     where sku_code = #{skuCode}
   </select>

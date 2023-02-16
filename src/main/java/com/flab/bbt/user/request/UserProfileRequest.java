@@ -16,11 +16,11 @@ public class UserProfileRequest {
     private String name;
     private String phoneNo;
 
-    public UserProfile convertToUserProfile(User user) {
+    public UserProfile convertToUserProfile(Long userId) {
         return UserProfile.builder()
             .name(this.getName())
             .phoneNo(this.getPhoneNo())
-            .userId(user.getId())
+            .userId(userId)
             .build();
     }
 }

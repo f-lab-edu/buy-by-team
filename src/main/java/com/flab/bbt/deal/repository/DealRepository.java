@@ -2,7 +2,8 @@ package com.flab.bbt.deal.repository;
 
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.Participant;
-import java.time.LocalDateTime;
+import com.flab.bbt.deal.domain.DealStatus;
+import java.util.List;
 import java.util.Optional;
 
 public interface DealRepository {
@@ -22,4 +23,6 @@ public interface DealRepository {
     Participant saveParticipant(Participant participant);
 
     Optional<Participant> findParticipantByDealIdAndUserId(Long dealId, Long userId);
+
+    List<Deal> findByStatus(DealStatus status);
 }

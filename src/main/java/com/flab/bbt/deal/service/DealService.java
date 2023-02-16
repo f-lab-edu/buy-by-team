@@ -2,6 +2,7 @@ package com.flab.bbt.deal.service;
 
 import com.flab.bbt.deal.domain.Deal;
 import com.flab.bbt.deal.domain.Participant;
+import com.flab.bbt.deal.domain.DealStatus;
 import com.flab.bbt.deal.repository.DealRepository;
 import com.flab.bbt.exception.CustomException;
 import com.flab.bbt.exception.ErrorCode;
@@ -29,10 +30,12 @@ public class DealService {
             deal.incrementParticipantCount(count);
             int updatedRows = dealRepository.update(deal);
             if (updatedRows == 0) {
-                // TODO("동시성 문제가 발생했을 경우 - 이것도 다른 Deal에 참여할 수 있게 하는 게 좋은지/가능할지")
+                Deal dealInProgress = dealRepository.findByStatus(DealStatus.IN_PROGRESS).get(0);
+                incrementParticipantCount(dealInProgress.getId(), count);
             }
         } else {
-            // TODO("정원 초과하더라도 다른 Deal에 참여할 수 있게 하는 로직 - 별도 이슈/PR로 빼겠습니다!")
+            Deal dealInProgress = dealRepository.findByStatus(DealStatus.IN_PROGRESS).get(0);
+            incrementParticipantCount(dealInProgress.getId(), count);
         }
         return deal;
     }

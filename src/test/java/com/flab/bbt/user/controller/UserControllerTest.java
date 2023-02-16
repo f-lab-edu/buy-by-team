@@ -1,6 +1,7 @@
 package com.flab.bbt.user.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -17,6 +18,7 @@ import com.flab.bbt.user.domain.UserProfile;
 import com.flab.bbt.user.request.UpdateUserRequest;
 import com.flab.bbt.user.request.UserProfileRequest;
 import com.flab.bbt.user.service.UserService;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,10 @@ class UserControllerTest extends AbstractContainerBaseTest {
     void createUserProfileSuccessTest() throws Exception {
         // given
         MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, getUser());
+        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, getUser().getId());
+
+        when(userService.createUserProfile(any(User.class))).thenReturn(getUser());
+        when(userService.findUserById(anyLong())).thenReturn(getUser());
 
         String content = objectMapper.writeValueAsString(getUserProfileRequest());
 
@@ -65,9 +70,10 @@ class UserControllerTest extends AbstractContainerBaseTest {
     void updateUserProfiileSuccessTest() throws Exception {
         // given
         MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, getUser());
+        mockHttpSession.setAttribute(SessionConst.COOKIE_SESSION_ID, getUser().getId());
 
-        when(userService.findUserProfileByUserId(anyLong())).thenReturn(getUserProfile());
+        when(userService.updateUserProfile(any(User.class), any(UserProfile.class))).thenReturn(getUser());
+        when(userService.findUserById(anyLong())).thenReturn(getUser());
 
         String content = objectMapper.writeValueAsString(getUpdateUserRequest());
 

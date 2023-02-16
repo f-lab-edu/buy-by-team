@@ -14,11 +14,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void createUserProfile(long userId, UserProfile userProfile) {
-        if (checkIfUserProfileExist(userId)) {
+    public User createUserProfile(User user) {
+        if (checkIfUserProfileExist(user.getId())) {
             throw new CustomException(ErrorCode.USER_PROFILE_ALREADY_EXISTS);
         }
-        userRepository.saveUserProfile(userProfile);
+        userRepository.saveUserProfile(user.getUserProfile());
+
+        return user;
     }
 
     public User findUserById(Long id) {
@@ -31,11 +33,15 @@ public class UserService {
             .orElseThrow(() -> new CustomException(ErrorCode.USE_RPROFILE_NOT_FOUNT));
     }
 
-    public void updateUserProfile(Long userId, UserProfile updateUserProfile) {
-        UserProfile userProfile = findUserProfileByUserId(userId);
-        userProfile.update(updateUserProfile);
+    public User updateUserProfile(User user, UserProfile updatedUserProfile) {
+        UserProfile userProfile = findUserProfileByUserId(user.getId());
+        userProfile.update(updatedUserProfile);
 
-        userRepository.updateUserProfile(userProfile);
+        user.updateUserProfile(userProfile);
+
+        userRepository.updateUserProfile(user.getUserProfile());
+
+        return user;
     }
 
     private boolean checkIfUserProfileExist(Long userId) {
