@@ -2,7 +2,7 @@ name: bbt CD
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "feature/deploy-to-ncloud" ]
 
 jobs:
   build:
