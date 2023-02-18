@@ -2,11 +2,11 @@ name: bbt CD
 
 on:
   push:
-    branches: [ "feature/deploy-to-ncloud" ]
+    branches: [ "master" ]
 
 jobs:
   build:
-#    needs: [ check-code-format, test ]
+    needs: [ check-code-format, test ]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v3
