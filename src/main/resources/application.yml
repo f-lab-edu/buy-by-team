@@ -26,7 +26,7 @@ logging:
       springframework:
         transaction: TRACE
 ---
-# production
+# production1
 server:
   port: 8080
 
@@ -38,21 +38,27 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     auto-commit: false
   profiles:
-    active: prod
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    active: prod1
 
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-logging:
-  level:
-    com:
-      flab:
-        bbt: trace
-    org:
-      springframework:
-        transaction: TRACE
+---
+# production2
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false
+    username: flab-bbt
+    password: flab-bbt
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    auto-commit: false
+  profiles:
+    active: prod2
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
