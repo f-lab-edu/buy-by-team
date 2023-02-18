@@ -32,7 +32,7 @@ else
 fi
 
 echo "> $JAR_NAME 를 profile=$IDLE_PROFILE 로 실행"
-nohup java -jar $JAR_PATH --spring.profiles.active=$IDLE_PROFILE --logging.file.path=/home/ubuntu/log/ \
+nohup java -jar $JAR_PATH -Dspring.profiles.active=$IDLE_PROFILE --logging.file.path=/home/ubuntu/log/ \
 --logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/error.log &
 
 
