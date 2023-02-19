@@ -24,7 +24,7 @@ IDLE_PID=$(lsof -ti tcp:${IDLE_PORT})
 
 if [ -z $IDLE_PID ]
 then
-  echo "> Nothing to end."
+  echo "> 구동중인 애플리케이션이 없습니다."
 else
   echo "> kill -9 IDLE_PID"
   kill -15 $IDLE_PID
