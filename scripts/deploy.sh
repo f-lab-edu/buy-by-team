@@ -32,8 +32,10 @@ else
 fi
 
 echo "> $JAR_NAME 를 profile=$IDLE_PROFILE 로 실행"
-nohup java -jar $JAR_PATH --spring.profiles.active=$IDLE_PROFILE --logging.file.path=/home/ubuntu/log/ \
---logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/error.log &
+nohup java -javaagent:/home/ubuntu/scouter/agent.java/scouter.agent.jar \
+  -Dscouter.config=/home/ubuntu/scouter/agent.java/conf/scouter.conf \
+  -jar $JAR_PATH --spring.profiles.active=$IDLE_PROFILE --logging.file.path=/home/ubuntu/log/ \
+  --logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/error.log &
 
 
 echo "> $IDLE_PROFILE 10초 후 Health check 시작"
