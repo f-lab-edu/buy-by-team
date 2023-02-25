@@ -12,7 +12,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Participant {
     private Long id;
-    private Long dealId;
     private Long userId;
-    private boolean isOwner;
+    private Long dealId;
+
+    public static Participant toParticipant(Long dealId, Long userId) {
+        return Participant.builder()
+            .userId(userId)
+            .dealId(dealId)
+            .build();
+    }
 }
