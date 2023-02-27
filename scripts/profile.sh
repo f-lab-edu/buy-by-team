@@ -24,7 +24,7 @@ function find_current_port()
     then
       CURRENT_PORTS=("8080","8081")
     else
-      CURRENT_PORTS=("8080","8081")
+      CURRENT_PORTS=("8082","8083")
     fi
 
     echo "${CURRENT_PORTS[@]}"
