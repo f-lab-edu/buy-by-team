@@ -3,13 +3,13 @@
 # 현재 profile 찾기
 function find_current_profile()
 {
-		RESPONSE_CODE=$(curl -o /dev/null -w "%{http_code}" http://127.0.0.1/profile)
+		RESPONSE_CODE=$(curl -o /dev/null -w "%{http_code}" http://223.130.133.150/profile)
 
     if [ ${RESPONSE_CODE} -ge 400 ] # 400 보다 크면 (40x/50x 에러 모두 포함)
     then
         CURRENT_PROFILE=prod2
     else
-        CURRENT_PROFILE=$(curl -s http://127.0.0.1/profile)
+        CURRENT_PROFILE=$(curl -s http://223.130.133.150/profile)
     fi
 
 		echo "${CURRENT_PROFILE}"
