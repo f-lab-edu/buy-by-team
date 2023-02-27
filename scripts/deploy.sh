@@ -45,16 +45,16 @@ sleep 10
 for retry_count in {1..10}
 do
   response=$(curl -s http://127.0.0.1:$IDLE_PORT/health)
-  up_count=$(echo $response | grep 'healthy' | wc -l)
+  up_count=$(echo $response | grep 'UP' | wc -l)
 
   if [ $up_count -ge 1 ]
-  then # $up_count >= 1 ("healthy" 문자열이 있는지 검증)
+  then # $up_count >= 1 ("UP" 문자열이 있는지 검증)
       echo "> Health check 성공"
       echo "> 현재의 idle port로 트래픽 전환"
       switch_proxy
       break
   else
-      echo "> Health check의 응답을 알 수 없거나 혹은 status가 healthy가 아닙니다."
+      echo "> Health check의 응답을 알 수 없거나 혹은 status가 UP이 아닙니다."
       echo "> Health check: ${response}"
   fi
 
