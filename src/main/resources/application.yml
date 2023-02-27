@@ -26,6 +26,14 @@ logging:
     org:
       springframework:
         transaction: TRACE
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: false
 ---
 # production2
 server:
@@ -55,6 +63,14 @@ logging:
     org:
       springframework:
         transaction: TRACE
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: false
 ---
 # local
 spring:
