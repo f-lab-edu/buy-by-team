@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MutableHealthIndicator implements HealthIndicator {
-    private final AtomicReference<Health> healthRefer = new AtomicReference<>(Health.down().build());
+
+    private final AtomicReference<Health> healthRefer = new AtomicReference<>(
+        Health.up().build());
 
     @Override
     public Health health() {

@@ -24,14 +24,12 @@ public class InfraController {
 
     @PutMapping(path = "/health/up")
     public void up() {
-        final Health up = Health.up().build();
-        healthIndicator.setHealth(up);
+        healthIndicator.setHealth(Health.up().build());
     }
 
     @PutMapping(path = "/health/down")
     public void down() {
-        final Health down = Health.down().build();
-        healthIndicator.setHealth(down);
+        healthIndicator.setHealth(Health.down().build());
     }
 
     @GetMapping("/profile")
