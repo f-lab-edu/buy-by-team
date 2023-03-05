@@ -1,7 +1,9 @@
-# production1
-server:
-  port: 8080
+spring:
+  profiles:
+    active: local
 
+---
+# production1
 spring:
   datasource:
     url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false
@@ -12,16 +14,31 @@ spring:
   config:
     activate:
       on-profile: prod1
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+logging:
+  config: classpath:log4j2.xml
+  level:
+    com:
+      flab:
+        bbt: trace
+    org:
+      springframework:
+        transaction: TRACE
+
+management:
+  health:
+    defaults:
+      enabled: false
 ---
 # production2
-server:
-  port: 8081
-
 spring:
   datasource:
     url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false
@@ -32,11 +49,29 @@ spring:
   config:
     activate:
       on-profile: prod2
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+logging:
+  config: classpath:log4j2.xml
+  level:
+    com:
+      flab:
+        bbt: trace
+    org:
+      springframework:
+        transaction: TRACE
+
+management:
+  health:
+    defaults:
+      enabled: false
 ---
 # local
 spring:
@@ -46,8 +81,9 @@ spring:
     password: flab-bbt
     driver-class-name: com.mysql.cj.jdbc.Driver
     auto-commit: false
-  profiles:
-    active: local
+  config:
+    activate:
+      on-profile: local
   jpa:
     properties:
       hibernate:

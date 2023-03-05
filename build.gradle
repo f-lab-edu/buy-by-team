@@ -32,6 +32,9 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core'
     implementation 'org.apache.logging.log4j:log4j-api'
 
+    // actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 

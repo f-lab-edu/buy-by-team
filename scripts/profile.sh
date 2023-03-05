@@ -3,13 +3,13 @@
 # 현재 profile 찾기
 function find_current_profile()
 {
-		RESPONSE_CODE=$(curl -o /dev/null -w "%{http_code}" http://127.0.0.1/profile)
+		RESPONSE_CODE=$(curl -o /dev/null -w "%{http_code}" http://223.130.133.150/profile)
 
     if [ ${RESPONSE_CODE} -ge 400 ] # 400 보다 크면 (40x/50x 에러 모두 포함)
     then
         CURRENT_PROFILE=prod2
     else
-        CURRENT_PROFILE=$(curl -s http://127.0.0.1/profile)
+        CURRENT_PROFILE=$(curl -s http://223.130.133.150/profile)
     fi
 
 		echo "${CURRENT_PROFILE}"
@@ -22,10 +22,12 @@ function find_current_port()
 
     if [ ${CURRENT_PROFILE} == prod1 ]
     then
-      echo "8080"
+      CURRENT_PORTS=("8080","8081")
     else
-      echo "8081"
+      CURRENT_PORTS=("8082","8083")
     fi
+
+    echo "${CURRENT_PORTS[@]}"
 }
 
 # 현재 사용하지 않는 idle profile 찾기
@@ -50,8 +52,10 @@ function find_idle_port()
 
     if [ ${IDLE_PROFILE} == prod1 ]
     then
-      echo "8080"
+      IDLE_PORTS=("8080","8081")
     else
-      echo "8081"
+      IDLE_PORTS=("8082","8083")
     fi
+
+    echo "${IDLE_PORTS[@]}"
 }

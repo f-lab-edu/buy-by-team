@@ -17,45 +17,69 @@ JAR_NAME=$(ls $REPOSITORY/ | grep '.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/$JAR_NAME
 
 IDLE_PROFILE=$(find_idle_profile)
-IDLE_PORT=$(find_idle_port)
+port_values=$(find_idle_port)
 
-echo "> $IDLE_PORT 에서 구동중인 애플리케이션 pid 확인"
-IDLE_PID=$(lsof -ti tcp:${IDLE_PORT})
+IFS=',' read -ra IDLE_PORTS <<< "$port_values"
 
-if [ -z $IDLE_PID ]
+echo "> ${IDLE_PORTS[0]} 에서 구동중인 애플리케이션 pid 확인"
+IDLE_PID1=$(lsof -ti tcp:${IDLE_PORTS[0]})
+
+if [ -z $IDLE_PID1 ]
 then
   echo "> 구동중인 애플리케이션이 없습니다."
 else
-  echo "> kill -9 IDLE_PID"
-  kill -15 $IDLE_PID
+  echo "> kill -15 IDLE_PID1"
+  kill -15 $IDLE_PID1
   sleep 5
 fi
 
-echo "> $JAR_NAME 를 profile=$IDLE_PROFILE 로 실행"
+echo "> ${IDLE_PORTS[1]} 에서 구동중인 애플리케이션 pid 확인"
+IDLE_PID2=$(lsof -ti tcp:${IDLE_PORTS[1]})
+
+if [ -z $IDLE_PID2 ]
+then
+  echo "> 구동중인 애플리케이션이 없습니다."
+else
+  echo "> kill -15 IDLE_PID2"
+  kill -15 $IDLE_PID2
+  sleep 5
+fi
+
+
+echo "> $JAR_NAME 를 profile=$IDLE_PROFILE port=${IDLE_PORTS[0]} 로 실행"
 nohup java -javaagent:/home/ubuntu/scouter/agent.java/scouter.agent.jar \
-  -Dscouter.config=/home/ubuntu/scouter/agent.java/conf/scouter.conf \
-  -jar $JAR_PATH --spring.profiles.active=$IDLE_PROFILE --logging.file.path=/home/ubuntu/log/ \
+  -Dscouter.config=/home/ubuntu/scouter/agent.java/conf/was01.conf \
+  -jar -Dspring.profiles.active=$IDLE_PROFILE $JAR_PATH --server.port=${IDLE_PORTS[0]} --logging.file.path=/home/ubuntu/log/ \
+  --logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/error.log &
+
+echo "> $JAR_NAME 를 profile=$IDLE_PROFILE port=${IDLE_PORTS[1]} 로 실행"
+nohup java -javaagent:/home/ubuntu/scouter/agent.java/scouter.agent.jar \
+  -Dscouter.config=/home/ubuntu/scouter/agent.java/conf/was02.conf \
+  -jar -Dspring.profiles.active=$IDLE_PROFILE $JAR_PATH --server.port=${IDLE_PORTS[1]} --logging.file.path=/home/ubuntu/log/ \
   --logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/error.log &
 
 
 echo "> $IDLE_PROFILE 10초 후 Health check 시작"
-echo "> curl -s http://127.0.0.1:$IDLE_PORT/health "
 sleep 10
 
 for retry_count in {1..10}
 do
-  response=$(curl -s http://127.0.0.1:$IDLE_PORT/health)
-  up_count=$(echo $response | grep 'healthy' | wc -l)
+  response1=$(curl -s http://127.0.0.1:${IDLE_PORTS[0]}/health)
+  up_count1=$(echo $response1 | grep 'UP' | wc -l)
 
-  if [ $up_count -ge 1 ]
-  then # $up_count >= 1 ("healthy" 문자열이 있는지 검증)
+  response2=$(curl -s http://127.0.0.1:${IDLE_PORTS[1]}/health)
+  up_count2=$(echo $response2 | grep 'UP' | wc -l)
+
+  if [ $up_count1 -ge 1 ] && [ $up_count2 -ge 1 ]
+  then # $up_count >= 1 ("UP" 문자열이 있는지 검증)
       echo "> Health check 성공"
       echo "> 현재의 idle port로 트래픽 전환"
-      switch_proxy
+      switch_blue_to_green
       break
   else
-      echo "> Health check의 응답을 알 수 없거나 혹은 status가 healthy가 아닙니다."
-      echo "> Health check: ${response}"
+      echo "> Health check의 응답을 알 수 없거나 혹은 status가 UP이 아닙니다."
+      echo "> Health check for port=${IDLE_PORTS[0]}: ${response1}"
+      echo "> Health check for port=${IDLE_PORTS[1]}: ${response2}"
   fi
 
   if [ $retry_count -eq 10 ]
