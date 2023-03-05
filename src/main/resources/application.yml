@@ -9,6 +9,10 @@ spring:
   config:
     activate:
       on-profile: prod1
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
 mybatis:
   configuration:
@@ -40,6 +44,10 @@ spring:
   config:
     activate:
       on-profile: prod2
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
 mybatis:
   configuration:
