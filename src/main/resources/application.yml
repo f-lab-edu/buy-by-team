@@ -1,7 +1,7 @@
 # production1
 spring:
   datasource:
-    url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false
+    url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false&autoReconnect=true
     username: flab-bbt
     password: flab-bbt
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -36,7 +36,7 @@ management:
 # production2
 spring:
   datasource:
-    url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false
+    url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false&autoReconnect=true
     username: flab-bbt
     password: flab-bbt
     driver-class-name: com.mysql.cj.jdbc.Driver
