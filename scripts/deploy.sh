@@ -49,13 +49,13 @@ fi
 echo "> $JAR_NAME 를 profile=$IDLE_PROFILE port=${IDLE_PORTS[0]} 로 실행"
 nohup java -javaagent:/home/ubuntu/scouter/agent.java/scouter.agent.jar \
   -Dscouter.config=/home/ubuntu/scouter/agent.java/conf/was01.conf \
-  -jar $JAR_PATH --spring.profiles.active=$IDLE_PROFILE --server.port=${IDLE_PORTS[0]} --logging.file.path=/home/ubuntu/log/ \
+  -jar -Dspring.profiles.active=$IDLE_PROFILE $JAR_PATH --server.port=${IDLE_PORTS[0]} --logging.file.path=/home/ubuntu/log/ \
   --logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/error.log &
 
 echo "> $JAR_NAME 를 profile=$IDLE_PROFILE port=${IDLE_PORTS[1]} 로 실행"
 nohup java -javaagent:/home/ubuntu/scouter/agent.java/scouter.agent.jar \
   -Dscouter.config=/home/ubuntu/scouter/agent.java/conf/was02.conf \
-  -jar $JAR_PATH --spring.profiles.active=$IDLE_PROFILE --server.port=${IDLE_PORTS[1]} --logging.file.path=/home/ubuntu/log/ \
+  -jar -Dspring.profiles.active=$IDLE_PROFILE $JAR_PATH --server.port=${IDLE_PORTS[1]} --logging.file.path=/home/ubuntu/log/ \
   --logging.level.org.hibernate.SQL=DEBUG >> /home/ubuntu/log/deploy.log 2>/home/ubuntu/log/error.log &
 
 
