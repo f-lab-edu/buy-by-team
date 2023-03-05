@@ -1,7 +1,4 @@
 # production1
-server:
-  port: 8080
-
 spring:
   datasource:
     url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false
@@ -33,9 +30,6 @@ management:
       enabled: false
 ---
 # production2
-server:
-  port: 8081
-
 spring:
   datasource:
     url: jdbc:mysql://223.130.132.156:3307/mysqldb?useSSL=false
